@@ -1,0 +1,64 @@
+{
+  "name": "wir-schiffen-das",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/wir-schiffen-das/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/wir-schiffen-das",
+        "main": "apps/wir-schiffen-das/src/main.ts",
+        "tsConfig": "apps/wir-schiffen-das/tsconfig.app.json",
+        "assets": ["apps/wir-schiffen-das/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/wir-schiffen-das/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "wir-schiffen-das:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "wir-schiffen-das:build:development"
+        },
+        "production": {
+          "buildTarget": "wir-schiffen-das:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/wir-schiffen-das/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/wir-schiffen-das/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
