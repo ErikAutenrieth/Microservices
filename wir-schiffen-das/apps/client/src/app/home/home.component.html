@@ -3,7 +3,7 @@
 
 
 <h4>Basic native select</h4>
-<mat-form-field>
+<!-- <mat-form-field>
   <mat-label>Starting Systems</mat-label>
   <select matNativeControl required>
     <option value="v1">{{starting_systems[0]}}</option>
@@ -14,7 +14,16 @@
 
   </select>
 </mat-form-field>
+-->
 
+<mat-form-field>
+  <mat-label>Favorite food</mat-label>
+  <mat-select [(ngModel)]="starting_system" name="starting system">
+    <mat-option *ngFor="let starting_system of starting_systems" [value]="starting_system.value">
+      {{starting_system.viewValue}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
 
 <p>You selected: {{starting_system}}</p>
 

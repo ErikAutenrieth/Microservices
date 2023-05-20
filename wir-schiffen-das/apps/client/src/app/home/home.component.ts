@@ -3,19 +3,27 @@ import { CommonModule } from '@angular/common';
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
+import { FormsModule } from '@angular/forms';
+
+interface starting_system_select {
+  value: string;
+  viewValue: string;
+}
+
+
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
-  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule],
+  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule, FormsModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   animations: []
 })
 
-
 export class HomeComponent {
 
-  starting_system = "None";
+  starting_system: string | undefined;
+
   auxiliary_system = 0.0;
   oil_system = 0.0;
   fuel_system = 0.0;
@@ -27,10 +35,13 @@ export class HomeComponent {
   power_trainsmission = 0.0;
   gear_box_options = 0.0;
 
-  starting_systems: string[] = [
-    'Air Starter','Electric Starter','Hydraulic Starter','Pneumatic Starter','Other'
-    ];
-  selected = 'option2';
+  starting_systems: starting_system_select[] = [
+    {value: 'Air Starter', viewValue: 'Air Starter'},
+    {value: 'Electric Starter', viewValue: 'Electric Starter'},
+    {value: 'Hydraulic Starter', viewValue: 'Hydraulic Starter'},
+    {value: 'Pneumatic Starter', viewValue: 'Pneumatic Starter'},
+    {value: 'Other', viewValue: 'Other'}
+  ];
 
 }
 
