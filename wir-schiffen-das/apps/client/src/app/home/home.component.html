@@ -1,7 +1,7 @@
 
 <h2 class="heading">Engine Selection</h2>
-<div>
-<mat-grid-list cols="3" rowHeight="8:1">
+<div class="selection-container">
+<mat-grid-list cols="2" rowHeight="4:1">
   <mat-grid-tile>
     <mat-form-field>
       <mat-label>Diesel Engine</mat-label>
@@ -11,8 +11,8 @@
         </mat-option>
       </mat-select>
     </mat-form-field>
+    <mat-spinner></mat-spinner>
   </mat-grid-tile>
-
   <mat-grid-tile>
     <mat-form-field>
       <mat-label>Starting System</mat-label>
@@ -130,13 +130,23 @@
   </mat-grid-tile>
 </mat-grid-list>
 </div>
-
-
 <div style="width: 33%">
   <h2 class="heading">Selection Progress</h2>
 <mat-progress-bar mode="determinate" [value]="calculateProgress()" class="custom-progress-bar"></mat-progress-bar>
 </div>
+<br>
+<br>
+<div style="width: 50%">
+  <mat-grid-list cols="2" rowHeight="4:1">
+    <mat-grid-tile>
+    <p class="heading">Statusanzeige</p>
+    </mat-grid-tile>
 
+      <mat-grid-tile>
+        <button mat-flat-button color="warn">Start</button>
+      </mat-grid-tile>
+  </mat-grid-list>
+</div>
 
 
 

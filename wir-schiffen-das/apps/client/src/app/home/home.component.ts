@@ -6,63 +6,10 @@ import {MatInputModule} from "@angular/material/input";
 import {FormsModule} from '@angular/forms';
 import {MatGridListModule} from "@angular/material/grid-list";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
+import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatButtonModule} from "@angular/material/button";
 
-interface diesel_engines_select {
-  value: string;
-  viewValue: string;
-}
-
-interface starting_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface auxiliary_pto_select {
-  value: string;
-  viewValue: string;
-}
-
-interface oil_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface fuel_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface cooling_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface exhaust_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface mounting_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface engine_control_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface monitoring_system_select {
-  value: string;
-  viewValue: string;
-}
-
-interface power_trainsmission_select {
-  value: string;
-  viewValue: string;
-}
-
-interface gear_box_options_select {
+interface select_interface {
   value: string;
   viewValue: string;
 }
@@ -70,7 +17,7 @@ interface gear_box_options_select {
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
-  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule, FormsModule, MatGridListModule, MatProgressBarModule],
+  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule, FormsModule, MatGridListModule, MatProgressBarModule, MatProgressSpinnerModule, MatButtonModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   animations: []
@@ -90,13 +37,13 @@ export class HomeComponent {
   power_transmission: string | undefined;
   gear_box_option: string | undefined;
 
-  diesel_engines: diesel_engines_select[] = [
+  diesel_engines: select_interface[] = [
     {value: '10V', viewValue: '10V'},
     {value: '12V', viewValue: '12V'},
     {value: '16V', viewValue: '16V'},
   ];
 
-  starting_systems: starting_system_select[] = [
+  starting_systems: select_interface[] = [
     {value: 'Air Starter', viewValue: 'Air Starter'},
     {value: 'Electric Starter', viewValue: 'Electric Starter'},
     {value: 'Hydraulic Starter', viewValue: 'Hydraulic Starter'},
@@ -104,7 +51,7 @@ export class HomeComponent {
     {value: 'Other', viewValue: 'Other'}
   ];
 
-  auxiliary_ptos: auxiliary_pto_select[] = [
+  auxiliary_ptos: select_interface[] = [
     {value: 'Alternator', viewValue: 'Alternator'},
     {value: 'A140A or 190A', viewValue: 'A140A or 190A'},
     {value: '2BV', viewValue: '2BV'},
@@ -113,53 +60,53 @@ export class HomeComponent {
     {value: 'On-engine PTOs', viewValue: 'On-engine PTOs'},
   ];
 
-  oil_systems: oil_system_select[] = [
+  oil_systems: select_interface[] = [
     {value: 'Oil replenishment system', viewValue: 'Oil replenishment system'},
     {value: 'Diverter valve for duplex filter', viewValue: 'Diverter valve for duplex filter'},
   ];
 
-  fuel_systems: fuel_system_select[] = [
+  fuel_systems: select_interface[] = [
     {value: 'Duplex fuel pre-filter', viewValue: 'Duplex fuel pre-filter'},
     {value: 'Diverter valve for fuel filter', viewValue: 'Diverter valve for fuel filter'},
     {value: 'Monitoring fuel leakage', viewValue: 'Monitoring fuel leakage'},
   ];
 
-  cooling_systems: cooling_system_select[] = [
+  cooling_systems: select_interface[] = [
     {value: 'Coolant preheating System', viewValue: 'Coolant preheating System'},
     {value: 'Seawater gearbox piping', viewValue: 'Seawater gearbox piping'},
   ];
 
-  exhaust_systems: exhaust_system_select[] = [
+  exhaust_systems: select_interface[] = [
     {value: '90 Exhaust bellows discharge rotable', viewValue: '90 Exhaust bellows discharge rotable'},
     {value: '90 Exhaust bellows discharge fixed', viewValue: '90 Exhaust bellows discharge fixed'},
     {value: 'Other', viewValue: 'Other'},
   ];
 
-  mounting_systems: mounting_system_select[] = [
+  mounting_systems: select_interface[] = [
     {value: 'Resilient mounts at driving end', viewValue: 'Resilient mounts at driving end'},
     {value: 'Resilient mounts at non-driving end', viewValue: 'Resilient mounts at non-driving end'},
     {value: 'Other', viewValue: 'Other'},
   ];
 
-  engine_management_systems: engine_control_system_select[] = [
+  engine_management_systems: select_interface[] = [
     {value: 'In compliance with CSR', viewValue: 'In compliance with CSR'},
     {value: 'In compliance with EPA', viewValue: 'In compliance with EPA'},
     {value: 'Other', viewValue: 'Other'},
   ];
 
-  monitoring_systems: monitoring_system_select[] = [
+  monitoring_systems: select_interface[] = [
     {value: 'BlueVision', viewValue: 'BlueVision'},
     {value: 'BlueDrive PlusC', viewValue: 'BlueDrive PlusC'},
   ];
 
-  power_transmissions: power_trainsmission_select[] = [
+  power_transmissions: select_interface[] = [
     {value: 'Torsionally resilient coupling', viewValue: 'Torsionally resilient coupling'},
     {value: 'V-drive', viewValue: 'V-drive'},
     {value: 'Cardan shaft', viewValue: 'Cardan shaft'},
     {value: 'Other', viewValue: 'Other'},
   ];
 
-  gear_box_options: gear_box_options_select[] = [
+  gear_box_options: select_interface[] = [
     {value: 'Reverse reduction gearbox', viewValue: 'Reverse reduction gearbox'},
     {value: 'El.actuated', viewValue: 'El.actuated'},
     {value: 'Gearbox mounts', viewValue: 'Gearbox mounts'},
@@ -189,7 +136,5 @@ export class HomeComponent {
     const selectedCount = this.selectedCount();
     return (selectedCount / totalCount) * 100;
   }
-
-
 }
 
