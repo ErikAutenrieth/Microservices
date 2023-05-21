@@ -8,9 +8,10 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
+import {StartingSystemEnum} from "@wir-schiffen-das/types";
 
 interface select_interface {
-  value: string;
+  value: string | StartingSystemEnum;
   viewValue: string;
 }
 
@@ -25,7 +26,7 @@ interface select_interface {
 
 export class HomeComponent {
   diesel_engine: string | undefined;
-  starting_system: string | undefined;
+  starting_system: StartingSystemEnum | undefined;
   auxiliary_pto: string | undefined;
   oil_system: string | undefined;
   fuel_system: string | undefined;
@@ -44,11 +45,11 @@ export class HomeComponent {
   ];
 
   starting_systems: select_interface[] = [
-    {value: 'Air Starter', viewValue: 'Air Starter'},
-    {value: 'Electric Starter', viewValue: 'Electric Starter'},
-    {value: 'Hydraulic Starter', viewValue: 'Hydraulic Starter'},
-    {value: 'Pneumatic Starter', viewValue: 'Pneumatic Starter'},
-    {value: 'Other', viewValue: 'Other'}
+    { value: StartingSystemEnum.AirStarter, viewValue: 'Air Starter' },
+    { value: StartingSystemEnum.ElectricStarter, viewValue: 'Electric Starter' },
+    { value: StartingSystemEnum.HydraulicStarter, viewValue: 'Hydraulic Starter' },
+    { value: StartingSystemEnum.PneumaticStarter, viewValue: 'Pneumatic Starter' },
+    { value: StartingSystemEnum.Other, viewValue: 'Other' }
   ];
 
   auxiliary_ptos: select_interface[] = [
