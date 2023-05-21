@@ -1,15 +1,18 @@
-import { Component } from '@angular/core';
+import {Component, NgModule} from '@angular/core';
 import { RouterModule } from '@angular/router';
-import { NxWelcomeComponent } from './nx-welcome.component';
-import { MatSlideToggleModule } from '@angular/material/slide-toggle';
+import {HomeComponent} from "./home/home.component";
+
+
 
 @Component({
   standalone: true,
-  imports: [NxWelcomeComponent, RouterModule, MatSlideToggleModule],
+  imports: [RouterModule, HomeComponent],
   selector: 'wir-schiffen-das-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss'],
+  animations: []
 })
 export class AppComponent {
   title = 'client';
 }
+
