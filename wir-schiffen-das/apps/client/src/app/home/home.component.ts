@@ -9,6 +9,8 @@ import {MatProgressBarModule} from "@angular/material/progress-bar";
 import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {StartingSystemEnum} from "@wir-schiffen-das/types";
+import { EngineService } from "../../services/EngineService";
+
 
 interface select_interface {
   value: string | StartingSystemEnum;
@@ -25,6 +27,14 @@ interface select_interface {
 })
 
 export class HomeComponent {
+
+  constructor(private engineService: EngineService) {
+  }
+
+  ngOnInit() {
+    this.engineService.test();
+  }
+
   diesel_engine: string | undefined;
   starting_system: StartingSystemEnum | undefined;
   auxiliary_pto: string | undefined;
