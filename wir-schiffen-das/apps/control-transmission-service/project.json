@@ -1,0 +1,64 @@
+{
+  "name": "control-transmission-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/control-transmission-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/control-transmission-service",
+        "main": "apps/control-transmission-service/src/main.ts",
+        "tsConfig": "apps/control-transmission-service/tsconfig.app.json",
+        "assets": ["apps/control-transmission-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/control-transmission-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "control-transmission-service:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "control-transmission-service:build:development"
+        },
+        "production": {
+          "buildTarget": "control-transmission-service:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/control-transmission-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/control-transmission-service/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

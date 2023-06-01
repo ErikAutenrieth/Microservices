@@ -1,0 +1,64 @@
+{
+  "name": "auxiliary-mounting-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/auxiliary-mounting-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/auxiliary-mounting-service",
+        "main": "apps/auxiliary-mounting-service/src/main.ts",
+        "tsConfig": "apps/auxiliary-mounting-service/tsconfig.app.json",
+        "assets": ["apps/auxiliary-mounting-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/auxiliary-mounting-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "auxiliary-mounting-service:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "auxiliary-mounting-service:build:development"
+        },
+        "production": {
+          "buildTarget": "auxiliary-mounting-service:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/auxiliary-mounting-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/auxiliary-mounting-service/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}
