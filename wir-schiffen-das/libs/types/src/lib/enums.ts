@@ -74,3 +74,10 @@ export enum GearBoxOptions {
   TrollingModeForDeadSlowPropulsion = "Trolling mode for dead-slow propulsion",
   FreeAuxiliaryPTO = "Free auxiliary PTO"
 }
+
+export enum AlgorithmStateEnum {
+  running = 'running',
+  failed = 'failed',
+  ready = 'ready',
+  notStarted = 'not started'
+}

@@ -3,11 +3,16 @@ import { HttpClient } from '@angular/common/http';
 import { CheckEngineStatusDto } from 'libs/types/src/lib/dtos';
 import { DieselEngineEnum } from '@wir-schiffen-das/types';
 import { Observable } from 'rxjs';
+import { SessionService } from './SessionService';
 
 
 @Injectable({providedIn: 'root'})
 export class EngineService {
-    constructor(private http: HttpClient) { }
+    sessionID: string;
+
+    constructor(private http: HttpClient, private sessionService: SessionService) {
+        this.sessionID = sessionService.getSessionId();
+    }
 
     test() {
         console.log('EngineService.test()');
