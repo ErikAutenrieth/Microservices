@@ -10,6 +10,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { MatButtonModule } from "@angular/material/button";
 import { AuxiliaryPtoEnum, CheckEngineStatusDto, CoolingSystemEnum, DieselEngineEnum, EngineManagementSystemEnum, ExhaustSystemEnum, FuelSystemEnum, GearBoxOptions, MonitoringSystems, MountingSystemEnum, OilSystemEnum, PowerTransmission, StartingSystemEnum } from "@wir-schiffen-das/types";
 import { EngineService } from "../../services/EngineService";
+import { SessionService } from "../../services/SessionService";
 
 
 interface select_interface {
@@ -28,7 +29,10 @@ interface select_interface {
 
 export class HomeComponent {
 
-  constructor(private engineService: EngineService) {
+  private sessionID: string;
+  constructor(private engineService: EngineService, private sessionService: SessionService) {
+
+    this.sessionID = sessionService.getSessionId();
   }
 
   ngOnInit() {
@@ -152,6 +156,7 @@ export class HomeComponent {
     console.log("moin");
     if (this.selectedCount() === 12) {
       const checkEngineDto: CheckEngineStatusDto = {
+        userID: this.sessionID,
         diesel_engine: this.diesel_engine!,
         starting_system: this.starting_system!,
         auxiliary_pto: this.auxiliary_pto!,

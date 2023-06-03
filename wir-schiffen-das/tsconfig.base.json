@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@wir-schiffen-das/nestjs-types": ["libs/nestjs-types/src/index.ts"],
       "@wir-schiffen-das/types": ["libs/types/src/index.ts"]
     }
   },
