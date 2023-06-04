@@ -1,15 +1,16 @@
 
 mat-grid-tile {
-  background: lightblue;
-}
-
-.heading {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 16px;
-  text-transform: uppercase;
+  background: #add5da;
 }
 
 .selection-container {
-  width: 50%;
+  width: 40%;
+}
+
+.custom-progress-bar{
+  background: #72a6be;
+}
+
+.status-label {
+
 }

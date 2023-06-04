@@ -52,6 +52,11 @@ export class HomeComponent {
   power_transmission: PowerTransmission | undefined;
   gear_box_option: GearBoxOptions | undefined;
 
+  statusText = "Status:";
+  resultText = "Result:";
+  statesText = ["running", "failed", "ready", "not started"];
+  statesResult = ["success", "failure"];
+
   diesel_engines: select_interface[] = [
     { value: DieselEngineEnum.V10, viewValue: '10V' },
     { value: DieselEngineEnum.V12, viewValue: '12V' },
@@ -129,6 +134,7 @@ export class HomeComponent {
     { value: GearBoxOptions.TrollingModeForDeadSlowPropulsion, viewValue: "Trolling mode for dead-slow propulsion" },
     { value: GearBoxOptions.FreeAuxiliaryPTO, viewValue: "Free auxiliary PTO" }
   ];
+
   selectedCount(): number {
     let count = 0;
     if (this.diesel_engine) count++;
@@ -153,7 +159,6 @@ export class HomeComponent {
   }
 
   onSumbit() {
-    console.log("moin");
     if (this.selectedCount() === 12) {
       const checkEngineDto: CheckEngineStatusDto = {
         userID: this.sessionID,
