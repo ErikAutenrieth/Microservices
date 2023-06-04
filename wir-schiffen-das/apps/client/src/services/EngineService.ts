@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { CheckConfigurationDto } from 'libs/types/src/lib/dtos';
-import { DieselEngineEnum } from '@wir-schiffen-das/types';
+import {
+  CheckAlgorithmStateDto,
+  CheckConfigurationDto,
+  MicroserviceAddressEnum,
+  ReturnAlgorithmStateDto
+} from '@wir-schiffen-das/types';
 import { Observable } from 'rxjs';
 import { SessionService } from './SessionService';
 
@@ -16,14 +20,16 @@ export class EngineService {
 
     test() {
         console.log('EngineService.test()');
-        
+
     }
 
-    checkEngineCompatibility(engineDTO : CheckConfigurationDto): Observable<any> {
-        console.log('EngineService.checkEngineCompatibility()');
-
-        return this.http.post('http://localhost:3000/api/engine/OptEquip', engineDTO);
+  checkConfiguration(configDTO : CheckConfigurationDto): Observable<any> {
+        console.log('EngineService.checkConfiguration()');
+        return this.http.post('http://localhost:3000/api/engine/OptEquip', configDTO);
+    }
+  checkAlgorithmState(checkAlgorithmStateDto: CheckAlgorithmStateDto, microservice: MicroserviceAddressEnum): Observable<any> {
+        console.log('EngineService.checkAlgorithmState()');
+        return this.http.post<ReturnAlgorithmStateDto>(microservice + "status", checkAlgorithmStateDto);
     }
 
-    
 }

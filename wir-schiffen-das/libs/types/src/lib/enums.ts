@@ -82,3 +82,10 @@ export enum AlgorithmStateEnum {
   notStarted = 'not started'
 }
 
+export enum MicroserviceAddressEnum {
+  engine = 'http://localhost:3010/api/engine/',
+  cooling = 'http://localhost:3020/api/cooling/',
+  auxiliary = 'http://localhost:3030/api/auxiliary/',
+  control = 'http://localhost:3040/api/control/',
+}
+
