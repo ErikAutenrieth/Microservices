@@ -1,6 +1,6 @@
 
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import { AlgorithmStateEnum } from '@wir-schiffen-das/types';
+import { AlgorithmStateEnum, CheckConfigurationDto } from '@wir-schiffen-das/types';
 import { HydratedDocument } from 'mongoose';
 
 
@@ -17,6 +17,9 @@ export class AlgorithmState {
 
     @Prop({ default: Date.now })
     created: Date = new Date();
+
+    @Prop()
+    configuration!: CheckConfigurationDto;
 
     @Prop({ default: Date.now })
     lastUpdated: Date = new Date();

@@ -25,7 +25,7 @@ export class EngineService {
 
   checkConfiguration(configDTO : CheckConfigurationDto): Observable<any> {
         console.log('EngineService.checkConfiguration()');
-        return this.http.post('http://localhost:3000/api/engine/OptEquip', configDTO);
+        return this.http.post('http://localhost:3000/api/anchor/CheckConfiguration', configDTO);
     }
   checkAlgorithmState(checkAlgorithmStateDto: CheckAlgorithmStateDto, microservice: MicroserviceAddressEnum): Observable<any> {
         console.log('EngineService.checkAlgorithmState()');
