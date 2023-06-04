@@ -81,3 +81,4 @@ export enum AlgorithmStateEnum {
   ready = 'ready',
   notStarted = 'not started'
 }
+

@@ -1,15 +1,32 @@
 
-mat-grid-tile {
-  background: lightblue;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #283c63;
 }
 
-.heading {
-  font-size: 24px;
-  color: #333;
-  margin-bottom: 16px;
-  text-transform: uppercase;
+mat-grid-tile {
+  background: #34495e;
 }
 
 .selection-container {
-  width: 50%;
+  width: 42%;
 }
+
+.custom-progress-bar{
+  background: #297AE3;
+}
+
+
+.status-label {
+}
+
+p, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+
+/* background: #297AE3;*/
+
