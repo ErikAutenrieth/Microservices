@@ -142,27 +142,73 @@
 <mat-grid-tile>
   <p class="heading">Statusanzeige</p>
 </mat-grid-tile>
+<br>
+<br>
+
+
 <div style="width: 42%">
-  <mat-grid-list cols="3" rowHeight="4:1">
-      <mat-grid-tile>
-        <button mat-flat-button [style.background-color]="'#297AE3'"  (click)="onSumbit()"><p>Start</p></button>
-      </mat-grid-tile>
+  <mat-grid-list cols="2" rowHeight="4:1">
     <mat-grid-tile>
-      <p class="status-label">Calculation Status: </p>
+      <button mat-flat-button [style.background-color]="'#297AE3'"  (click)="onSumbit()"><p>Start</p></button>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p class="status-label">Final Result: </p>
+      <input type="text" [(ngModel)]="state" readonly>
+    </mat-grid-tile>
+  </mat-grid-list>
+
+  <mat-grid-list cols="2" rowHeight="4:1" *ngIf="buttonClicked">
+
+    <mat-grid-tile>
+      <p class="status-label">M1 Status: </p>
       <input type="text" [(ngModel)]="state" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
       <p>Result: </p>
       <input type="text" [(ngModel)]="resultText" readonly>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <p class="status-label">M2 Status: </p>
+      <input type="text" [(ngModel)]="state" readonly>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p>Result: </p>
+      <input type="text" [(ngModel)]="resultText" readonly>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <p class="status-label">M3 Status: </p>
+      <input type="text" [(ngModel)]="state" readonly>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p>Result: </p>
+      <input type="text" [(ngModel)]="resultText" readonly>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <p class="status-label">M4 Status: </p>
+      <input type="text" [(ngModel)]="state" readonly>
+    </mat-grid-tile>
+    <mat-grid-tile>
+      <p>Result: </p>
+      <input type="text" [(ngModel)]="resultText" readonly>
+    </mat-grid-tile>
+
+
+
+
+
+
+
+
+
   </mat-grid-list>
 
 
-  <form>
-    <mat-form-field>
-      <input matInput [value]="t" readonly>
-    </mat-form-field>
-  </form>
+
+
+
 
 
 </div>

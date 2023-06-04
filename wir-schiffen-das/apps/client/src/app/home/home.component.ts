@@ -26,6 +26,7 @@ import {
 } from "@wir-schiffen-das/types";
 import {EngineService} from "../../services/EngineService";
 import {SessionService} from "../../services/SessionService";
+import {Observable} from "rxjs";
 
 
 interface select_interface {
@@ -47,7 +48,6 @@ export class HomeComponent {
   private sessionID: string;
 
   constructor(private engineService: EngineService, private sessionService: SessionService) {
-
     this.sessionID = sessionService.getSessionId();
   }
 
@@ -69,12 +69,13 @@ export class HomeComponent {
   gear_box_option: GearBoxOptions | undefined;
   state: AlgorithmStateEnum | undefined;
 
-    t = "laber";
-
-  statusText = "Status:";
+  buttonClicked = true;
   resultText = "Result:";
-  statesText = ["running", "failed", "ready", "not started"];
-  statesResult = ["success", "failure"];
+
+  m1Status: any;
+  m2Status: any;
+  m3Status: any;
+  m4Status: any;
 
   diesel_engines: select_interface[] = [
     {value: DieselEngineEnum.V10, viewValue: '10V'},
@@ -185,6 +186,7 @@ export class HomeComponent {
 
   onSumbit() {
     if (this.selectedCount() === 12) {
+      this.buttonClicked = true;
       const checkEngineDto: CheckConfigurationDto = {
         userID: this.sessionID,
         diesel_engine: this.diesel_engine!,
@@ -200,7 +202,7 @@ export class HomeComponent {
         power_transmission: this.power_transmission!,
         gear_box_option: this.gear_box_option!
       };
-      this.engineService.checkEngineCompatibility(checkEngineDto).subscribe(
+      this.engineService.checkConfiguration(checkEngineDto).subscribe(
         (response) => {
           alert(response['OptEquipValid']);
         });
