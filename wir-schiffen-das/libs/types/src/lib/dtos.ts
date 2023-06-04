@@ -23,8 +23,7 @@ export interface CheckAlgorithmStateDto {
 export interface ReturnAlgorithmStateDto {
     userID: string;
     algorithmState: AlgorithmStateEnum;
-    
-    
+    incompatibleComponents: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[];
 }
 
 export interface ValidationMotor {
