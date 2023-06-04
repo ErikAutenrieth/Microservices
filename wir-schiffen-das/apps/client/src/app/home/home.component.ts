@@ -11,7 +11,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {
   AlgorithmStateEnum,
   AuxiliaryPtoEnum,
-  CheckEngineStatusDto,
+  CheckConfigurationDto,
   CoolingSystemEnum,
   DieselEngineEnum,
   EngineManagementSystemEnum,
@@ -185,7 +185,7 @@ export class HomeComponent {
 
   onSumbit() {
     if (this.selectedCount() === 12) {
-      const checkEngineDto: CheckEngineStatusDto = {
+      const checkEngineDto: CheckConfigurationDto = {
         userID: this.sessionID,
         diesel_engine: this.diesel_engine!,
         starting_system: this.starting_system!,

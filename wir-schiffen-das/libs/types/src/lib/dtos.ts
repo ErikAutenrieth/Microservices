@@ -1,20 +1,6 @@
-import {
-  AlgorithmStateEnum,
-  AuxiliaryPtoEnum,
-  CoolingSystemEnum,
-  DieselEngineEnum,
-  EngineManagementSystemEnum,
-  ExhaustSystemEnum,
-  FuelSystemEnum,
-  GearBoxOptions,
-  MonitoringSystems,
-  MountingSystemEnum,
-  OilSystemEnum,
-  PowerTransmission,
-  StartingSystemEnum
-} from "./enums";
+import { AlgorithmStateEnum, AuxiliaryPtoEnum, CoolingSystemEnum, DieselEngineEnum, EngineManagementSystemEnum, ExhaustSystemEnum, FuelSystemEnum, GearBoxOptions, MonitoringSystems, MountingSystemEnum, OilSystemEnum, PowerTransmission, StartingSystemEnum } from "./enums";
 
-export interface CheckEngineStatusDto {
+export interface CheckConfigurationDto {
     userID: string;
     diesel_engine: DieselEngineEnum;
     starting_system: StartingSystemEnum;
@@ -30,19 +16,21 @@ export interface CheckEngineStatusDto {
     gear_box_option: GearBoxOptions;
 }
 
+export interface CheckAlgorithmStateDto {
+    userID: string;
+}
+
+export interface ReturnAlgorithmStateDto {
+    userID: string;
+    algorithmState: AlgorithmStateEnum;
+    
+    
+}
+
 export interface ValidationMotor {
     starting_system: StartingSystemEnum;
 }
 
 export interface CreateAlgorithmStateDto {
     userId: string;
-}
-
-export interface ReturnAlgorithmStateDto {
-    userId: string;
-    state: AlgorithmStateEnum;
-}
-
-export interface ReturnResultDto {
-  success: boolean;
 }
