@@ -1,16 +1,32 @@
 
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background-color: #283c63;
+}
+
 mat-grid-tile {
-  background: #add5da;
+  background: #34495e;
 }
 
 .selection-container {
-  width: 40%;
+  width: 42%;
 }
 
 .custom-progress-bar{
-  background: #72a6be;
+  background: #297AE3;
 }
+
 
 .status-label {
-
 }
+
+p, h2, h3 {
+  font-family: 'Roboto', sans-serif;
+  font-weight: bold;
+}
+
+
+/* background: #297AE3;*/
+

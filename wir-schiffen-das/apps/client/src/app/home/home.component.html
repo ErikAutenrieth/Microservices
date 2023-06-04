@@ -1,4 +1,8 @@
-
+<!DOCTYPE html>
+<html lang="en">
+<head>
+</head>
+<body>
 <h2 class="heading">Engine Selection</h2>
 <div class="selection-container">
 <mat-grid-list cols="2" rowHeight="6:1">
@@ -138,23 +142,32 @@
 <mat-grid-tile>
   <p class="heading">Statusanzeige</p>
 </mat-grid-tile>
-<div style="width: 40%">
+<div style="width: 42%">
   <mat-grid-list cols="3" rowHeight="4:1">
       <mat-grid-tile>
-        <button mat-flat-button color="primary" (click)="onSumbit()">Start</button>
+        <button mat-flat-button [style.background-color]="'#297AE3'"  (click)="onSumbit()"><p>Start</p></button>
       </mat-grid-tile>
     <mat-grid-tile>
       <p class="status-label">Calculation Status: </p>
-      <input type="text" [(ngModel)]="statusText" readonly>
+      <input type="text" [(ngModel)]="state" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
       <p>Result: </p>
       <input type="text" [(ngModel)]="resultText" readonly>
     </mat-grid-tile>
   </mat-grid-list>
+
+
+  <form>
+    <mat-form-field>
+      <input matInput [value]="t" readonly>
+    </mat-form-field>
+  </form>
+
+
 </div>
-
-
+</body>
+</html>
 
 
 
