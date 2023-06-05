@@ -1,12 +1,13 @@
 import {Component} from "@angular/core";
 import {CommonModule} from '@angular/common';
-import {MatOptionModule} from "@angular/material/core";
+import {MatOptionModule, ThemePalette} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import {MatInputModule} from "@angular/material/input";
-import {FormsModule} from '@angular/forms';
+import {FormControl, FormsModule} from '@angular/forms';
 import {MatGridListModule} from "@angular/material/grid-list";
+import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
 import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {MatProgressSpinnerModule} from "@angular/material/progress-spinner";
+import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material/progress-spinner";
 import {MatButtonModule} from "@angular/material/button";
 import {
   AlgorithmStateEnum,
@@ -27,33 +28,56 @@ import {
 import {EngineService} from "../../services/EngineService";
 import {SessionService} from "../../services/SessionService";
 import {Observable} from "rxjs";
-
+import {DomSanitizer} from "@angular/platform-browser";
 
 interface select_interface {
   value: string | StartingSystemEnum;
   viewValue: string;
 }
 
+
+const THUMBUP_ICON =
+  ` <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px">
+    <path d="M0 0h24v24H0z" fill="none"/>
+    <path d="M1 21h4V9H1v12zm22-11c0-1.1-.9-2-2-2h-6.31l.95-4.57.03-.32c0-.41-.17-.79-.` +
+  `44-1.06L14.17 1 7.59 7.59C7.22 7.95 7 8.45 7 9v10c0 1.1.9 2 2 2h9c.83 0 1.54-.5` +
+  `1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
+  </svg>`;
+
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
-  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule, FormsModule, MatGridListModule, MatProgressBarModule, MatProgressSpinnerModule, MatButtonModule],
+  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule, FormsModule, MatGridListModule, MatProgressBarModule, MatProgressSpinnerModule, MatButtonModule, MatIconModule],
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.css'],
   animations: []
 })
 
+
 export class HomeComponent {
 
   private sessionID: string;
 
-  constructor(private engineService: EngineService, private sessionService: SessionService) {
+  constructor(private engineService: EngineService, private sessionService: SessionService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     this.sessionID = sessionService.getSessionId();
+    iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
   }
+
 
   ngOnInit() {
     this.engineService.test();
   }
+
+  // spinner props
+  color: ThemePalette = 'primary';
+  mode: ProgressSpinnerMode = 'determinate';
+  value = 50;
+
+  isLoadingM1 = true;
+  isLoadingM2 = true;
+  isLoadingM3 = true;
+  isLoadingM4 = true;
+
 
   diesel_engine: DieselEngineEnum | undefined;
   starting_system: StartingSystemEnum | undefined;
@@ -71,6 +95,7 @@ export class HomeComponent {
 
   buttonClicked = true;
   resultText = "Result:";
+
 
   m1Status: any;
   m2Status: any;
@@ -207,5 +232,14 @@ export class HomeComponent {
           alert(response['OptEquipValid']);
         });
     }
+  }
+
+
+
+
+  exhaust_system_valid = true;
+  colorControl = new FormControl('warn' as ThemePalette);
+  getErrorMessage() {
+    return "Not valid engine configuration"
   }
 }
