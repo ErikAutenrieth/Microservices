@@ -6,7 +6,7 @@ import {
   MicroserviceAddressEnum,
   ReturnAlgorithmStateDto
 } from '@wir-schiffen-das/types';
-import { Observable } from 'rxjs';
+import {Observable, tap} from 'rxjs';
 import { SessionService } from './SessionService';
 
 

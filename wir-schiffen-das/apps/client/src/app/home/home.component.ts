@@ -18,7 +18,7 @@ import {
   EngineManagementSystemEnum,
   ExhaustSystemEnum,
   FuelSystemEnum,
-  GearBoxOptions,
+  GearBoxOptions, MicroserviceAddressEnum,
   MonitoringSystems,
   MountingSystemEnum,
   OilSystemEnum,
@@ -44,6 +44,12 @@ const THUMBUP_ICON =
   `1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
   </svg>`;
 
+const RED_CROSS_ICON =
+  ` <svg xmlns="https://icons8.de/icon/T9nkeADgD3z6/cross-mark" width="24px" height="24px">
+
+ </svg>`;
+
+
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
@@ -61,6 +67,7 @@ export class HomeComponent {
   constructor(private engineService: EngineService, private sessionService: SessionService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     this.sessionID = sessionService.getSessionId();
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
+    iconRegistry.addSvgIconLiteral('red-cross', sanitizer.bypassSecurityTrustHtml(RED_CROSS_ICON));
   }
 
 
@@ -232,14 +239,15 @@ export class HomeComponent {
           alert(response['OptEquipValid']);
         });
     }
+    this.setStatus();
   }
 
-
-
-
-  exhaust_system_valid = true;
-  colorControl = new FormControl('warn' as ThemePalette);
-  getErrorMessage() {
-    return "Not valid engine configuration"
+  setStatus() {
+    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.engine).subscribe(
+      (response) => {
+        alert(response['OptEquipValid']);
+        console.log("My respons", response)
+      });
   }
+
 }

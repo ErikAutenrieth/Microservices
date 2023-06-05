@@ -58,10 +58,12 @@
             {{fuel_system.viewValue}}
           </mat-option>
         </mat-select>
-      </mat-form-field>
 
+      </mat-form-field>
       <mat-icon svgIcon="thumbs-up" ></mat-icon>
+      <mat-icon svgIcon="red-cross" ></mat-icon>
     </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Cooling System</mat-label>
@@ -74,7 +76,7 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <mat-form-field [color]="colorControl.value!">
+      <mat-form-field>
         <mat-label>Exhaust System</mat-label>
         <mat-select [(ngModel)]="exhaust_system" name="exhaust_system">
           <mat-option *ngFor="let exhaust_system of exhaust_systems" [value]="exhaust_system.value">
