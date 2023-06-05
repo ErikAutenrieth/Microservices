@@ -44,11 +44,12 @@ const THUMBUP_ICON =
   `1.84-1.22l3.02-7.05c.09-.23.14-.47.14-.73v-1.91l-.01-.01L23 10z"/>
   </svg>`;
 
-const RED_CROSS_ICON =
-  ` <svg xmlns="https://icons8.de/icon/T9nkeADgD3z6/cross-mark" width="24px" height="24px">
-
- </svg>`;
-
+const RED_CROSS_ICON = `
+  <svg xmlns="http://www.w3.org/2000/svg" width="24px" height="24px" viewBox="0 0 24 24">
+    <path fill="#FF0000" d="M18.36 6L12 12.36 5.64 6 4 7.64 10.36 14 4 20.36 5.64 22 12 15.64 18.36 22 20 20.36 13.64 14 20 7.64z"/>
+    <path d="M0 0h24v24H0z" fill="none"/>
+  </svg>
+`;
 
 @Component({
   selector: 'wir-schiffen-das-home',
@@ -80,7 +81,7 @@ export class HomeComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
-  isLoadingM1? = AlgorithmStateEnum;
+  isLoadingM1 = true;
   isLoadingM2 = true;
   isLoadingM3 = true;
   isLoadingM4 = true;
@@ -238,10 +239,10 @@ export class HomeComponent {
         (response) => {
           alert(response['OptEquipValid']);
         });
-        
+
       this.setStatus();
     }
-    
+
   }
 
   setStatus() {

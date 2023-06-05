@@ -6,7 +6,7 @@
 <h2 class="heading">Engine Selection</h2>
 
 <div class="selection-container">
-  <mat-grid-list cols="2" rowHeight="6:1">
+  <mat-grid-list cols="4" rowHeight="3:1">
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Diesel Engine</mat-label>
@@ -17,6 +17,12 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Starting System</mat-label>
@@ -26,6 +32,11 @@
           </mat-option>
         </mat-select>
       </mat-form-field>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
     </mat-grid-tile>
 
     <mat-grid-tile>
@@ -40,6 +51,11 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
       <mat-form-field>
         <mat-label>Oil System</mat-label>
         <mat-select [(ngModel)]="oil_system" name="oil_system">
@@ -51,6 +67,11 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
       <mat-form-field>
         <mat-label>Fuel System</mat-label>
         <mat-select [(ngModel)]="fuel_system" name="fuel_system">
@@ -58,10 +79,12 @@
             {{fuel_system.viewValue}}
           </mat-option>
         </mat-select>
-
       </mat-form-field>
-      <mat-icon svgIcon="thumbs-up" ></mat-icon>
-      <mat-icon svgIcon="red-cross" ></mat-icon>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
     </mat-grid-tile>
 
     <mat-grid-tile>
@@ -76,6 +99,11 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
+    <mat-grid-tile>
       <mat-form-field>
         <mat-label>Exhaust System</mat-label>
         <mat-select [(ngModel)]="exhaust_system" name="exhaust_system">
@@ -85,6 +113,12 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Mounting System</mat-label>
@@ -95,6 +129,12 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Engine Management System</mat-label>
@@ -106,6 +146,12 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Monitoring System</mat-label>
@@ -116,6 +162,12 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Power Transmission</mat-label>
@@ -126,6 +178,12 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
     <mat-grid-tile>
       <mat-form-field>
         <mat-label>Gearbox Option</mat-label>
@@ -136,6 +194,12 @@
         </mat-select>
       </mat-form-field>
     </mat-grid-tile>
+
+    <mat-grid-tile>
+      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+    </mat-grid-tile>
+
   </mat-grid-list>
 </div>
 <div style="width: 33%">
