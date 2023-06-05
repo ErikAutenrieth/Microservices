@@ -1,26 +1,23 @@
 import { AlgorithmStateEnum, AuxiliaryPtoEnum, CoolingSystemEnum, DieselEngineEnum, EngineManagementSystemEnum, ExhaustSystemEnum, FuelSystemEnum, GearBoxOptions, MonitoringSystems, MountingSystemEnum, OilSystemEnum, PowerTransmission, StartingSystemEnum } from "./enums";
 
-
 export interface ConfigurationDatabaseDto {
-diesel_engine: DieselEngineEnum;
-starting_system: StartingSystemEnum;
-auxiliary_pto: AuxiliaryPtoEnum;
-oil_system: OilSystemEnum;
-fuel_system: FuelSystemEnum;
-cooling_system: CoolingSystemEnum;
-exhaust_system: ExhaustSystemEnum;
-mounting_system: MountingSystemEnum;
-engine_management_system: EngineManagementSystemEnum;
-monitoring_system: MonitoringSystems;
-power_transmission: PowerTransmission;
-gear_box_option: GearBoxOptions;
+    diesel_engine: DieselEngineEnum;
+    starting_system: StartingSystemEnum;
+    auxiliary_pto: AuxiliaryPtoEnum;
+    oil_system: OilSystemEnum;
+    fuel_system: FuelSystemEnum;
+    cooling_system: CoolingSystemEnum;
+    exhaust_system: ExhaustSystemEnum;
+    mounting_system: MountingSystemEnum;
+    engine_management_system: EngineManagementSystemEnum;
+    monitoring_system: MonitoringSystems;
+    power_transmission: PowerTransmission;
+    gear_box_option: GearBoxOptions;
 }
 
 export interface CheckConfigurationDto extends ConfigurationDatabaseDto {
     userID: string;
 }
-
-
 
 
 export interface CheckAlgorithmStateDto {
@@ -46,3 +43,12 @@ export interface InitializeAlgorithmMicroserviceDto extends CreateAlgorithmState
     dbId: string;
 }
 
+export interface UpdateAlgorithmStateDto {
+    ResultState?: AlgorithmStateEnum;
+    userId?: string;
+    auxilleryMountingState?: AlgorithmStateEnum;
+    controlTransmissionState?: AlgorithmStateEnum;
+    coolingExhaustState?: AlgorithmStateEnum;
+    engineState?: AlgorithmStateEnum;
+    incompactibleConfigurations?: any[];
+}
