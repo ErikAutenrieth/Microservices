@@ -29,7 +29,7 @@ export class DatabaseSubscriptionService {
             { fullDocument : "updateLookup" }
         );
         
-        this.watchStream.on('change', this.mapToBehaviorSubject.bind(this));
+        // this.watchStream.on('change', this.mapToBehaviorSubject.bind(this));
         // to rxjs
 
         this.behaviorSubject

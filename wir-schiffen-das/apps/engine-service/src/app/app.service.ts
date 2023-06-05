@@ -13,11 +13,12 @@ export class AppService {
   }
 
   updateAlgorithmState(dbEntryID: string, updatedPart: UpdateAlgorithmStateDto) {
-    this.baseDatabase.update(dbEntryID, updatedPart);
+    return this.baseDatabase.update(dbEntryID, updatedPart);
   }
 
-  getAlgorithmStateForUser(userID: string): Promise<AlgorithmStateDocument> {
-    return this.baseDatabase.findByUserId(userID)[0];
+  async getAlgorithmStateForUser(userID: string): Promise<AlgorithmStateDocument> {
+    var algorithm = await this.baseDatabase.findByUserId(userID)
+    return algorithm[0];
   }
 
   async checkCompactibility(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto) : Promise<any[]> {

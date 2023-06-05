@@ -80,7 +80,7 @@ export class HomeComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
-  isLoadingM1 = true;
+  isLoadingM1? = AlgorithmStateEnum;
   isLoadingM2 = true;
   isLoadingM3 = true;
   isLoadingM4 = true;
@@ -238,15 +238,16 @@ export class HomeComponent {
         (response) => {
           alert(response['OptEquipValid']);
         });
+        
+      this.setStatus();
     }
-    this.setStatus();
+    
   }
 
   setStatus() {
     this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.engine).subscribe(
       (response) => {
-        alert(response['OptEquipValid']);
-        console.log("My respons", response)
+        this.m1Status = response.algorithmState;
       });
   }
 

@@ -16,7 +16,7 @@ export class EngineService {
     }
 
     circuitBreakerOptions = {
-      timeout: 500,
+      timeout: 3000,
       errorThresholdPercentage: 50,
       resetTimeout: 5000,
     };
@@ -27,14 +27,16 @@ export class EngineService {
       }
 
 
-    async sendConfigurationToService(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto, microserviceAddressEnum: MicroserviceAddressEnum) {
+    async sendConfigurationToService(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto, microserviceAddressEnum: MicroserviceAddressEnum): Promise<any> {
 
-      const apiCall = () => firstValueFrom(this.httpService.post( microserviceAddressEnum + "CheckConfiguration", initializeAlgorithmMicroserviceDto ));
+      return await firstValueFrom(this.httpService.post(microserviceAddressEnum + "CheckConfiguration", initializeAlgorithmMicroserviceDto));
+      // const apiCall = async () => await firstValueFrom(this.httpService.post( microserviceAddressEnum + "CheckConfiguration", initializeAlgorithmMicroserviceDto ));
 
-      const breaker = new CircuitBreaker(apiCall, this.circuitBreakerOptions);
-      breaker.fire()
-        .then(console.log)
-        .catch(console.error);
+      // const breaker = new CircuitBreaker(apiCall, this.circuitBreakerOptions);
+      // breaker.fire()
+      //   .then(console.log)
+      //  .catch(console.error);
+      
 
     }
  

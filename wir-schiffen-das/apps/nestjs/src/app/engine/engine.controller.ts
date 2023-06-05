@@ -18,10 +18,11 @@ export class EngineController {
     const algorithmStateDto: CreateAlgorithmStateDto = { userId: CheckConfigurationDto.userID, Configurations: CheckConfigurationDto };
     const algotithmStateDoc = await this.appService.create(algorithmStateDto);
     const microServiceDto : InitializeAlgorithmMicroserviceDto  = { ...algorithmStateDto, ... { dbId: algotithmStateDoc._id.toString()}  };
-    for (const microserviceAddressEnum in MicroserviceAddressEnum) {
-      this.appService.sendConfigurationToService(microServiceDto, MicroserviceAddressEnum[microserviceAddressEnum]);
-    }
-    
+    // for (const microserviceAddressEnum in MicroserviceAddressEnum) {
+    //   this.appService.sendConfigurationToService(microServiceDto, MicroserviceAddressEnum[microserviceAddressEnum]);
+    // }
+    const res = await this.appService.sendConfigurationToService(microServiceDto, MicroserviceAddressEnum.engine);
+    console.log("finished sending configuration to engine", res);
     return { "sucess": true };
   }
 
