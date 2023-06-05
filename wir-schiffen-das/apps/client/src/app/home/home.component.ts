@@ -250,6 +250,19 @@ export class HomeComponent {
       (response) => {
         this.m1Status = response.algorithmState;
       });
+    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.auxiliary).subscribe(
+      (response) => {
+        this.m2Status = response.algorithmState;
+      });
+    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.control).subscribe(
+      (response) => {
+        this.m3Status = response.algorithmState;
+      });
+    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.cooling).subscribe(
+      (response) => {
+        this.m4Status = response.algorithmState;
+      });
+
   }
 
 }

@@ -228,8 +228,8 @@
   <mat-grid-list cols="3" rowHeight="4:1" *ngIf="buttonClicked">
 
     <mat-grid-tile>
-      <p class="status-label">M1 Status: </p>
-      <input type="text" [(ngModel)]="state" readonly>
+      <p class="status-label">M1 [Engine] Status: </p>
+      <input type="text" [(ngModel)]="m1Status" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-spinner *ngIf="isLoadingM1"
@@ -244,8 +244,8 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <p class="status-label">M2 Status: </p>
-      <input type="text" [(ngModel)]="state" readonly>
+      <p class="status-label">M2 [Aux] Status: </p>
+      <input type="text" [(ngModel)]="m2Status" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-spinner *ngIf="isLoadingM2"
@@ -262,8 +262,8 @@
 
 
     <mat-grid-tile>
-      <p class="status-label">M3 Status: </p>
-      <input type="text" [(ngModel)]="state" readonly>
+      <p class="status-label">M3 [Control] Status: </p>
+      <input type="text" [(ngModel)]="m3Status" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-spinner *ngIf="isLoadingM3"
@@ -279,8 +279,8 @@
     </mat-grid-tile>
 
     <mat-grid-tile>
-      <p class="status-label">M4 Status: </p>
-      <input type="text" [(ngModel)]="state" readonly>
+      <p class="status-label">M4 [Cooling] Status: </p>
+      <input type="text" [(ngModel)]="m4Status" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
       <mat-spinner *ngIf="isLoadingM4"
