@@ -17,21 +17,23 @@ export class AppController {
   async CheckConfiguration(@Body() initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto) {
 
     console.log("start checking configuration");
-    async () => {
-      console.log("start checking configuration algorithm");
-      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { engineState: AlgorithmStateEnum.running });
-       const incompatibleComponents = await this.appService.checkCompactibility(initializeAlgorithmMicroserviceDto);
-       
-       if (incompatibleComponents.length > 0) {
-        await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { engineState: AlgorithmStateEnum.failed, incompactibleConfigurations: incompatibleComponents });
-      } else {
-        await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { engineState: AlgorithmStateEnum.ready });
-      }
+    this.checkConfigurationHelper(initializeAlgorithmMicroserviceDto);
+    
+
+  }
+
+  async checkConfigurationHelper(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto) {
+    console.log("start checking configuration");
+
+    console.log("start checking configuration algorithm");
+    await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { engineState: AlgorithmStateEnum.running });
+     const incompatibleComponents = await this.appService.checkCompactibility(initializeAlgorithmMicroserviceDto);
+     
+     if (incompatibleComponents.length > 0) {
+      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { engineState: AlgorithmStateEnum.failed, incompactibleConfigurations: incompatibleComponents });
+    } else {
+      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { engineState: AlgorithmStateEnum.ready });
     }
-  
-
-  
-
   }
 
   @Post("Status")
