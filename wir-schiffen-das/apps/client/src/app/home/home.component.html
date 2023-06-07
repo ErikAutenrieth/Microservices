@@ -232,10 +232,7 @@
       <input type="text" [(ngModel)]="algorithmStates['engine']" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-spinner *ngIf="algorithmStates['engine'] == 'running'"
-                   strokeWidth=10
-                   diameter=50
-                   value=100>
+      <mat-spinner *ngIf="algorithmStates['engine'] === 'running'" strokeWidth=10 diameter=50 value=100>
       </mat-spinner>
     </mat-grid-tile>
     <mat-grid-tile>
@@ -248,7 +245,7 @@
       <input type="text" [(ngModel)]="m2Status" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-spinner *ngIf="isLoadingM2"
+      <mat-spinner *ngIf="algorithmStates['auxiliary'] === 'running'"
                    strokeWidth=10
                    diameter=50
                    value=100>
@@ -266,7 +263,7 @@
       <input type="text" [(ngModel)]="m3Status" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-spinner *ngIf="isLoadingM3"
+      <mat-spinner *ngIf="algorithmStates['control'] === 'running'"
                    strokeWidth=10
                    diameter=50
                    value=100>
@@ -280,10 +277,10 @@
 
     <mat-grid-tile>
       <p class="status-label">M4 [Cooling] Status: </p>
-      <input type="text" [(ngModel)]="m4Status" readonly>
+      <input type="text" [(ngModel)]="resultText" readonly>
     </mat-grid-tile>
     <mat-grid-tile>
-      <mat-spinner *ngIf="isLoadingM4"
+      <mat-spinner *ngIf="algorithmStates['cooling'] === 'running'"
                    strokeWidth=10
                    diameter=50
                    value=100>
