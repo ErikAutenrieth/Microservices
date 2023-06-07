@@ -35,7 +35,7 @@ export class EngineService {
     return interval(3000)
       .pipe(
         switchMap(() => this.http.post<ReturnAlgorithmStateDto>(microservice + "status", checkAlgorithmStateDto)),
-        retry({ delay: 3000, count: 5, resetOnSuccess: true }),
+        retry({ delay: 3000, count: 5, resetOnSuccess: true}),
         distinctUntilChanged(),
         // tap(res => console.log(res)),
         takeWhile(res => (res.algorithmState !== AlgorithmStateEnum.ready) && (res.algorithmState !== AlgorithmStateEnum.failed), true),

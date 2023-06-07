@@ -1,14 +1,14 @@
-import {Component} from "@angular/core";
-import {CommonModule} from '@angular/common';
-import {MatOptionModule, ThemePalette} from "@angular/material/core";
-import {MatSelectModule} from "@angular/material/select";
-import {MatInputModule} from "@angular/material/input";
-import {FormControl, FormsModule} from '@angular/forms';
-import {MatGridListModule} from "@angular/material/grid-list";
-import {MatIconModule, MatIconRegistry} from '@angular/material/icon';
-import {MatProgressBarModule} from "@angular/material/progress-bar";
-import {MatProgressSpinnerModule, ProgressSpinnerMode} from "@angular/material/progress-spinner";
-import {MatButtonModule} from "@angular/material/button";
+import { Component } from "@angular/core";
+import { CommonModule } from '@angular/common';
+import { MatOptionModule, ThemePalette } from "@angular/material/core";
+import { MatSelectModule } from "@angular/material/select";
+import { MatInputModule } from "@angular/material/input";
+import { FormControl, FormsModule } from '@angular/forms';
+import { MatGridListModule } from "@angular/material/grid-list";
+import { MatIconModule, MatIconRegistry } from '@angular/material/icon';
+import { MatProgressBarModule } from "@angular/material/progress-bar";
+import { MatProgressSpinnerModule, ProgressSpinnerMode } from "@angular/material/progress-spinner";
+import { MatButtonModule } from "@angular/material/button";
 import {
   AlgorithmStateEnum,
   AuxiliaryPtoEnum,
@@ -25,10 +25,11 @@ import {
   PowerTransmission,
   StartingSystemEnum
 } from "@wir-schiffen-das/types";
-import {EngineService} from "../../services/EngineService";
-import {SessionService} from "../../services/SessionService";
-import {Observable} from "rxjs";
-import {DomSanitizer} from "@angular/platform-browser";
+import { EngineService } from "../../services/EngineService";
+import { SessionService } from "../../services/SessionService";
+import { Observable } from "rxjs";
+import { DomSanitizer } from "@angular/platform-browser";
+import { error } from "console";
 
 interface select_interface {
   value: string | StartingSystemEnum;
@@ -81,6 +82,13 @@ export class HomeComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
+  algorithmStates: Record<string, AlgorithmStateEnum | undefined> = {
+    "engine": undefined,
+    "cooling": undefined,
+    "auxiliary": undefined,
+    "control": undefined,
+  };
+
   isLoadingM1 = true;
   isLoadingM2 = true;
   isLoadingM3 = true;
@@ -111,81 +119,81 @@ export class HomeComponent {
   m4Status: any;
 
   diesel_engines: select_interface[] = [
-    {value: DieselEngineEnum.V10, viewValue: '10V'},
-    {value: DieselEngineEnum.V12, viewValue: '12V'},
-    {value: DieselEngineEnum.V16, viewValue: '16V'}
+    { value: DieselEngineEnum.V10, viewValue: '10V' },
+    { value: DieselEngineEnum.V12, viewValue: '12V' },
+    { value: DieselEngineEnum.V16, viewValue: '16V' }
   ];
 
   starting_systems: select_interface[] = [
-    {value: StartingSystemEnum.AirStarter, viewValue: 'Air Starter'},
-    {value: StartingSystemEnum.ElectricStarter, viewValue: 'Electric Starter'},
-    {value: StartingSystemEnum.HydraulicStarter, viewValue: 'Hydraulic Starter'},
-    {value: StartingSystemEnum.PneumaticStarter, viewValue: 'Pneumatic Starter'},
-    {value: StartingSystemEnum.Other, viewValue: 'Other'}
+    { value: StartingSystemEnum.AirStarter, viewValue: 'Air Starter' },
+    { value: StartingSystemEnum.ElectricStarter, viewValue: 'Electric Starter' },
+    { value: StartingSystemEnum.HydraulicStarter, viewValue: 'Hydraulic Starter' },
+    { value: StartingSystemEnum.PneumaticStarter, viewValue: 'Pneumatic Starter' },
+    { value: StartingSystemEnum.Other, viewValue: 'Other' }
   ];
 
   auxiliary_ptos: select_interface[] = [
-    {value: AuxiliaryPtoEnum.Alternator, viewValue: 'Alternator'},
-    {value: AuxiliaryPtoEnum.A140AOr190A, viewValue: 'A140A or 190A'},
-    {value: AuxiliaryPtoEnum.BV2, viewValue: '2BV'},
-    {value: AuxiliaryPtoEnum.Pole2, viewValue: '2 pole'},
-    {value: AuxiliaryPtoEnum.Bilgepump, viewValue: 'Bilgepump'},
-    {value: AuxiliaryPtoEnum.OnEnginePto, viewValue: 'On-engine PTOs'}
+    { value: AuxiliaryPtoEnum.Alternator, viewValue: 'Alternator' },
+    { value: AuxiliaryPtoEnum.A140AOr190A, viewValue: 'A140A or 190A' },
+    { value: AuxiliaryPtoEnum.BV2, viewValue: '2BV' },
+    { value: AuxiliaryPtoEnum.Pole2, viewValue: '2 pole' },
+    { value: AuxiliaryPtoEnum.Bilgepump, viewValue: 'Bilgepump' },
+    { value: AuxiliaryPtoEnum.OnEnginePto, viewValue: 'On-engine PTOs' }
   ];
 
   oil_systems: select_interface[] = [
-    {value: OilSystemEnum.OilReplenishmentSystem, viewValue: 'Oil replenishment system'},
-    {value: OilSystemEnum.DiverterValveForDuplexFilter, viewValue: 'Diverter valve for duplex filter'}
+    { value: OilSystemEnum.OilReplenishmentSystem, viewValue: 'Oil replenishment system' },
+    { value: OilSystemEnum.DiverterValveForDuplexFilter, viewValue: 'Diverter valve for duplex filter' }
   ];
 
 
   fuel_systems: select_interface[] = [
-    {value: FuelSystemEnum.DuplexFuelPreFilter, viewValue: 'Duplex fuel pre-filter'},
-    {value: FuelSystemEnum.DiverterValveForFuelFilter, viewValue: 'Diverter valve for fuel filter'},
-    {value: FuelSystemEnum.MonitoringFuelLeakage, viewValue: 'Monitoring fuel leakage'}
+    { value: FuelSystemEnum.DuplexFuelPreFilter, viewValue: 'Duplex fuel pre-filter' },
+    { value: FuelSystemEnum.DiverterValveForFuelFilter, viewValue: 'Diverter valve for fuel filter' },
+    { value: FuelSystemEnum.MonitoringFuelLeakage, viewValue: 'Monitoring fuel leakage' }
   ];
 
   cooling_systems: select_interface[] = [
-    {value: CoolingSystemEnum.CoolantPreheatingSystem, viewValue: 'Coolant preheating System'},
-    {value: CoolingSystemEnum.SeawaterGearboxPiping, viewValue: 'Seawater gearbox piping'}
+    { value: CoolingSystemEnum.CoolantPreheatingSystem, viewValue: 'Coolant preheating System' },
+    { value: CoolingSystemEnum.SeawaterGearboxPiping, viewValue: 'Seawater gearbox piping' }
   ];
 
   exhaust_systems: select_interface[] = [
-    {value: ExhaustSystemEnum.ExhaustBellowsDischargeRotable90, viewValue: '90 Exhaust bellows discharge rotable'},
-    {value: ExhaustSystemEnum.ExhaustBellowsDischargeFixed90, viewValue: '90 Exhaust bellows discharge fixed'},
-    {value: ExhaustSystemEnum.Other, viewValue: 'Other'}
+    { value: ExhaustSystemEnum.ExhaustBellowsDischargeRotable90, viewValue: '90 Exhaust bellows discharge rotable' },
+    { value: ExhaustSystemEnum.ExhaustBellowsDischargeFixed90, viewValue: '90 Exhaust bellows discharge fixed' },
+    { value: ExhaustSystemEnum.Other, viewValue: 'Other' }
   ];
 
   mounting_systems: select_interface[] = [
-    {value: MountingSystemEnum.ResilientMountsAtDrivingEnd, viewValue: 'Resilient mounts at driving end'},
-    {value: MountingSystemEnum.ResilientMountsAtNonDrivingEnd, viewValue: 'Resilient mounts at non-driving end'},
-    {value: MountingSystemEnum.Other, viewValue: 'Other'}
+    { value: MountingSystemEnum.ResilientMountsAtDrivingEnd, viewValue: 'Resilient mounts at driving end' },
+    { value: MountingSystemEnum.ResilientMountsAtNonDrivingEnd, viewValue: 'Resilient mounts at non-driving end' },
+    { value: MountingSystemEnum.Other, viewValue: 'Other' }
   ];
 
   engine_management_systems: select_interface[] = [
-    {value: EngineManagementSystemEnum.InComplianceWithCSR, viewValue: "In compliance with CSR"},
-    {value: EngineManagementSystemEnum.InComplianceWithEPA, viewValue: "In compliance with EPA"},
-    {value: EngineManagementSystemEnum.Other, viewValue: "Other"}
+    { value: EngineManagementSystemEnum.InComplianceWithCSR, viewValue: "In compliance with CSR" },
+    { value: EngineManagementSystemEnum.InComplianceWithEPA, viewValue: "In compliance with EPA" },
+    { value: EngineManagementSystemEnum.Other, viewValue: "Other" }
   ];
 
   monitoring_systems: select_interface[] = [
-    {value: MonitoringSystems.BlueVision, viewValue: "BlueVision"},
-    {value: MonitoringSystems.BlueDrivePlusC, viewValue: "BlueDrive PlusC"}
+    { value: MonitoringSystems.BlueVision, viewValue: "BlueVision" },
+    { value: MonitoringSystems.BlueDrivePlusC, viewValue: "BlueDrive PlusC" }
   ];
 
   power_transmissions: select_interface[] = [
-    {value: PowerTransmission.TorsionallyResilientCoupling, viewValue: "Torsionally resilient coupling"},
-    {value: PowerTransmission.VDrive, viewValue: "V-drive"},
-    {value: PowerTransmission.CardanShaft, viewValue: "Cardan shaft"},
-    {value: PowerTransmission.Other, viewValue: "Other"}
+    { value: PowerTransmission.TorsionallyResilientCoupling, viewValue: "Torsionally resilient coupling" },
+    { value: PowerTransmission.VDrive, viewValue: "V-drive" },
+    { value: PowerTransmission.CardanShaft, viewValue: "Cardan shaft" },
+    { value: PowerTransmission.Other, viewValue: "Other" }
   ];
 
   gear_box_options: select_interface[] = [
-    {value: GearBoxOptions.ReverseReductionGearbox, viewValue: "Reverse reduction gearbox"},
-    {value: GearBoxOptions.ElActuated, viewValue: "El.actuated"},
-    {value: GearBoxOptions.GearboxMounts, viewValue: "Gearbox mounts"},
-    {value: GearBoxOptions.TrollingModeForDeadSlowPropulsion, viewValue: "Trolling mode for dead-slow propulsion"},
-    {value: GearBoxOptions.FreeAuxiliaryPTO, viewValue: "Free auxiliary PTO"}
+    { value: GearBoxOptions.ReverseReductionGearbox, viewValue: "Reverse reduction gearbox" },
+    { value: GearBoxOptions.ElActuated, viewValue: "El.actuated" },
+    { value: GearBoxOptions.GearboxMounts, viewValue: "Gearbox mounts" },
+    { value: GearBoxOptions.TrollingModeForDeadSlowPropulsion, viewValue: "Trolling mode for dead-slow propulsion" },
+    { value: GearBoxOptions.FreeAuxiliaryPTO, viewValue: "Free auxiliary PTO" }
   ];
 
   selectedCount(): number {
@@ -210,9 +218,9 @@ export class HomeComponent {
   }
 
   checkResult() {
-    if (this.selectedCount() === 12){
+    if (this.selectedCount() === 12) {
       return "ok";
-    }else{
+    } else {
       return "failed";
     }
   }
@@ -246,23 +254,18 @@ export class HomeComponent {
   }
 
   setStatus() {
-    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.engine).subscribe(
-      (response) => {
-        this.m1Status = response.algorithmState;
-      });
-    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.auxiliary).subscribe(
-      (response) => {
-        this.m2Status = response.algorithmState;
-      });
-    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.control).subscribe(
-      (response) => {
-        this.m3Status = response.algorithmState;
-      });
-    this.engineService.checkAlgorithmState({userID:this.sessionID},MicroserviceAddressEnum.cooling).subscribe(
-      (response) => {
-        this.m4Status = response.algorithmState;
-      });
+    Object.keys(this.algorithmStates).forEach(key => this.algorithmStates[key] = undefined);
 
+    for (const [algorithm, state] of Object.entries(this.algorithmStates)) {
+      const microservice: MicroserviceAddressEnum = MicroserviceAddressEnum[algorithm as keyof typeof MicroserviceAddressEnum];
+      this.engineService.checkAlgorithmState(
+        { userID: this.sessionID }, microservice)
+        .subscribe(
+          {
+            next: (res) => this.algorithmStates[algorithm] = res.algorithmState,
+            error: (err) => console.log(err, algorithm)
+          });
+    }
   }
 
 }
