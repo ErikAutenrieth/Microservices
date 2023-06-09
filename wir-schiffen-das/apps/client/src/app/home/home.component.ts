@@ -1,6 +1,6 @@
 import { Component } from "@angular/core";
 import { CommonModule } from '@angular/common';
-import { MatOptionModule, ThemePalette } from "@angular/material/core";
+import { MatNativeDateModule, MatOptionModule, ThemePalette } from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
 import { MatInputModule } from "@angular/material/input";
 import { FormControl, FormsModule } from '@angular/forms';
@@ -30,6 +30,8 @@ import { SessionService } from "../../services/SessionService";
 import { Observable } from "rxjs";
 import { DomSanitizer } from "@angular/platform-browser";
 import { error } from "console";
+import { FlexLayoutModule } from '@angular/flex-layout';
+
 
 interface select_interface {
   value: string | StartingSystemEnum;
@@ -55,9 +57,9 @@ const RED_CROSS_ICON = `
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
-  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule, FormsModule, MatGridListModule, MatProgressBarModule, MatProgressSpinnerModule, MatButtonModule, MatIconModule],
+  imports: [CommonModule, MatOptionModule, MatSelectModule, MatInputModule, FormsModule, MatGridListModule, MatProgressBarModule, MatProgressSpinnerModule, MatButtonModule, MatIconModule, FlexLayoutModule ],
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css'],
+  styleUrls: ['./home.component.scss'],
   animations: []
 })
 
@@ -65,6 +67,8 @@ const RED_CROSS_ICON = `
 export class HomeComponent {
 
   private sessionID: string;
+
+  Object = Object;
 
   constructor(private engineService: EngineService, private sessionService: SessionService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
     this.sessionID = sessionService.getSessionId();

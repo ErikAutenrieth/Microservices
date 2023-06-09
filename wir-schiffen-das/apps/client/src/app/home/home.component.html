@@ -1,302 +1,279 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-</head>
-<body>
-<h2 class="heading">Engine Selection</h2>
+<section class="engine-selection">
 
-<div class="selection-container">
-  <mat-grid-list cols="4" rowHeight="3:1">
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Diesel Engine</mat-label>
-        <mat-select [(ngModel)]="diesel_engine" name="diesel_engine system">
-          <mat-option *ngFor="let diesel_engine of diesel_engines" [value]="diesel_engine.value">
-            {{diesel_engine.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
+  <h2 class="heading">Engine Selection</h2>
 
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
+  <div class="selection-container mat-elevation-z2" fxLayoutAlign="center center">
 
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Starting System</mat-label>
-        <mat-select [(ngModel)]="starting_system" name="starting system">
-          <mat-option *ngFor="let starting_system of starting_systems" [value]="starting_system.value">
-            {{starting_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
+    <div fxLayout="row wrap" fxLayoutAlign="center center">
 
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
+      <form class="selection-form">
 
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Auxiliary PTO</mat-label>
-        <mat-select [(ngModel)]="auxiliary_pto" name="auxiliary_pto">
-          <mat-option *ngFor="let auxiliary_pto of auxiliary_ptos" [value]="auxiliary_pto.value">
-            {{auxiliary_pto.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
+        <div fxLayoutGap="10px grid" fxLayout="row wrap" fxLayoutAlign="space-around start">
 
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
+          <div class="selection-group">
+            <mat-form-field>
+              <mat-label>Diesel Engine</mat-label>
+              <mat-select [(ngModel)]="diesel_engine" name="diesel_engine system">
+                <mat-option *ngFor="let diesel_engine of diesel_engines" [value]="diesel_engine.value">
+                  {{diesel_engine.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Oil System</mat-label>
-        <mat-select [(ngModel)]="oil_system" name="oil_system">
-          <mat-option *ngFor="let oil_system of oil_systems" [value]="oil_system.value">
-            {{oil_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
 
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
+          </div>
 
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Fuel System</mat-label>
-        <mat-select [(ngModel)]="fuel_system" name="fuel_system">
-          <mat-option *ngFor="let fuel_system of fuel_systems" [value]="fuel_system.value">
-            {{fuel_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Cooling System</mat-label>
-        <mat-select [(ngModel)]="cooling_system" name="cooling_system">
-          <mat-option *ngFor="let cooling_system of cooling_systems" [value]="cooling_system.value">
-            {{cooling_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Exhaust System</mat-label>
-        <mat-select [(ngModel)]="exhaust_system" name="exhaust_system">
-          <mat-option *ngFor="let exhaust_system of exhaust_systems" [value]="exhaust_system.value">
-            {{exhaust_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Mounting System</mat-label>
-        <mat-select [(ngModel)]="mounting_system" name="mounting_system">
-          <mat-option *ngFor="let mounting_system of mounting_systems" [value]="mounting_system.value">
-            {{mounting_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Engine Management System</mat-label>
-        <mat-select [(ngModel)]="engine_management_system" name="engine_management_system">
-          <mat-option *ngFor="let engine_management_system of engine_management_systems"
-                      [value]="engine_management_system.value">
-            {{engine_management_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Monitoring System</mat-label>
-        <mat-select [(ngModel)]="monitoring_system" name="monitoring_system">
-          <mat-option *ngFor="let monitoring_system of monitoring_systems" [value]="monitoring_system.value">
-            {{monitoring_system.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Power Transmission</mat-label>
-        <mat-select [(ngModel)]="power_transmission" name="monitoring_system">
-          <mat-option *ngFor="let power_transmission of power_transmissions" [value]="power_transmission.value">
-            {{power_transmission.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-form-field>
-        <mat-label>Gearbox Option</mat-label>
-        <mat-select [(ngModel)]="gear_box_option" name="gear_box_option">
-          <mat-option *ngFor="let gear_box_option of gear_box_options" [value]="gear_box_option.value">
-            {{gear_box_option.viewValue}}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-      <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
-    </mat-grid-tile>
-
-  </mat-grid-list>
-</div>
-<div style="width: 33%">
-  <h4 class="heading">Selection Progress</h4>
-  <mat-progress-bar mode="determinate" [value]="calculateProgress()" class="custom-progress-bar"></mat-progress-bar>
-</div>
-<br>
-<br>
-<mat-grid-tile>
-  <p class="heading">Statusanzeige</p>
-</mat-grid-tile>
-<br>
-<br>
-
-<div style="width: 42%">
-  <mat-grid-list cols="3" rowHeight="4:1">
-    <mat-grid-tile>
-      <button mat-flat-button [style.background-color]="'#297AE3'" (click)="onSumbit()"><p>Start</p></button>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <p class="status-label">Final Result: </p>
-      <input type="text" [(ngModel)]="state" readonly>
-    </mat-grid-tile>
-  </mat-grid-list>
-
-  <mat-grid-list cols="3" rowHeight="4:1" *ngIf="buttonClicked">
-
-    <mat-grid-tile>
-      <p class="status-label">M1 [Engine] Status: </p>
-      <input type="text" [(ngModel)]="algorithmStates['engine']" readonly>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-spinner *ngIf="algorithmStates['engine'] === 'running'" strokeWidth=10 diameter=50 value=100>
-      </mat-spinner>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <p>Result: </p>
-      <input type="text" [(ngModel)]="resultText" readonly>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <p class="status-label">M2 [Aux] Status: </p>
-      <input type="text" [(ngModel)]="m2Status" readonly>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-spinner *ngIf="algorithmStates['auxiliary'] === 'running'"
-                   strokeWidth=10
-                   diameter=50
-                   value=100>
-      </mat-spinner>
-    </mat-grid-tile>
-
-    <mat-grid-tile>
-      <p>Result: </p>
-      <input type="text" [(ngModel)]="resultText" readonly>
-    </mat-grid-tile>
+          <div class="selection-group">
+            <mat-form-field>
+              <mat-label>Starting System</mat-label>
+              <mat-select [(ngModel)]="starting_system" name="starting system">
+                <mat-option *ngFor="let starting_system of starting_systems" [value]="starting_system.value">
+                  {{starting_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
 
 
-    <mat-grid-tile>
-      <p class="status-label">M3 [Control] Status: </p>
-      <input type="text" [(ngModel)]="m3Status" readonly>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-spinner *ngIf="algorithmStates['control'] === 'running'"
-                   strokeWidth=10
-                   diameter=50
-                   value=100>
-      </mat-spinner>
-    </mat-grid-tile>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
 
-    <mat-grid-tile>
-      <p>Result: </p>
-      <input type="text" [(ngModel)]="resultText" readonly>
-    </mat-grid-tile>
+          </div>
 
-    <mat-grid-tile>
-      <p class="status-label">M4 [Cooling] Status: </p>
-      <input type="text" [(ngModel)]="resultText" readonly>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <mat-spinner *ngIf="algorithmStates['cooling'] === 'running'"
-                   strokeWidth=10
-                   diameter=50
-                   value=100>
-      </mat-spinner>
-    </mat-grid-tile>
-    <mat-grid-tile>
-      <p>Result: </p>
-      <input type="text" [(ngModel)]="resultText" readonly>
-    </mat-grid-tile>
-  </mat-grid-list>
-</div>
-</body>
+          <div class="selection-group">
 
-</html>
+            <mat-form-field>
+              <mat-label>Auxiliary PTO</mat-label>
+              <mat-select [(ngModel)]="auxiliary_pto" name="auxiliary_pto">
+                <mat-option *ngFor="let auxiliary_pto of auxiliary_ptos" [value]="auxiliary_pto.value">
+                  {{auxiliary_pto.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+
+          </div>
+
+          <div class="selection-group">
+
+
+            <mat-form-field>
+              <mat-label>Oil System</mat-label>
+              <mat-select [(ngModel)]="oil_system" name="oil_system">
+                <mat-option *ngFor="let oil_system of oil_systems" [value]="oil_system.value">
+                  {{oil_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+
+          </div>
+
+          <div class="selection-group">
+
+
+            <mat-form-field>
+              <mat-label>Fuel System</mat-label>
+              <mat-select [(ngModel)]="fuel_system" name="fuel_system">
+                <mat-option *ngFor="let fuel_system of fuel_systems" [value]="fuel_system.value">
+                  {{fuel_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+
+
+          </div>
+
+          <div class="selection-group">
+
+
+            <mat-form-field>
+              <mat-label>Cooling System</mat-label>
+              <mat-select [(ngModel)]="cooling_system" name="cooling_system">
+                <mat-option *ngFor="let cooling_system of cooling_systems" [value]="cooling_system.value">
+                  {{cooling_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+
+          </div>
+
+          <div class="selection-group">
+
+            <mat-form-field>
+              <mat-label>Exhaust System</mat-label>
+              <mat-select [(ngModel)]="exhaust_system" name="exhaust_system">
+                <mat-option *ngFor="let exhaust_system of exhaust_systems" [value]="exhaust_system.value">
+                  {{exhaust_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+          </div>
+
+          <div class="selection-group">
+
+            <mat-form-field>
+              <mat-label>Mounting System</mat-label>
+              <mat-select [(ngModel)]="mounting_system" name="mounting_system">
+                <mat-option *ngFor="let mounting_system of mounting_systems" [value]="mounting_system.value">
+                  {{mounting_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+          </div>
+
+          <div class="selection-group">
+
+            <mat-form-field>
+              <mat-label>Engine Management System</mat-label>
+              <mat-select [(ngModel)]="engine_management_system" name="engine_management_system">
+                <mat-option *ngFor="let engine_management_system of engine_management_systems"
+                  [value]="engine_management_system.value">
+                  {{engine_management_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+          </div>
+
+          <div class="selection-group">
+
+            <mat-form-field>
+              <mat-label>Monitoring System</mat-label>
+              <mat-select [(ngModel)]="monitoring_system" name="monitoring_system">
+                <mat-option *ngFor="let monitoring_system of monitoring_systems" [value]="monitoring_system.value">
+                  {{monitoring_system.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+          </div>
+
+          <div class="selection-group">
+
+            <mat-form-field>
+              <mat-label>Power Transmission</mat-label>
+              <mat-select [(ngModel)]="power_transmission" name="monitoring_system">
+                <mat-option *ngFor="let power_transmission of power_transmissions" [value]="power_transmission.value">
+                  {{power_transmission.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+          </div>
+          <div class="selection-group">
+
+            <mat-form-field>
+              <mat-label>Gearbox Option</mat-label>
+              <mat-select [(ngModel)]="gear_box_option" name="gear_box_option">
+                <mat-option *ngFor="let gear_box_option of gear_box_options" [value]="gear_box_option.value">
+                  {{gear_box_option.viewValue}}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+
+
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+
+          </div>
+        </div>
+
+      </form>
+
+
+      <div class="selection-progress">
+        <h4 class="heading">Selection Progress</h4>
+        <mat-progress-bar mode="determinate" [value]="calculateProgress()"
+          class="custom-progress-bar"></mat-progress-bar>
+      </div>
+    </div>
+  </div>
+
+  <div class="results-container" fxLayoutAlign="center center">
+
+ 
+    <div class="status" fxFlex="50%">
+
+      <h3>Status</h3>
+
+      <div *ngIf="buttonClicked">
+
+        <div class="status-group" *ngFor="let item of Object.entries(algorithmStates); let i=index">
+
+          <p class="status-label">M{{i + 1}} [{{ item[0] }}] Status: {{item[1]}} </p>
+          <mat-spinner *ngIf="item[1] === 'running'" strokeWidth=10 diameter=50 value=100>
+          </mat-spinner>
+
+
+        </div>
+
+        <p class="status-label">Final Result: {{state}}</p>
+
+      </div>
+
+    </div>
+
+    <div class="start-button" fxFlex="50%">
+
+      <button mat-raised-button color="primary" (click)="onSumbit()">Start</button>
+
+    </div>
+
+  </div>
 
 
 
 
-
+</section>

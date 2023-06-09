@@ -1,0 +1,37 @@
+
+section {
+  margin: 0.5vw;
+
+
+}
+
+.results-container {
+  margin: 0.5vw;
+  padding: 0.5vw;
+}
+
+.selection-container {
+  border-radius: 5px;
+  margin: 0.5vw;
+  padding: 0.5vw;
+
+  .selection-progress {
+    width: 100%;
+    margin: 0 2vw 1vh 2vw;
+
+    .mat-mdc-progress-bar {
+      height: 1vh;
+      border-radius: 5px;
+    }
+  }
+}
+
+.custom-progress-bar{
+  background: #297AE3;
+}
+
+
+
+
+/* background: #297AE3;*/
+
