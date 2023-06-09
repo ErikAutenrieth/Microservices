@@ -1,46 +1,84 @@
+import { IS_UUID, IsEnum, IsString, IsUUID } from 'class-validator';
 import { AlgorithmStateEnum, AuxiliaryPtoEnum, CoolingSystemEnum, DieselEngineEnum, EngineManagementSystemEnum, ExhaustSystemEnum, FuelSystemEnum, GearBoxOptions, MonitoringSystems, MountingSystemEnum, OilSystemEnum, PowerTransmission, StartingSystemEnum } from "./enums";
 
-export interface ConfigurationDatabaseDto {
-    diesel_engine: DieselEngineEnum;
-    starting_system: StartingSystemEnum;
-    auxiliary_pto: AuxiliaryPtoEnum;
-    oil_system: OilSystemEnum;
-    fuel_system: FuelSystemEnum;
-    cooling_system: CoolingSystemEnum;
-    exhaust_system: ExhaustSystemEnum;
-    mounting_system: MountingSystemEnum;
-    engine_management_system: EngineManagementSystemEnum;
-    monitoring_system: MonitoringSystems;
-    power_transmission: PowerTransmission;
-    gear_box_option: GearBoxOptions;
+export class ConfigurationDatabaseDto {
+
+    @IsEnum(DieselEngineEnum)
+    diesel_engine!: DieselEngineEnum;
+
+    @IsEnum(StartingSystemEnum)
+    starting_system!: StartingSystemEnum;
+
+    @IsEnum(AuxiliaryPtoEnum)
+    auxiliary_pto!: AuxiliaryPtoEnum;
+
+    @IsEnum(OilSystemEnum)
+    oil_system!: OilSystemEnum;
+
+    @IsEnum(FuelSystemEnum)
+    fuel_system!: FuelSystemEnum;
+
+    @IsEnum(CoolingSystemEnum)
+    cooling_system!: CoolingSystemEnum;
+
+    @IsEnum(ExhaustSystemEnum)
+    exhaust_system!: ExhaustSystemEnum;
+
+    @IsEnum(MountingSystemEnum)
+    mounting_system!: MountingSystemEnum;
+
+    @IsEnum(EngineManagementSystemEnum)
+    engine_management_system!: EngineManagementSystemEnum;
+
+    @IsEnum(MonitoringSystems)
+    monitoring_system!: MonitoringSystems;
+
+    @IsEnum(PowerTransmission)
+    power_transmission!: PowerTransmission;
+
+    @IsEnum(GearBoxOptions)
+    gear_box_option!: GearBoxOptions;
 }
 
-export interface CheckConfigurationDto extends ConfigurationDatabaseDto {
-    userID: string;
+export class CheckConfigurationDto extends ConfigurationDatabaseDto {
+    @IsUUID(4)
+    userID!: string;
 }
 
 
-export interface CheckAlgorithmStateDto {
-    userID: string;
+export class CheckAlgorithmStateDto {
+    @IsUUID(4)
+    userID!: string;
 }
 
-export interface ReturnAlgorithmStateDto {
-    userID: string;
-    algorithmState: AlgorithmStateEnum;
-    incompatibleComponents: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[];
+export class ReturnAlgorithmStateDto {
+    @IsUUID(4)
+    userID!: string;
+
+    @IsEnum(AlgorithmStateEnum)
+    algorithmState!: AlgorithmStateEnum;
+
+    incompatibleComponents?: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[];
 }
 
-export interface ValidationMotor {
-    starting_system: StartingSystemEnum;
+export class ValidationMotor {
+
+    @IsEnum(StartingSystemEnum)
+    starting_system!: StartingSystemEnum;
 }
 
-export interface CreateAlgorithmStateDto {
-    userId: string;
-    Configurations: ConfigurationDatabaseDto;
+export class CreateAlgorithmStateDto {
+    
+    @IsUUID(4)
+    userId!: string;
+
+    Configurations!: ConfigurationDatabaseDto;
 }
 
-export interface InitializeAlgorithmMicroserviceDto extends CreateAlgorithmStateDto {
-    dbId: string;
+export class InitializeAlgorithmMicroserviceDto extends CreateAlgorithmStateDto {
+    
+    @IsString()
+    dbId!: string;
 }
 
 export interface UpdateAlgorithmStateDto {

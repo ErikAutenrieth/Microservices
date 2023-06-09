@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from "@nestjs/common";
+import { Body, Controller, Get, Post, UsePipes, ValidationPipe } from "@nestjs/common";
 import { EngineService } from "./engine.service";
 import { CheckConfigurationDto, CreateAlgorithmStateDto, InitializeAlgorithmMicroserviceDto, MicroserviceAddressEnum } from "@wir-schiffen-das/types";
 
@@ -13,6 +13,7 @@ export class EngineController {
   }
 
   @Post("CheckConfiguration")
+  @UsePipes(new ValidationPipe())
   async OptEquip(@Body() CheckConfigurationDto: CheckConfigurationDto) {
     console.log(CheckConfigurationDto);
     const algorithmStateDto: CreateAlgorithmStateDto = { userId: CheckConfigurationDto.userID, Configurations: CheckConfigurationDto };
