@@ -9,24 +9,25 @@ import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatab
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), 
+    ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_ATLAS_AZURE_CONNECTION_KEY),
     MongooseModule.forFeatureAsync([
-      { 
-        name: AlgorithmState.name, 
+      {
+        name: AlgorithmState.name,
         useFactory: () => {
           const schema = AlgorithmStateSchema;
-          schema.pre<AlgorithmStateDocument>('save',  function (this: AlgorithmStateDocument) {
+          schema.pre<AlgorithmStateDocument>('updateOne', function (this: AlgorithmStateDocument) {
+            console.log("updateOne");
             this.updateLastUpdated();
-          });    
+          });
           return schema;
+        }
       }
-    }
     ]),
 
   ],
   controllers: [AppController],
   providers: [AppService, DatabaseSubscriptionService, BaseDatabaseServer],
-  
+
 })
-export class AppModule {}
+export class AppModule { }

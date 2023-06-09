@@ -8,17 +8,13 @@ import { setTimeout } from "timers/promises";
 export class AppService {
 
   constructor(private baseDatabase : BaseDatabaseServer, ) { }
-  getData(): { message: string } {
-    return { message: 'Hello API' };
-  }
 
   updateAlgorithmState(dbEntryID: string, updatedPart: UpdateAlgorithmStateDto) {
     return this.baseDatabase.update(dbEntryID, updatedPart);
   }
 
   async getAlgorithmStateForUser(userID: string): Promise<AlgorithmStateDocument> {
-    var algorithm = await this.baseDatabase.findByUserId(userID)
-    return algorithm[0];
+    return await this.baseDatabase.findByUserId(userID);
   }
 
   async checkCompactibility(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto) : Promise<any[]> {

@@ -20,8 +20,8 @@ export class BaseDatabaseServer {
         return this.algorithmState.findById(id).exec();
     }
 
-    async findByUserId(userId: string): Promise<AlgorithmStateDocument[]> {
-        return this.algorithmState.find({ userId: userId }).exec();
+    async findByUserId(userId: string): Promise<AlgorithmStateDocument | null> {
+        return this.algorithmState.findOne({ userId: userId }).sort({ created: -1 }).exec();
     }
 
 
