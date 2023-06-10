@@ -20,8 +20,10 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,0)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,0)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,0)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,0)&& resultAvailable"></mat-icon>
 
           </div>
 
@@ -36,8 +38,10 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,1)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,1)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,1)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,1)&& resultAvailable"></mat-icon>
 
           </div>
 
@@ -52,8 +56,10 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,2)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,2)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,2)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,2)&& resultAvailable"></mat-icon>
 
           </div>
 
@@ -68,8 +74,10 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,3)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,3)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,3)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,3)&& resultAvailable"></mat-icon>
 
 
           </div>
@@ -87,10 +95,10 @@
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,4)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,4)"></mat-icon>
-
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,4)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,4)&& resultAvailable"></mat-icon>
 
 
           </div>
@@ -108,9 +116,10 @@
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,5)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,5)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,5)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,5)&& resultAvailable"></mat-icon>
 
 
           </div>
@@ -127,9 +136,10 @@
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,6)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,6)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,6)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,6)&& resultAvailable"></mat-icon>
 
           </div>
 
@@ -145,9 +155,10 @@
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,7)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,7)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,7)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,7)&& resultAvailable"></mat-icon>
 
           </div>
 
@@ -157,16 +168,17 @@
               <mat-label>Engine Management System</mat-label>
               <mat-select [(ngModel)]="engine_management_system" name="engine_management_system">
                 <mat-option *ngFor="let engine_management_system of engine_management_systems"
-                  [value]="engine_management_system.value">
+                            [value]="engine_management_system.value">
                   {{engine_management_system.viewValue}}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,8)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,8)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,8)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,8)&& resultAvailable"></mat-icon>
 
           </div>
 
@@ -182,9 +194,10 @@
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,9)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,9)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,9)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,9)&& resultAvailable"></mat-icon>
 
           </div>
 
@@ -200,9 +213,10 @@
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,10)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,10)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,10) && resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,10) && resultAvailable"></mat-icon>
 
           </div>
           <div class="selection-group">
@@ -217,9 +231,10 @@
             </mat-form-field>
 
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,11)"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,11)"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;"
+                      *ngIf="!checkIncompatibleComponents(exampleDto,11)&& resultAvailable"></mat-icon>
+            <mat-icon svgIcon="red-cross"
+                      *ngIf="checkIncompatibleComponents(exampleDto,11)&& resultAvailable"></mat-icon>
 
           </div>
         </div>
@@ -230,12 +245,12 @@
       <div class="selection-progress">
         <h4 class="heading">Selection Progress</h4>
         <mat-progress-bar mode="determinate" [value]="calculateProgress()"
-          class="custom-progress-bar"></mat-progress-bar>
+                          class="custom-progress-bar"></mat-progress-bar>
       </div>
     </div>
   </div>
 
-  <div class="results-container" fxLayoutAlign="center center">
+  <div class="results-container mat-elevation-z2" fxLayoutAlign="center center">
 
 
     <div class="status" fxFlex="50%">
@@ -265,8 +280,6 @@
     </div>
 
   </div>
-
-
 
 
 </section>

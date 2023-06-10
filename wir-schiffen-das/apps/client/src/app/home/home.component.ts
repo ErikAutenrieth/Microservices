@@ -109,7 +109,7 @@ export class HomeComponent {
   state: AlgorithmStateEnum | undefined;
 
   buttonClicked = true;
-
+  resultAvailable = true;
 
   diesel_engines: select_interface[] = [
     {value: DieselEngineEnum.V10, viewValue: '10V'},
@@ -235,7 +235,6 @@ export class HomeComponent {
         return true;
       }
     }
-
     return false;
   }
 
