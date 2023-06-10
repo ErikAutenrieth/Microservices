@@ -16,15 +16,21 @@ export class AppService {
   constructor(private baseDatabase: BaseDatabaseServer,) {
   }
 
+  // Update the algorithm state for a specific database entry
   updateAlgorithmState(dbEntryID: string, updatedPart: UpdateAlgorithmStateDto) {
     return this.baseDatabase.update(dbEntryID, updatedPart);
   }
 
+  // Retrieve the algorithm state for a specific user
   async getAlgorithmStateForUser(userID: string): Promise<AlgorithmStateDocument> {
     return await this.baseDatabase.findByUserId(userID);
   }
 
-  // Check compatibility of algorithm configurations
+  /**
+   * Check the compatibility of algorithm configurations.
+   * @param initializeAlgorithmMicroserviceDto The DTO containing the algorithm configurations.
+   * @returns A promise representing the incompatible component sets.
+   */
   async checkCompactibility(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto): Promise<any[]> {
 
     // Set of relevant selections from the algorithm configurations

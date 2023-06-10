@@ -20,8 +20,8 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,0)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,0)"></mat-icon>
 
           </div>
 
@@ -36,8 +36,8 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,1)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,1)"></mat-icon>
 
           </div>
 
@@ -52,16 +52,12 @@
               </mat-select>
             </mat-form-field>
 
-
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
-
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,2)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,2)"></mat-icon>
 
           </div>
 
           <div class="selection-group">
-
 
             <mat-form-field>
               <mat-label>Oil System</mat-label>
@@ -72,10 +68,8 @@
               </mat-select>
             </mat-form-field>
 
-
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,3)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,3)"></mat-icon>
 
 
           </div>
@@ -94,8 +88,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,4)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,4)"></mat-icon>
 
 
 
@@ -115,8 +109,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,5)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,5)"></mat-icon>
 
 
           </div>
@@ -134,8 +128,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,6)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,6)"></mat-icon>
 
           </div>
 
@@ -152,8 +146,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,7)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,7)"></mat-icon>
 
           </div>
 
@@ -171,8 +165,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,8)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,8)"></mat-icon>
 
           </div>
 
@@ -189,8 +183,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,9)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,9)"></mat-icon>
 
           </div>
 
@@ -207,8 +201,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,10)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,10)"></mat-icon>
 
           </div>
           <div class="selection-group">
@@ -224,8 +218,8 @@
 
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
+            <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="!checkIncompatibleComponents(exampleDto,11)"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="checkIncompatibleComponents(exampleDto,11)"></mat-icon>
 
           </div>
         </div>
