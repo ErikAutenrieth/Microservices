@@ -21,7 +21,7 @@
             </mat-form-field>
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
 
@@ -37,7 +37,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
 
@@ -55,7 +55,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
 
           </div>
@@ -75,7 +75,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
 
           </div>
@@ -95,7 +95,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
 
 
@@ -116,7 +116,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
 
           </div>
@@ -135,7 +135,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
 
@@ -153,7 +153,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
 
@@ -172,7 +172,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
 
@@ -190,7 +190,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
 
@@ -208,7 +208,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
           <div class="selection-group">
@@ -225,7 +225,7 @@
 
 
             <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="isLoadingM1"></mat-icon>
-            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM1"></mat-icon>
+            <mat-icon svgIcon="red-cross" *ngIf="isLoadingM2"></mat-icon>
 
           </div>
         </div>
@@ -243,7 +243,7 @@
 
   <div class="results-container" fxLayoutAlign="center center">
 
- 
+
     <div class="status" fxFlex="50%">
 
       <h3>Status</h3>
@@ -255,7 +255,6 @@
           <p class="status-label">M{{i + 1}} [{{ item[0] }}] Status: {{item[1]}} </p>
           <mat-spinner *ngIf="item[1] === 'running'" strokeWidth=10 diameter=50 value=100>
           </mat-spinner>
-
 
         </div>
 

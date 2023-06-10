@@ -15,6 +15,7 @@ export class EngineService {
 
     }
 
+  // Circuit breaker options for HTTP requests
     circuitBreakerOptions = {
       timeout: 3000,
       errorThresholdPercentage: 50,
@@ -26,7 +27,13 @@ export class EngineService {
         return createdAlgorithmState.save();
       }
 
-
+  /**
+   * Sends the configuration to a specific microservice.
+   *
+   * @param initializeAlgorithmMicroserviceDto - The data object containing the configuration to be sent.
+   * @param microserviceAddressEnum - The enum value representing the address of the microservice.
+   * @returns A Promise resolving to the result of the HTTP request.
+   */
     async sendConfigurationToService(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto, microserviceAddressEnum: MicroserviceAddressEnum): Promise<any> {
 
       return await firstValueFrom(this.httpService.post(microserviceAddressEnum + "CheckConfiguration", initializeAlgorithmMicroserviceDto));
@@ -36,9 +43,9 @@ export class EngineService {
       // breaker.fire()
       //   .then(console.log)
       //  .catch(console.error);
-      
+
 
     }
- 
-      
+
+
 }

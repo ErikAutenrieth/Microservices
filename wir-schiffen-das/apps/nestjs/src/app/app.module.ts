@@ -9,8 +9,8 @@ import { AlgorithmState, AlgorithmStateSchema } from '@wir-schiffen-das/nestjs-t
 
 @Module({
   imports: [
-    ConfigModule.forRoot(), 
-    MongooseModule.forRoot(process.env.MONGODB_ATLAS_AZURE_CONNECTION_KEY), 
+    ConfigModule.forRoot(),
+    MongooseModule.forRoot(process.env.MONGODB_ATLAS_AZURE_CONNECTION_KEY),
     EngineModule
   ],
   controllers: [AppController],

@@ -1,5 +1,5 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
 import {
   AlgorithmStateEnum,
   CheckAlgorithmStateDto,
@@ -7,12 +7,12 @@ import {
   MicroserviceAddressEnum,
   ReturnAlgorithmStateDto
 } from '@wir-schiffen-das/types';
-import { Observable, delay, distinctUntilChanged, interval, retry, switchMap, take, takeWhile, tap } from 'rxjs';
-import { SessionService } from './SessionService';
-import { AlgorithmState } from '@wir-schiffen-das/nestjs-types';
+import {Observable, delay, distinctUntilChanged, interval, retry, switchMap, take, takeWhile, tap} from 'rxjs';
+import {SessionService} from './SessionService';
+import {AlgorithmState} from '@wir-schiffen-das/nestjs-types';
 
 
-@Injectable({ providedIn: 'root' })
+@Injectable({providedIn: 'root'})
 export class EngineService {
   sessionID: string;
 
@@ -25,20 +25,29 @@ export class EngineService {
 
   }
 
+
   checkConfiguration(configDTO: CheckConfigurationDto): Observable<any> {
     console.log('EngineService.checkConfiguration()');
     return this.http.post('http://localhost:3000/api/anchor/CheckConfiguration', configDTO);
   }
+
+  /**
+   * Checks the algorithm state by sending periodic HTTP POST requests to the specified microservice.
+   *
+   * @param checkAlgorithmStateDto - The data object containing the algorithm state information to be checked.
+   * @param microservice - The enum value representing the address of the microservice to send the requests to.
+   * @returns An Observable emitting the algorithm state information wrapped in a ReturnAlgorithmStateDto.
+   */
   checkAlgorithmState(checkAlgorithmStateDto: CheckAlgorithmStateDto, microservice: MicroserviceAddressEnum): Observable<ReturnAlgorithmStateDto> {
     console.log('EngineService.checkAlgorithmState()');
 
     return interval(3000)
       .pipe(
         switchMap(() => this.http.post<ReturnAlgorithmStateDto>(microservice + "status", checkAlgorithmStateDto)),
-        retry({ delay: 3000, count: 5, resetOnSuccess: true}),
+        retry({delay: 3000, count: 5, resetOnSuccess: true}),
         distinctUntilChanged(),
-        // tap(res => console.log(res)),
-        takeWhile(res => (res.algorithmState !== AlgorithmStateEnum.ready) && (res.algorithmState !== AlgorithmStateEnum.failed), true),
+        takeWhile(res => (res.algorithmState !== AlgorithmStateEnum.ready) &&
+                 (res.algorithmState !== AlgorithmStateEnum.failed), true),
       );
   }
 

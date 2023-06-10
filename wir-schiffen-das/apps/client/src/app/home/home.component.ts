@@ -94,7 +94,7 @@ export class HomeComponent {
   };
 
   isLoadingM1 = true;
-  isLoadingM2 = true;
+  isLoadingM2 = false;
   isLoadingM3 = true;
   isLoadingM4 = true;
 

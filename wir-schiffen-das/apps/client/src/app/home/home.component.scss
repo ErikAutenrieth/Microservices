@@ -1,13 +1,6 @@
 
 section {
   margin: 0.5vw;
-
-
-}
-
-.results-container {
-  margin: 0.5vw;
-  padding: 0.5vw;
 }
 
 .selection-container {
@@ -16,7 +9,7 @@ section {
   padding: 0.5vw;
 
   .selection-progress {
-    width: 100%;
+    width: 35%;
     margin: 0 2vw 1vh 2vw;
 
     .mat-mdc-progress-bar {
@@ -30,6 +23,14 @@ section {
   background: #297AE3;
 }
 
+.results-container {
+  margin: 0.5vw;
+  padding: 0.5vw;
+}
+
+.status-group {
+
+}
 
 
 
