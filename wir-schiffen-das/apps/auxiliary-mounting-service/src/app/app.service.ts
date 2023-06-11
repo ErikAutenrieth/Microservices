@@ -24,8 +24,8 @@ export class AppService extends AbstractAppService {
       initializeAlgorithmMicroserviceDto.Configurations.starting_system]);
 
     // Simulate a delay using setTimeout
-    await setTimeout(Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000);
-    console.log("Time: ", Math.floor(Math.random() * (20000 - 5000 + 1)) + 5000)
+    await setTimeout(Math.floor(Math.random() * (40000 - 10000 + 1)) + 10000);
+  
 
     // List of incompatible component sets
     const incompatibleComponents: Set<AuxiliaryPtoEnum | GearBoxOptions  | StartingSystemEnum>[] = [

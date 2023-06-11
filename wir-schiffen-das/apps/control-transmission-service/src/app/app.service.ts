@@ -1,14 +1,11 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
-  DieselEngineEnum,
   EngineManagementSystemEnum,
-  FuelSystemEnum,
   InitializeAlgorithmMicroserviceDto,
-  OilSystemEnum,
   PowerTransmission,
-  StartingSystemEnum} from '@wir-schiffen-das/types';
-import {AbstractAppService} from '@wir-schiffen-das/nestjs-types';
-import {setTimeout} from "timers/promises";
+} from '@wir-schiffen-das/types';
+import { AbstractAppService } from '@wir-schiffen-das/nestjs-types';
+import { setTimeout } from "timers/promises";
 
 @Injectable()
 export class AppService extends AbstractAppService {
@@ -24,13 +21,13 @@ export class AppService extends AbstractAppService {
     const relevant_Selections = new Set([
       initializeAlgorithmMicroserviceDto.Configurations.power_transmission,
       initializeAlgorithmMicroserviceDto.Configurations.engine_management_system,
-]);
+    ]);
 
     // Simulate a delay using setTimeout
-    await setTimeout(Math.floor(Math.random() * (40000 - 5000 + 1)) + 5000);
+    await setTimeout(120000);
 
     // List of incompatible component sets
-    const incompatibleComponents: Set<PowerTransmission | EngineManagementSystemEnum >[] = [
+    const incompatibleComponents: Set<PowerTransmission | EngineManagementSystemEnum>[] = [
       new Set([PowerTransmission.TorsionallyResilientCoupling, EngineManagementSystemEnum.InComplianceWithCSR]),
     ];
     // Filter incompatible subsets based on relevant selections
