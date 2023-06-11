@@ -27,14 +27,13 @@ export class EngineController {
     // Create a microservice DTO with the algorithm state document's ID
     const microServiceDto : InitializeAlgorithmMicroserviceDto  = { ...algorithmStateDto, ... { dbId: algotithmStateDoc._id.toString()}  };
 
-    // for (const microserviceAddressEnum in MicroserviceAddressEnum) {
-    //   this.appService.sendConfigurationToService(microServiceDto, MicroserviceAddressEnum[microserviceAddressEnum]);
-    // }
+    // Send the configuration to all microservices
+    for (const microserviceAddressEnum in MicroserviceAddressEnum) {
+      const res = await this.appService.sendConfigurationToService(microServiceDto, MicroserviceAddressEnum[microserviceAddressEnum]);
+      console.log("finished sending configuration to engine", res);
+    }
 
-    // Send the microservice DTO to the engine microservice
-    const res = await this.appService.sendConfigurationToService(microServiceDto, MicroserviceAddressEnum.engine);
-    console.log("finished sending configuration to engine", res);
-    return { "sucess": true };
+    return { "success": true };
   }
 
 }
