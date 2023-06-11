@@ -88,4 +88,3 @@ export enum MicroserviceAddressEnum {
   auxiliary = 'http://localhost:3030/api/auxiliary/',
   control = 'http://localhost:3040/api/control/',
 }
-
