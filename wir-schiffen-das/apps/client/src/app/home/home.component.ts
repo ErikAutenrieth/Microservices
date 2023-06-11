@@ -40,6 +40,10 @@ import {
 } from "@wir-schiffen-das/types";
 
 
+enum UIAlgorithmStateEnum  {
+  "unresponsive" = "unresponsive"
+}
+
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
@@ -48,6 +52,7 @@ import {
   styleUrls: ['./home.component.scss'],
   animations: []
 })
+
 
 
 export class HomeComponent {
@@ -84,7 +89,10 @@ export class HomeComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
-  algorithmStates: Record<string, AlgorithmStateEnum | undefined> = {
+
+
+
+  algorithmStates: Record<string, AlgorithmStateEnum | UIAlgorithmStateEnum | undefined> = {
     "engine": undefined,
     "cooling": undefined,
     "auxiliary": undefined,
@@ -107,7 +115,7 @@ export class HomeComponent {
 
   state: AlgorithmStateEnum | undefined;
   // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
-  
+
 
   buttonClicked = true;
   resultAvailable = true;
@@ -199,10 +207,14 @@ export class HomeComponent {
               this.algorithmStates[algorithm] = res.algorithmState
               if (res.algorithmState == AlgorithmStateEnum.failed) {
                 //TODO fill incompatible components in the UI
+                
               }
             }, 
-            error: (err) => console.log(err, algorithm)
-          });
+            error: (err) => {
+              this.algorithmStates[algorithm] = UIAlgorithmStateEnum.unresponsive
+              console.log(err, algorithm)
+            }
+            });
     }
   }
 }
