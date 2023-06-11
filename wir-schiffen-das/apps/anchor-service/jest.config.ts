@@ -1,11 +1,11 @@
 /* eslint-disable */
 export default {
-  displayName: 'nestjs',
+  displayName: 'anchor-service',
   preset: '../../jest.preset.js',
   testEnvironment: 'node',
   transform: {
     '^.+\\.[tj]s$': ['ts-jest', { tsconfig: '<rootDir>/tsconfig.spec.json' }],
   },
   moduleFileExtensions: ['ts', 'js', 'html'],
-  coverageDirectory: '../../coverage/apps/nestjs',
+  coverageDirectory: '../../coverage/apps/anchor-service',
 };

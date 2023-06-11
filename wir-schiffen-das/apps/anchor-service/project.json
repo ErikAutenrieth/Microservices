@@ -1,7 +1,7 @@
 {
-  "name": "nestjs",
+  "name": "anchor-service",
   "$schema": "../../node_modules/nx/schemas/project-schema.json",
-  "sourceRoot": "apps/nestjs/src",
+  "sourceRoot": "apps/anchor-service/src",
   "projectType": "application",
   "targets": {
     "build": {
@@ -11,12 +11,12 @@
       "options": {
         "target": "node",
         "compiler": "tsc",
-        "outputPath": "dist/apps/nestjs",
-        "main": "apps/nestjs/src/main.ts",
-        "tsConfig": "apps/nestjs/tsconfig.app.json",
-        "assets": ["apps/nestjs/src/assets"],
+        "outputPath": "dist/apps/anchor-service",
+        "main": "apps/anchor-service/src/main.ts",
+        "tsConfig": "apps/anchor-service/tsconfig.app.json",
+        "assets": ["apps/anchor-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/nestjs/webpack.config.js"
+        "webpackConfig": "apps/anchor-service/webpack.config.js"
       },
       "configurations": {
         "development": {},
@@ -27,14 +27,14 @@
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",
       "options": {
-        "buildTarget": "nestjs:build"
+        "buildTarget": "anchor-service:build"
       },
       "configurations": {
         "development": {
-          "buildTarget": "nestjs:build:development"
+          "buildTarget": "anchor-service:build:development"
         },
         "production": {
-          "buildTarget": "nestjs:build:production"
+          "buildTarget": "anchor-service:build:production"
         }
       }
     },
@@ -42,14 +42,14 @@
       "executor": "@nx/linter:eslint",
       "outputs": ["{options.outputFile}"],
       "options": {
-        "lintFilePatterns": ["apps/nestjs/**/*.ts"]
+        "lintFilePatterns": ["apps/anchor-service/**/*.ts"]
       }
     },
     "test": {
       "executor": "@nx/jest:jest",
       "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
       "options": {
-        "jestConfig": "apps/nestjs/jest.config.ts",
+        "jestConfig": "apps/anchor-service/jest.config.ts",
         "passWithNoTests": true
       },
       "configurations": {
