@@ -34,8 +34,10 @@ export class AppService {
   async checkCompactibility(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto): Promise<any[]> {
 
     // Set of relevant selections from the algorithm configurations
-    const relevant_Selections = new Set([initializeAlgorithmMicroserviceDto.Configurations.diesel_engine,
-      initializeAlgorithmMicroserviceDto.Configurations.starting_system, initializeAlgorithmMicroserviceDto.Configurations.oil_system,
+    const relevant_Selections = new Set([
+      initializeAlgorithmMicroserviceDto.Configurations.diesel_engine,
+      initializeAlgorithmMicroserviceDto.Configurations.starting_system,
+      initializeAlgorithmMicroserviceDto.Configurations.oil_system,
       initializeAlgorithmMicroserviceDto.Configurations.fuel_system]);
 
     // Simulate a delay using setTimeout

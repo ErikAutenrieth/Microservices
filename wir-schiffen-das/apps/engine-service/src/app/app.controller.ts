@@ -1,13 +1,11 @@
-import {Body, Controller, Get, Post, UsePipes, ValidationPipe} from '@nestjs/common';
+import {Body, Controller, Post, UsePipes, ValidationPipe} from '@nestjs/common';
 
 import {AppService} from './app.service';
 import {
   AlgorithmStateEnum,
   CheckAlgorithmStateDto,
-  CreateAlgorithmStateDto,
   InitializeAlgorithmMicroserviceDto,
   ReturnAlgorithmStateDto,
-  UpdateAlgorithmStateDto
 } from "@wir-schiffen-das/types";
 
 @Controller("engine")
