@@ -24,7 +24,7 @@ export class AppService extends AbstractAppService {
     ]);
 
     // Simulate a delay using setTimeout
-    await setTimeout(120000);
+    await setTimeout(50000);
 
     // List of incompatible component sets
     const incompatibleComponents: Set<PowerTransmission | EngineManagementSystemEnum>[] = [

@@ -40,6 +40,11 @@ import {
 } from "@wir-schiffen-das/types";
 
 
+enum UIAlgorithmStateEnum  {
+  "unresponsive" = "unresponsive"
+}
+
+
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
@@ -47,6 +52,7 @@ import {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: []
+
 })
 
 
@@ -84,7 +90,7 @@ export class HomeComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
-  algorithmStates: Record<string, AlgorithmStateEnum | undefined> = {
+  algorithmStates: Record<string, AlgorithmStateEnum | UIAlgorithmStateEnum | undefined>  = {
     "engine": undefined,
     "cooling": undefined,
     "auxiliary": undefined,
@@ -107,11 +113,14 @@ export class HomeComponent {
 
   state: AlgorithmStateEnum | undefined;
   // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
-  
+
 
   buttonClicked = true;
-  resultAvailable = true;
+  resultAvailable = false;
 
+  incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | 
+                          FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | 
+                           MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] | undefined = [];
 
   selectedCount(): number {
     const options = [
@@ -144,13 +153,13 @@ export class HomeComponent {
     return (selectedCount / totalCount) * 100;
   }
 
-  checkIncompatibleComponents(dto: ReturnAlgorithmStateDto, comp: number): boolean {
-    if (dto.incompatibleComponents && dto.incompatibleComponents.length === 0) {
+  checkIncompatibleComponents(comp: number): boolean {
+    if (this.incompatible_components && this.incompatible_components?.length === 0) {
       return false;
     }
 
     for (let i = 0; i < components_failure.length; i++) {
-      if (comp === i && dto.incompatibleComponents?.includes(Object.values(components_failure[i])[0])) {
+      if (comp === i && this.incompatible_components?.includes(Object.values(components_failure[i])[0])) {
         return true;
       }
     }
@@ -186,6 +195,7 @@ export class HomeComponent {
 
   }
 
+
   setStatus() {
     Object.keys(this.algorithmStates).forEach(key => this.algorithmStates[key] = undefined);
 
@@ -195,13 +205,18 @@ export class HomeComponent {
         { userID: this.sessionID }, microservice)
         .subscribe(
           {
-            next: (res) => { 
+            next: (res:ReturnAlgorithmStateDto) => { 
               this.algorithmStates[algorithm] = res.algorithmState
+              this.incompatible_components = [];
               if (res.algorithmState == AlgorithmStateEnum.failed) {
-                //TODO fill incompatible components in the UI
+                // fill incompatible components in the UI
+                this.incompatible_components = res.incompatibleComponents;
               }
             }, 
-            error: (err) => console.log(err, algorithm)
+            error: (err) => {
+              this.algorithmStates[algorithm] = UIAlgorithmStateEnum.unresponsive
+              console.log(err, algorithm)
+            }
           });
     }
   }
