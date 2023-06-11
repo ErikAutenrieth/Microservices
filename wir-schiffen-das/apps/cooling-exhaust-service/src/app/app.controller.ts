@@ -1,13 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import {Controller} from '@nestjs/common';
+import {AppService} from './app.service';
+import { AbstractAppController } from '@wir-schiffen-das/nestjs-types';
 
-import { AppService } from './app.service';
+@Controller("cooling-exhaust")
+export class AppController extends AbstractAppController  {
 
-@Controller()
-export class AppController {
-  constructor(private readonly appService: AppService) {}
-
-  @Get()
-  getData() {
-    return this.appService.getData();
+  constructor(appService: AppService) {
+    super(appService);
   }
+
 }
+

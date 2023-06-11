@@ -19,9 +19,6 @@ export class DatabaseSubscriptionService {
     //    "change"
     //   );
     
-    
-    
-
     constructor(@InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>) {
 
         this.watchStream = this.algorithmState.watch( 
