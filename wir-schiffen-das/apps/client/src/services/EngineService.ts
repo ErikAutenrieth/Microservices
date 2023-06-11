@@ -9,7 +9,6 @@ import {
 } from '@wir-schiffen-das/types';
 import {Observable, delay, distinctUntilChanged, interval, retry, switchMap, take, takeWhile, tap} from 'rxjs';
 import {SessionService} from './SessionService';
-import {AlgorithmState} from '@wir-schiffen-das/nestjs-types';
 
 
 @Injectable({providedIn: 'root'})
