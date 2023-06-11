@@ -4,27 +4,12 @@ import {
   FuelSystemEnum,
   InitializeAlgorithmMicroserviceDto,
   OilSystemEnum,
-  StartingSystemEnum,
-  UpdateAlgorithmStateDto
-} from '@wir-schiffen-das/types';
-import {AlgorithmStateDocument, BaseDatabaseServer} from '@wir-schiffen-das/nestjs-types';
+  StartingSystemEnum} from '@wir-schiffen-das/types';
+import {AbstractAppService} from '@wir-schiffen-das/nestjs-types';
 import {setTimeout} from "timers/promises";
 
 @Injectable()
-export class AppService {
-
-  constructor(private baseDatabase: BaseDatabaseServer,) {
-  }
-
-  // Update the algorithm state for a specific database entry
-  updateAlgorithmState(dbEntryID: string, updatedPart: UpdateAlgorithmStateDto) {
-    return this.baseDatabase.update(dbEntryID, updatedPart);
-  }
-
-  // Retrieve the algorithm state for a specific user
-  async getAlgorithmStateForUser(userID: string): Promise<AlgorithmStateDocument> {
-    return await this.baseDatabase.findByUserId(userID);
-  }
+export class AppService extends AbstractAppService {
 
   /**
    * Check the compatibility of algorithm configurations.
