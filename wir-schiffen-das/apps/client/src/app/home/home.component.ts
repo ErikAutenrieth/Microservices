@@ -104,7 +104,10 @@ export class HomeComponent {
   monitoring_system: MonitoringSystems | undefined;
   power_transmission: PowerTransmission | undefined;
   gear_box_option: GearBoxOptions | undefined;
+
   state: AlgorithmStateEnum | undefined;
+  // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
+  
 
   buttonClicked = true;
   resultAvailable = true;
@@ -154,12 +157,6 @@ export class HomeComponent {
     return false;
   }
 
-  exampleDto: ReturnAlgorithmStateDto = {
-    userID: "123e4567-e89b-12d3-a456-426655440000",
-    algorithmState: AlgorithmStateEnum.failed,
-    incompatibleComponents: [DieselEngineEnum.V10, AuxiliaryPtoEnum.Alternator]
-  };
-
 
   onSumbit() {
     if (this.selectedCount() === 12) {
@@ -198,7 +195,12 @@ export class HomeComponent {
         { userID: this.sessionID }, microservice)
         .subscribe(
           {
-            next: (res) => this.algorithmStates[algorithm] = res.algorithmState,
+            next: (res) => { 
+              this.algorithmStates[algorithm] = res.algorithmState
+              if (res.algorithmState == AlgorithmStateEnum.failed) {
+                //TODO fill incompatible components in the UI
+              }
+            }, 
             error: (err) => console.log(err, algorithm)
           });
     }
