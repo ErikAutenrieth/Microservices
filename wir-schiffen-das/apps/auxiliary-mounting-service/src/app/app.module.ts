@@ -4,6 +4,7 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
+import { DatabaseSubscriptionService } from './database.subscription.service';
 import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
 
 @Module({
@@ -26,7 +27,7 @@ import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatab
 
   ],
   controllers: [AppController],
-  providers: [AppService, BaseDatabaseServer],
+  providers: [AppService, DatabaseSubscriptionService, BaseDatabaseServer],
 
 })
 export class AppModule { }
