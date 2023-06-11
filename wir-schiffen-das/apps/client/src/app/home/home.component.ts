@@ -112,6 +112,7 @@ export class HomeComponent {
   gear_box_option: GearBoxOptions | undefined;
 
   state: AlgorithmStateEnum | undefined;
+  result_state: "ok" | "failed" | undefined;
   // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
 
 
@@ -119,9 +120,9 @@ export class HomeComponent {
   buttonClicked = true;
   resultAvailable = false;
 
-  incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | 
-                          FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | 
-                           MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] | undefined = [];
+  // incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] = [];
+
+  incompatible_components: any = [];
 
   selectedCount(): number {
     const options = [
@@ -155,8 +156,9 @@ export class HomeComponent {
   }
 
   checkIncompatibleComponents(comp: number): boolean {
+
     if (this.incompatible_components && this.incompatible_components?.length === 0) {
-      return false;
+        return false;
     }
 
     for (let i = 0; i < components_failure.length; i++) {
@@ -167,6 +169,16 @@ export class HomeComponent {
     return false;
   }
 
+  getTextColor(itemStatus: any): any {
+    switch (itemStatus) {
+      case AlgorithmStateEnum.failed:
+        return { color: 'red' };
+      case AlgorithmStateEnum.ready || itemStatus === "ok":
+        return { color: 'green' };
+      default:
+        return {}; 
+    }
+  }
 
   onSumbit() {
     if (this.selectedCount() === 12) {
@@ -190,10 +202,35 @@ export class HomeComponent {
         (response) => {
           alert(response['OptEquipValid']);
         });
-
+      
+      this.incompatible_components = [];    
       this.setStatus();
     }
+  }
 
+  checkResult(){
+    const allStatesOk = Object.values(this.algorithmStates).every(state => state === AlgorithmStateEnum.ready);
+    const runningState = Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.running);
+    const failedState = Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.failed);
+    if (allStatesOk) {
+      this.result_state = "ok";
+    }else if (runningState) {
+      this.result_state = undefined;
+    }else if (failedState){
+      this.result_state = "failed";
+    }
+  }
+
+  checkStates() {
+    const allStatesDefined = Object.values(this.algorithmStates).every(state => state !== undefined);
+    const allStatesUndefined = Object.values(this.algorithmStates).every(state => state === undefined);
+    if (allStatesUndefined) {
+      this.resultAvailable = false;
+    } else if (allStatesDefined) {
+      this.resultAvailable = !Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.running || state === AlgorithmStateEnum.notStarted);
+    } else {
+      this.resultAvailable = true;
+    }
   }
 
 
@@ -208,19 +245,21 @@ export class HomeComponent {
           {
             next: (res:ReturnAlgorithmStateDto) => { 
               this.algorithmStates[algorithm] = res.algorithmState
-              this.incompatible_components = [];
+              this.checkStates();
+              this.checkResult();
               if (res.algorithmState == AlgorithmStateEnum.failed) {
                 // fill incompatible components in the UI
-                this.incompatible_components = res.incompatibleComponents;
+                this.incompatible_components += res.incompatibleComponents;
+          
               }
             }, 
             error: (err) => {
-
               this.algorithmStates[algorithm] = UIAlgorithmStateEnum.unresponsive
               console.log(err, algorithm)
-            
               }
           });
     }
+    this.checkStates();
+    this.checkResult();
   }
 }

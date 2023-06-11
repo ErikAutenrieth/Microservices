@@ -24,7 +24,7 @@ export class AppService extends AbstractAppService {
       initializeAlgorithmMicroserviceDto.Configurations.starting_system]);
 
     // Simulate a delay using setTimeout
-    await setTimeout(Math.floor(Math.random() * (40000 - 10000 + 1)) + 10000);
+    await setTimeout(Math.floor(Math.random() * (30000 - 10000 + 1)) + 10000);
   
 
     // List of incompatible component sets
