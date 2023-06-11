@@ -7,6 +7,7 @@ export class AppController extends AbstractAppController  {
 
   constructor(appService: AppService) {
     super(appService);
+    this.Algorithm = "controlTransmission";
   }
 
 }

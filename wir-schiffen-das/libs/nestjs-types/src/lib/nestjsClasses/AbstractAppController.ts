@@ -10,6 +10,7 @@ import { AbstractAppService } from './AbstractAppService';
 
 export abstract class AbstractAppController {
 
+  protected Algorithm!: String;
   constructor(private readonly appService: AbstractAppService) {
   }
 
@@ -36,19 +37,19 @@ export abstract class AbstractAppController {
     console.log("start checking configuration algorithm");
 
     // Update the algorithm state to "running"
-    await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {engineState: AlgorithmStateEnum.running});
+    await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { [this.Algorithm + "State"]: AlgorithmStateEnum.running});
     // Check compatibility of components
     const incompatibleComponents = await this.appService.checkCompactibility(initializeAlgorithmMicroserviceDto);
 
     if (incompatibleComponents.length > 0) {
       // Update the algorithm state to "failed" with incompatible components
       await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {
-        engineState: AlgorithmStateEnum.failed,
+        [this.Algorithm + "State"]: AlgorithmStateEnum.failed,
         incompactibleConfigurations: incompatibleComponents
       });
     } else {
       // Update the algorithm state to "ready"
-      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {engineState: AlgorithmStateEnum.ready});
+      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {[this.Algorithm + "State"]: AlgorithmStateEnum.ready});
     }
   }
 
@@ -63,9 +64,10 @@ export abstract class AbstractAppController {
   async Status(@Body() checkStatus: CheckAlgorithmStateDto): Promise<ReturnAlgorithmStateDto> {
 
     const algorithmState = await this.appService.getAlgorithmStateForUser(checkStatus.userID);
+    const algorithmStateEnum: AlgorithmStateEnum | undefined = algorithmState?.get(this.Algorithm + "State");
     return {
       userID: checkStatus.userID,
-      algorithmState: algorithmState?.engineState ? algorithmState.engineState : AlgorithmStateEnum.notStarted,
+      algorithmState: algorithmStateEnum ? algorithmStateEnum : AlgorithmStateEnum.notStarted,
       incompatibleComponents: algorithmState?.incompactibleConfigurations ? algorithmState.incompactibleConfigurations : []
     };
 
