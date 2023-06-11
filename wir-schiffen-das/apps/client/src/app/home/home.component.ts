@@ -44,7 +44,6 @@ enum UIAlgorithmStateEnum  {
   "unresponsive" = "unresponsive"
 }
 
-
 @Component({
   selector: 'wir-schiffen-das-home',
   standalone: true,
@@ -54,6 +53,7 @@ enum UIAlgorithmStateEnum  {
   animations: []
 
 })
+
 
 
 export class HomeComponent {
@@ -113,6 +113,7 @@ export class HomeComponent {
 
   state: AlgorithmStateEnum | undefined;
   // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
+
 
 
   buttonClicked = true;
@@ -214,9 +215,11 @@ export class HomeComponent {
               }
             }, 
             error: (err) => {
+
               this.algorithmStates[algorithm] = UIAlgorithmStateEnum.unresponsive
               console.log(err, algorithm)
-            }
+            
+              }
           });
     }
   }
