@@ -234,6 +234,7 @@ export class HomeComponent {
   }
 
 
+
   setStatus() {
     Object.keys(this.algorithmStates).forEach(key => this.algorithmStates[key] = undefined);
 
