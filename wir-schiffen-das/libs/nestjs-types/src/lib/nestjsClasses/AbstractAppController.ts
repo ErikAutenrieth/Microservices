@@ -39,14 +39,19 @@ export abstract class AbstractAppController {
     // Update the algorithm state to "running"
     await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { [this.Algorithm + "State"]: AlgorithmStateEnum.running});
     // Check compatibility of components
-    const incompatibleComponents = await this.appService.checkCompactibility(initializeAlgorithmMicroserviceDto);
+    let incompatibleComponents = await this.appService.checkCompactibility(initializeAlgorithmMicroserviceDto);
 
     if (incompatibleComponents.length > 0) {
+      incompatibleComponents = incompatibleComponents.reduce((result: string[], set: Set<string>) => {
+        return [...result, ...Array.from(set)];
+      }, []);
       // Update the algorithm state to "failed" with incompatible components
-      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {
+      console.log("incompatible components", incompatibleComponents);
+      const updated = await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {
         [this.Algorithm + "State"]: AlgorithmStateEnum.failed,
         incompactibleConfigurations: incompatibleComponents
       });
+      console.log("updated", updated);
     } else {
       // Update the algorithm state to "ready"
       await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {[this.Algorithm + "State"]: AlgorithmStateEnum.ready});

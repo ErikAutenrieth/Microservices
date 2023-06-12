@@ -20,10 +20,14 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(0)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(0)&& resultAvailable"></mat-icon>
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.diesel_engine!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
           </div>
 
@@ -38,10 +42,14 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(1)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(1)&& resultAvailable"></mat-icon>
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.starting_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
           </div>
 
@@ -56,10 +64,14 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(2)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(2)&& resultAvailable"></mat-icon>
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.auxiliary_pto!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
           </div>
 
@@ -74,10 +86,14 @@
               </mat-select>
             </mat-form-field>
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(3)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(3)&& resultAvailable"></mat-icon>
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.oil_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
 
           </div>
@@ -95,12 +111,14 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(4)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(4)&& resultAvailable"></mat-icon>
-
-
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.fuel_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
           </div>
 
           <div class="selection-group">
@@ -116,11 +134,14 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(5)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(5)&& resultAvailable"></mat-icon>
-
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.cooling_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
           </div>
 
@@ -135,12 +156,14 @@
               </mat-select>
             </mat-form-field>
 
-
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(6)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(6)&& resultAvailable"></mat-icon>
-
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.exhaust_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
           </div>
 
           <div class="selection-group">
@@ -155,10 +178,14 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(7)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(7)&& resultAvailable"></mat-icon>
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.mounting_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
           </div>
 
@@ -175,10 +202,14 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(8)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(8)&& resultAvailable"></mat-icon>
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.engine_management_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
           </div>
 
@@ -194,11 +225,14 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(9)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(9)&& resultAvailable"></mat-icon>
-
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.monitoring_system!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
           </div>
 
           <div class="selection-group">
@@ -213,10 +247,15 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(10) && resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(10) && resultAvailable"></mat-icon>
+
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.power_transmission!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
 
           </div>
           <div class="selection-group">
@@ -231,10 +270,15 @@
             </mat-form-field>
 
 
-            <mat-icon svgIcon="thumbs-up" style="color: green;"
-                      *ngIf="!checkIncompatibleComponents(11)&& resultAvailable"></mat-icon>
-            <mat-icon svgIcon="red-cross"
-                      *ngIf="checkIncompatibleComponents(11)&& resultAvailable"></mat-icon>
+            <div class="result icon" *ngIf="result_state">
+              <ng-container *ngIf="incompatible_components.includes(this.gear_box_option!); else elseTemplate">
+                <mat-icon svgIcon="red-cross"></mat-icon>
+              </ng-container>
+              <ng-template #elseTemplate>
+                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+              </ng-template>
+            </div>
+
 
           </div>
         </div>

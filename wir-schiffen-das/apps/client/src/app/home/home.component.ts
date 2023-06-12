@@ -112,7 +112,7 @@ export class HomeComponent {
   gear_box_option: GearBoxOptions | undefined;
 
   state: AlgorithmStateEnum | undefined;
-  result_state: "ok" | "failed" | undefined;
+  result_state: "ok" | "failed" | "running" | undefined;
   // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
 
 
@@ -120,9 +120,9 @@ export class HomeComponent {
   buttonClicked = true;
   resultAvailable = false;
 
-  // incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] = [];
+  incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] = [];
 
-  incompatible_components: any = [];
+  // incompatible_components: any = [];
 
   selectedCount(): number {
     const options = [
@@ -186,7 +186,7 @@ export class HomeComponent {
       };
       this.engineService.checkConfiguration(checkEngineDto).subscribe(
         (response) => {
-          alert(response['OptEquipValid']);
+          console.log(response);
         });
       
       this.incompatible_components = [];    
@@ -196,15 +196,21 @@ export class HomeComponent {
 
   checkResult(){
     const allStatesOk = Object.values(this.algorithmStates).every(state => state === AlgorithmStateEnum.ready);
-    const runningState = Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.running);
     const failedState = Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.failed);
+    const runningState = Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.running);
+    
     if (allStatesOk) {
       this.result_state = "ok";
-    }else if (runningState) {
-      this.result_state = undefined;
+      return;
     }else if (failedState){
       this.result_state = "failed";
+      console.log(this.incompatible_components);
+      return;
+    }else if (runningState) {
+      this.result_state = "running";
     }
+
+    console.log(this.result_state);
   }
 
   checkStates() {
@@ -244,14 +250,18 @@ export class HomeComponent {
           {
             next: (res:ReturnAlgorithmStateDto) => { 
               this.algorithmStates[algorithm] = res.algorithmState
-              this.checkStates();
-              this.checkResult();
-              if (res.algorithmState == AlgorithmStateEnum.failed && res.incompatibleComponents) {
-                // fill incompatible components in the UI
+              if (res.algorithmState === AlgorithmStateEnum.failed && res.incompatibleComponents !== undefined) {
+                console.log("raw ", res.incompatibleComponents);
+                this.incompatible_components = Array.from(new Set(this.incompatible_components.concat(res.incompatibleComponents)));
+                console.log("updated incompactibilities ", res.incompatibleComponents);
               }
+               
+              // this.checkStates();
+              this.checkResult();
             }, 
             error: (err) => {
               this.algorithmStates[algorithm] = UIAlgorithmStateEnum.unresponsive
+
               console.log(err, algorithm)
               }
           });
