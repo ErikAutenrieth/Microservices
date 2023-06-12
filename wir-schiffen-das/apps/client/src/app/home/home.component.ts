@@ -155,20 +155,6 @@ export class HomeComponent {
     return (selectedCount / totalCount) * 100;
   }
 
-  checkIncompatibleComponents(comp: number): boolean {
-
-    if (this.incompatible_components && this.incompatible_components?.length === 0) {
-        return false;
-    }
-
-    for (let i = 0; i < components_failure.length; i++) {
-      if (comp === i && this.incompatible_components?.includes(Object.values(components_failure[i])[0])) {
-        return true;
-      }
-    }
-    return false;
-  }
-
   getTextColor(itemStatus: any): any {
     switch (itemStatus) {
       case AlgorithmStateEnum.failed:
@@ -235,6 +221,19 @@ export class HomeComponent {
 
 
 
+  checkIncompatibleComponents(comp: number): boolean {
+ 
+    if (this.incompatible_components && this.incompatible_components?.length === 0) {
+      return false;
+    }
+    for (let i = 0; i < components_failure.length; i++) {
+      if (comp === i && this.incompatible_components?.includes(Object.values(components_failure[i])[0])) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   setStatus() {
     Object.keys(this.algorithmStates).forEach(key => this.algorithmStates[key] = undefined);
 
@@ -248,10 +247,9 @@ export class HomeComponent {
               this.algorithmStates[algorithm] = res.algorithmState
               this.checkStates();
               this.checkResult();
-              if (res.algorithmState == AlgorithmStateEnum.failed) {
+              if (res.algorithmState == AlgorithmStateEnum.failed && res.incompatibleComponents) {
                 // fill incompatible components in the UI
-                this.incompatible_components += res.incompatibleComponents;
-          
+
               }
             }, 
             error: (err) => {
