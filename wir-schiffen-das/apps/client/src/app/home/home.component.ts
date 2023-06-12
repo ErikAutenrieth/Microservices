@@ -220,7 +220,6 @@ export class HomeComponent {
   }
 
 
-
   checkIncompatibleComponents(comp: number): boolean {
  
     if (this.incompatible_components && this.incompatible_components?.length === 0) {
@@ -249,7 +248,6 @@ export class HomeComponent {
               this.checkResult();
               if (res.algorithmState == AlgorithmStateEnum.failed && res.incompatibleComponents) {
                 // fill incompatible components in the UI
-
               }
             }, 
             error: (err) => {

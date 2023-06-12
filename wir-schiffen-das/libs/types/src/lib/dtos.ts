@@ -105,3 +105,6 @@ export interface UpdateAlgorithmStateDto {
   engineState?: AlgorithmStateEnum;
   incompactibleConfigurations?: any[];
 }
+
+
+
