@@ -8,9 +8,10 @@
 
       <form class="selection-form">
 
-        <div fxLayoutGap="10px grid" fxLayout="row wrap" fxLayoutAlign="start">
+        <div fxLayoutGap="30px grid" fxLayout="row wrap" fxLayoutAlign="start">
 
           <div class="selection-group">
+            
             <mat-form-field>
               <mat-label>Diesel Engine</mat-label>
               <mat-select [(ngModel)]="diesel_engine" name="diesel_engine system">
@@ -25,7 +26,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -47,7 +48,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -69,7 +70,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -91,7 +92,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -116,7 +117,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
           </div>
@@ -139,7 +140,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -161,7 +162,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
           </div>
@@ -183,7 +184,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -207,7 +208,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -230,7 +231,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
           </div>
@@ -253,7 +254,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -275,7 +276,7 @@
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;"></mat-icon>
+                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
               </ng-template>
             </div>
 
@@ -307,15 +308,15 @@
         <div class="status-group" *ngFor="let item of Object.entries(algorithmStates); let i=index">
 
           <p class="status-label">
-            M{{i + 1}} [{{ item[0] }}] Status: <span [ngStyle]="getTextColor(item[1])">{{item[1]}}</span>
+            M{{i + 1}} [{{ item[0] }}] Status: <span class="states" [ngStyle]="getTextColor(item[1])">{{item[1]}}</span>
           </p>
           
-          <mat-spinner *ngIf="item[1] === 'running'" strokeWidth=10 diameter=50 value=100>
+          <mat-spinner *ngIf="item[1] === 'running'" strokeWidth=10 diameter=50 value=100 style="margin-left:10px">
           </mat-spinner>
 
         </div>
         <hr>
-        <p class="status-label">Final Result: <span [ngStyle]="getTextColor(result_state)">{{result_state}}</span></p>
+        <p class="status-label">Final Result: <span class="states" [ngStyle]="getTextColor(result_state)">{{result_state}}</span></p>
 
       </div>
 
@@ -323,7 +324,7 @@
 
     <div class="start-button" fxFlex="50%">
 
-      <button mat-raised-button color="primary" (click)="onSumbit()">Start</button>
+      <button mat-fab extended color="primary" class="button" (click)="onSumbit()">Start</button>
 
     </div>
 

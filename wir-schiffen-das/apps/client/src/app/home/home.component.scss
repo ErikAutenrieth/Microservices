@@ -3,6 +3,18 @@ section {
   margin: 0.5vw;
 }
 
+.selection-group {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+
+.status-group {
+  display: flex;
+  align-items: center;
+  margin-bottom: 4px;
+}
 
 .selection-container {
   border-radius: 5px;
@@ -29,6 +41,16 @@ section {
 .results-container {
   margin: 0.5vw;
   padding: 0.5vw;
+}
+
+.states {
+  font-weight: bold;
+}
+
+.button {
+  height: 52px;
+  width: 140px;
+  font-weight: bold;
 }
 
 p{

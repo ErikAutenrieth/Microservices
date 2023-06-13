@@ -112,7 +112,7 @@ export class HomeComponent {
   gear_box_option: GearBoxOptions | undefined;
 
   state: AlgorithmStateEnum | undefined;
-  result_state: "ok" | "failed" | "running" | undefined;
+  result_state: "ok" | "failed" | "" | undefined;
   // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
 
 
@@ -207,7 +207,7 @@ export class HomeComponent {
       console.log(this.incompatible_components);
       return;
     }else if (runningState) {
-      this.result_state = "running";
+      this.result_state = "";
     }
 
     console.log(this.result_state);
@@ -256,7 +256,7 @@ export class HomeComponent {
                 console.log("updated incompactibilities ", res.incompatibleComponents);
               }
                
-              // this.checkStates();
+              this.checkStates();
               this.checkResult();
             }, 
             error: (err) => {
