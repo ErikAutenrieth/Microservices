@@ -4,12 +4,12 @@ import {
   AlgorithmStateEnum,
   CheckAlgorithmStateDto,
   CheckConfigurationDto,
-  MicroserviceAddressEnum,
+  DevMicroserviceAddressEnum,
   ReturnAlgorithmStateDto
 } from '@wir-schiffen-das/types';
 import {Observable, delay, distinctUntilChanged, interval, retry, switchMap, take, takeWhile, tap} from 'rxjs';
 import {SessionService} from './SessionService';
-
+import { environment } from './../environments/environment';
 
 @Injectable({providedIn: 'root'})
 export class EngineService {
@@ -27,7 +27,7 @@ export class EngineService {
 
   checkConfiguration(configDTO: CheckConfigurationDto): Observable<any> {
     console.log('EngineService.checkConfiguration()');
-    return this.http.post('http://localhost:3000/api/anchor/CheckConfiguration', configDTO);
+    return this.http.post(environment.anchorAPI + 'CheckConfiguration', configDTO);
   }
 
   /**
@@ -37,7 +37,7 @@ export class EngineService {
    * @param microservice - The enum value representing the address of the microservice to send the requests to.
    * @returns An Observable emitting the algorithm state information wrapped in a ReturnAlgorithmStateDto.
    */
-  checkAlgorithmState(checkAlgorithmStateDto: CheckAlgorithmStateDto, microservice: MicroserviceAddressEnum): Observable<ReturnAlgorithmStateDto> {
+  checkAlgorithmState(checkAlgorithmStateDto: CheckAlgorithmStateDto, microservice: DevMicroserviceAddressEnum): Observable<ReturnAlgorithmStateDto> {
     console.log('EngineService.checkAlgorithmState()');
 
     return interval(3000) // Emits a value every 3000 milliseconds (3 seconds)

@@ -1,19 +1,17 @@
 import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import CircuitBreaker from 'opossum';
 import {
   AlgorithmState,
   AlgorithmStateDocument,
 } from '@wir-schiffen-das/nestjs-types';
 import {
   CreateAlgorithmStateDto,
-  MicroserviceAddressEnum,
   InitializeAlgorithmMicroserviceDto,
+  DevMicroserviceAddressEnum,
 } from '@wir-schiffen-das/types';
 import { Model } from 'mongoose';
-import { Axios } from 'axios';
-import { firstValueFrom, lastValueFrom } from 'rxjs';
+import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AnchorService {
@@ -48,11 +46,11 @@ export class AnchorService {
    */
   async sendConfigurationToService(
     initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto,
-    microserviceAddressEnum: MicroserviceAddressEnum
+    devMicroserviceAddressEnum: DevMicroserviceAddressEnum
   ): Promise<any> {
     return await firstValueFrom(
       this.httpService.post(
-        microserviceAddressEnum + 'CheckConfiguration',
+        devMicroserviceAddressEnum + 'CheckConfiguration',
         initializeAlgorithmMicroserviceDto
       )
     );

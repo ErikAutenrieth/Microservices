@@ -14,12 +14,12 @@ import {
   AuxiliaryPtoEnum,
   CheckConfigurationDto,
   CoolingSystemEnum,
+  DevMicroserviceAddressEnum,
   DieselEngineEnum,
   EngineManagementSystemEnum,
   ExhaustSystemEnum,
   FuelSystemEnum,
   GearBoxOptions,
-  MicroserviceAddressEnum,
   MonitoringSystems,
   MountingSystemEnum,
   OilSystemEnum,
@@ -38,6 +38,7 @@ import {
   exhaust_systems, mounting_systems, engine_management_systems, monitoring_systems, power_transmissions, gear_box_options, components_failure, 
   THUMBUP_ICON, RED_CROSS_ICON
 } from "@wir-schiffen-das/types";
+import { environment } from "../../environments/environment";
 
 
 enum UIAlgorithmStateEnum  {
@@ -243,7 +244,7 @@ export class HomeComponent {
     Object.keys(this.algorithmStates).forEach(key => this.algorithmStates[key] = undefined);
 
     for (const [algorithm, state] of Object.entries(this.algorithmStates)) {
-      const microservice: MicroserviceAddressEnum = MicroserviceAddressEnum[algorithm as keyof typeof MicroserviceAddressEnum];
+      const microservice: DevMicroserviceAddressEnum = environment.APIUrls[algorithm as keyof typeof DevMicroserviceAddressEnum];
       this.engineService.checkAlgorithmState(
         { userID: this.sessionID }, microservice)
         .subscribe(

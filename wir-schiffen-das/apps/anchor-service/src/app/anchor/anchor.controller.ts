@@ -10,12 +10,15 @@ import {
   CheckConfigurationDto,
   CreateAlgorithmStateDto,
   InitializeAlgorithmMicroserviceDto,
-  MicroserviceAddressEnum,
+  DevMicroserviceAddressEnum,
+  ProdMicroserviceAddressEnum,
 } from '@wir-schiffen-das/types';
 import { AnchorService } from './anchor.service';
 
 @Controller('anchor')
 export class AnchorController {
+
+  apiUrls = process.env.production ? ProdMicroserviceAddressEnum : DevMicroserviceAddressEnum;
   constructor(private readonly appService: AnchorService) {}
 
   /**
@@ -39,13 +42,13 @@ export class AnchorController {
       ...algorithmStateDto,
       ...{ dbId: algotithmStateDoc._id.toString() },
     };
-
+    
     // Send the configuration to all microservices
-    for (const microserviceAddressEnum in MicroserviceAddressEnum) {
+    for (const microserviceAddressEnum in this.apiUrls) {
       //TODO implement circuit breaker and return success to client
       const res = await this.appService.sendConfigurationToService(
         microServiceDto,
-        MicroserviceAddressEnum[microserviceAddressEnum]
+        this.apiUrls[microserviceAddressEnum]
       );
       console.log('finished sending configuration to engine', res);
     }

@@ -4,21 +4,9 @@
 # Tip: Modify "docker-build" options in project.json to change docker build args.
 #
 # Run the container with `docker run -p 3000:3000 -t client`.
-FROM docker.io/node:lts-alpine
 
-ENV HOST=0.0.0.0
-ENV PORT=3000
+FROM docker.io/nginx:stable-alpine
 
-WORKDIR /app
+COPY dist/apps/client /usr/share/nginx/html
 
-RUN addgroup --system client && \
-          adduser --system -G client client
-
-COPY dist/apps/client client
-RUN chown -R client:client .
-
-# You can remove this install step if you build with `--bundle` option.
-# The bundled output will include external dependencies.
-RUN npm --prefix client --omit=dev -f install
-
-CMD [ "node", "client" ]
+EXPOSE 80

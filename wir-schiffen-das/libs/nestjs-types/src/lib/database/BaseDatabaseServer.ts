@@ -1,8 +1,7 @@
-import { HttpService } from '@nestjs/axios';
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { AlgorithmState, AlgorithmStateDocument } from '@wir-schiffen-das/nestjs-types';
-import { CreateAlgorithmStateDto, MicroserviceAddressEnum, UpdateAlgorithmStateDto } from '@wir-schiffen-das/types';
+import { CreateAlgorithmStateDto, UpdateAlgorithmStateDto } from '@wir-schiffen-das/types';
 import { Model } from 'mongoose';
 
 @Injectable()
