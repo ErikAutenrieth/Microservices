@@ -19,6 +19,10 @@ services:
       - production=true
     depends_on:
       - mongodb
+      - engine-service
+      - cooling-exhaust-service
+      - control-transmission-service
+      - auxiliary-mounting-service
 
   auxiliary-mounting-service:
     image: registry.gitlab.com/ooka2/preparations/monorepo/auxiliary-mounting-service
