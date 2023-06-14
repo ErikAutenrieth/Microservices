@@ -18,10 +18,6 @@ import { AnchorService } from './anchor.service';
 export class AnchorController {
   constructor(private readonly appService: AnchorService) {}
 
-  @Get()
-  getData() {
-    return 'Hello API From Engine';
-  }
   /**
    * Handles the POST request for checking configuration.
    *
@@ -46,6 +42,7 @@ export class AnchorController {
 
     // Send the configuration to all microservices
     for (const microserviceAddressEnum in MicroserviceAddressEnum) {
+      //TODO implement circuit breaker and return success to client
       const res = await this.appService.sendConfigurationToService(
         microServiceDto,
         MicroserviceAddressEnum[microserviceAddressEnum]

@@ -16,7 +16,8 @@
         "tsConfig": "apps/cooling-exhaust-service/tsconfig.app.json",
         "assets": ["apps/cooling-exhaust-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/cooling-exhaust-service/webpack.config.js"
+        "webpackConfig": "apps/cooling-exhaust-service/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -58,6 +59,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/cooling-exhaust-service/Dockerfile . -t cooling-exhaust-service"
     }
   },
   "tags": []

@@ -16,7 +16,8 @@
         "tsConfig": "apps/engine-service/tsconfig.app.json",
         "assets": ["apps/engine-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/engine-service/webpack.config.js"
+        "webpackConfig": "apps/engine-service/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -58,6 +59,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/engine-service/Dockerfile . -t engine-service"
     }
   },
   "tags": []

@@ -1,4 +1,4 @@
-import {IS_UUID, IsEnum, IsString, IsUUID} from 'class-validator';
+import {IS_UUID, IsEnum, IsOptional, IsString, IsUUID} from 'class-validator';
 import {
   AlgorithmStateEnum,
   AuxiliaryPtoEnum,
@@ -106,5 +106,27 @@ export interface UpdateAlgorithmStateDto {
   incompactibleConfigurations?: any[];
 }
 
+export class UpdateAlgorithmStateDtoClass {
+  @IsEnum(AlgorithmStateEnum)
+  ResultState!: AlgorithmStateEnum;
+
+  @IsString()
+  userId!: string;
+
+  @IsEnum(AlgorithmStateEnum)
+  auxilleryMountingState!: AlgorithmStateEnum;
+
+  @IsEnum(AlgorithmStateEnum)
+  controlTransmissionState!: AlgorithmStateEnum;
+
+  @IsEnum(AlgorithmStateEnum)
+  coolingExhaustState!: AlgorithmStateEnum;
+
+  @IsEnum(AlgorithmStateEnum)
+  engineState!: AlgorithmStateEnum;
+
+  @IsOptional()
+  incompactibleConfigurations?: any[];
+}
 
 

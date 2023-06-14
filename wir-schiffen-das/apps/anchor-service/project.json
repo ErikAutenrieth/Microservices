@@ -16,7 +16,8 @@
         "tsConfig": "apps/anchor-service/tsconfig.app.json",
         "assets": ["apps/anchor-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/anchor-service/webpack.config.js"
+        "webpackConfig": "apps/anchor-service/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -58,6 +59,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/anchor-service/Dockerfile . -t anchor-service"
     }
   },
   "tags": []

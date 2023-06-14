@@ -16,7 +16,8 @@
         "tsConfig": "apps/auxiliary-mounting-service/tsconfig.app.json",
         "assets": ["apps/auxiliary-mounting-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/auxiliary-mounting-service/webpack.config.js"
+        "webpackConfig": "apps/auxiliary-mounting-service/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -58,6 +59,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/auxiliary-mounting-service/Dockerfile . -t auxiliary-mounting-service"
     }
   },
   "tags": []

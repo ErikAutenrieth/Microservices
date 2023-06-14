@@ -16,7 +16,8 @@
         "tsConfig": "apps/control-transmission-service/tsconfig.app.json",
         "assets": ["apps/control-transmission-service/src/assets"],
         "isolatedConfig": true,
-        "webpackConfig": "apps/control-transmission-service/webpack.config.js"
+        "webpackConfig": "apps/control-transmission-service/webpack.config.js",
+        "generatePackageJson": true
       },
       "configurations": {
         "development": {},
@@ -58,6 +59,10 @@
           "codeCoverage": true
         }
       }
+    },
+    "docker-build": {
+      "dependsOn": ["build"],
+      "command": "docker build -f apps/control-transmission-service/Dockerfile . -t control-transmission-service"
     }
   },
   "tags": []
