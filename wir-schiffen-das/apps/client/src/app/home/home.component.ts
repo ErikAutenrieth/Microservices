@@ -228,7 +228,6 @@ export class HomeComponent {
 
 
   checkIncompatibleComponents(comp: number): boolean {
- 
     if (this.incompatible_components && this.incompatible_components?.length === 0) {
       return false;
     }
@@ -240,16 +239,23 @@ export class HomeComponent {
     return false;
   }
 
+  /**
+ * Set the status of the algorithm states.
+ */
   setStatus() {
+    // Reset all algorithm states to undefined
     Object.keys(this.algorithmStates).forEach(key => this.algorithmStates[key] = undefined);
-
+    // Iterate through each algorithm and check its state
     for (const [algorithm, state] of Object.entries(this.algorithmStates)) {
+      // Get the microservice URL for the algorithm
       const microservice: DevMicroserviceAddressEnum = environment.APIUrls[algorithm as keyof typeof DevMicroserviceAddressEnum];
+      // Call the engine service to check the algorithm state
       this.engineService.checkAlgorithmState(
         { userID: this.sessionID }, microservice)
         .subscribe(
           {
             next: (res:ReturnAlgorithmStateDto) => { 
+              // Update the algorithm state 
               this.algorithmStates[algorithm] = res.algorithmState
               if (res.algorithmState === AlgorithmStateEnum.failed && res.incompatibleComponents !== undefined) {
                 console.log("raw ", res.incompatibleComponents);
