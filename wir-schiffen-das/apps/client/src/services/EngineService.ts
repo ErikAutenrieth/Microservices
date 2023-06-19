@@ -38,17 +38,14 @@ export class EngineService {
    * @returns An Observable emitting the algorithm state information wrapped in a ReturnAlgorithmStateDto.
    */
   checkAlgorithmState(checkAlgorithmStateDto: CheckAlgorithmStateDto, microservice: DevMicroserviceAddressEnum): Observable<ReturnAlgorithmStateDto> {
-    console.log('EngineService.checkAlgorithmState()');
-
     return interval(3000) // Emits a value every 3000 milliseconds (3 seconds)
     .pipe(
-      switchMap(() => this.http.post<ReturnAlgorithmStateDto>(microservice + "status", checkAlgorithmStateDto)), 
       // Makes an HTTP POST request to check the algorithm state
-      retry({ delay: 3000, count: 5, resetOnSuccess: true }), 
-      // Retries the HTTP POST request up to 5 times with a 3000 millisecond (3 seconds) delay between retries
+      switchMap(() => this.http.post<ReturnAlgorithmStateDto>(microservice + "status", checkAlgorithmStateDto)), 
+      retry({ delay: 3000, count: 5, resetOnSuccess: true }), // Retries the HTTP POST request up to 5 times with a 3 seconds delay between retries
       distinctUntilChanged(), // Emits only distinct algorithm states
-      takeWhile(res => (res.algorithmState !== AlgorithmStateEnum.ready) && (res.algorithmState !== AlgorithmStateEnum.failed), true) 
       // Emits values until the algorithm state is either "ready" or "failed"
+      takeWhile(res => (res.algorithmState !== AlgorithmStateEnum.ready) && (res.algorithmState !== AlgorithmStateEnum.failed), true) 
       );
   }
 
