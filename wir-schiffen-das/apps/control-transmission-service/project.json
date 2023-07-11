@@ -10,7 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "target": "node",
-        "compiler": "tsc",
+        "compiler": "swc",
         "outputPath": "dist/apps/control-transmission-service",
         "main": "apps/control-transmission-service/src/main.ts",
         "tsConfig": "apps/control-transmission-service/tsconfig.app.json",

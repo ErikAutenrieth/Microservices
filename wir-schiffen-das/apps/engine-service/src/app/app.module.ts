@@ -4,13 +4,15 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
-import { DatabaseSubscriptionService } from './database.subscription.service';
-import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
+// import { DatabaseSubscriptionService } from './database.subscription.service';
+import {  AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatabaseServer, ConfigurationDatabaseSchema } from '@wir-schiffen-das/nestjs-types';
 
 @Module({
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_ATLAS_AZURE_CONNECTION_KEY),
+    MongooseModule.forFeature([{ name: 'ConfigurationDatabase', schema: ConfigurationDatabaseSchema }, { name: 'AlgorithmState', schema: AlgorithmStateSchema }]),
+    
     MongooseModule.forFeatureAsync([
       {
         name: AlgorithmState.name,
@@ -22,12 +24,14 @@ import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatab
           });
           return schema;
         }
+        
       }
     ]),
+    
 
   ],
   controllers: [AppController],
-  providers: [AppService, DatabaseSubscriptionService, BaseDatabaseServer],
+  providers: [AppService, BaseDatabaseServer],
 
 })
 export class AppModule { }

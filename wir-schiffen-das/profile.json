@@ -1,0 +1,166 @@
+[
+  {
+    "name": "thread_name",
+    "ph": "M",
+    "pid": 9350,
+    "tid": 0,
+    "ts": 0,
+    "args": {
+      "name": "Group #1"
+    }
+  },
+  {
+    "name": "types:build",
+    "cat": "types,build,",
+    "ph": "X",
+    "ts": 410548.711001873,
+    "dur": 1853024.3209972978,
+    "pid": 9350,
+    "tid": 0,
+    "args": {
+      "target": {
+        "project": "types",
+        "target": "build"
+      },
+      "status": "success"
+    }
+  },
+  {
+    "name": "thread_name",
+    "ph": "M",
+    "pid": 9350,
+    "tid": 1,
+    "ts": 0,
+    "args": {
+      "name": "Group #2"
+    }
+  },
+  {
+    "name": "thread_name",
+    "ph": "M",
+    "pid": 9350,
+    "tid": 2,
+    "ts": 0,
+    "args": {
+      "name": "Group #3"
+    }
+  },
+  {
+    "name": "nestjs-types:build",
+    "cat": "nestjs-types,build,",
+    "ph": "X",
+    "ts": 2264424.593999982,
+    "dur": 4701281.213000417,
+    "pid": 9350,
+    "tid": 1,
+    "args": {
+      "target": {
+        "project": "nestjs-types",
+        "target": "build"
+      },
+      "status": "success"
+    }
+  },
+  {
+    "name": "client:build:production",
+    "cat": "client,build,production",
+    "ph": "X",
+    "ts": 2264484.836999327,
+    "dur": 13730369.552001357,
+    "pid": 9350,
+    "tid": 2,
+    "args": {
+      "target": {
+        "project": "client",
+        "target": "build",
+        "configuration": "production"
+      },
+      "status": "success"
+    }
+  },
+  {
+    "name": "control-transmission-service:build:production",
+    "cat": "control-transmission-service,build,production",
+    "ph": "X",
+    "ts": 6966476.2570001185,
+    "dur": 10444318.596001714,
+    "pid": 9350,
+    "tid": 0,
+    "args": {
+      "target": {
+        "project": "control-transmission-service",
+        "target": "build",
+        "configuration": "production"
+      },
+      "status": "success"
+    }
+  },
+  {
+    "name": "auxiliary-mounting-service:build:production",
+    "cat": "auxiliary-mounting-service,build,production",
+    "ph": "X",
+    "ts": 6966612.24200204,
+    "dur": 10584681.272000074,
+    "pid": 9350,
+    "tid": 1,
+    "args": {
+      "target": {
+        "project": "auxiliary-mounting-service",
+        "target": "build",
+        "configuration": "production"
+      },
+      "status": "success"
+    }
+  },
+  {
+    "name": "cooling-exhaust-service:build:production",
+    "cat": "cooling-exhaust-service,build,production",
+    "ph": "X",
+    "ts": 15995164.572998881,
+    "dur": 11882212.533000857,
+    "pid": 9350,
+    "tid": 2,
+    "args": {
+      "target": {
+        "project": "cooling-exhaust-service",
+        "target": "build",
+        "configuration": "production"
+      },
+      "status": "success"
+    }
+  },
+  {
+    "name": "anchor-service:build:production",
+    "cat": "anchor-service,build,production",
+    "ph": "X",
+    "ts": 17551498.25900048,
+    "dur": 11418207.458999008,
+    "pid": 9350,
+    "tid": 1,
+    "args": {
+      "target": {
+        "project": "anchor-service",
+        "target": "build",
+        "configuration": "production"
+      },
+      "status": "success"
+    }
+  },
+  {
+    "name": "engine-service:build:production",
+    "cat": "engine-service,build,production",
+    "ph": "X",
+    "ts": 17411088.224999607,
+    "dur": 12103287.638999522,
+    "pid": 9350,
+    "tid": 0,
+    "args": {
+      "target": {
+        "project": "engine-service",
+        "target": "build",
+        "configuration": "production"
+      },
+      "status": "success"
+    }
+  }
+]

@@ -4,8 +4,10 @@ import { AlgorithmStateEnum, CheckConfigurationDto, ConfigurationDatabaseDto } f
 import { DieselEngineEnum, StartingSystemEnum, AuxiliaryPtoEnum, OilSystemEnum, FuelSystemEnum, CoolingSystemEnum, ExhaustSystemEnum, MountingSystemEnum, EngineManagementSystemEnum, MonitoringSystems, PowerTransmission, GearBoxOptions } from '@wir-schiffen-das/types';
 import { HydratedDocument } from 'mongoose';
 
+
+export type ConfigurationDatabaseDocument = HydratedDocument<ConfigurationDatabase>;
 @Schema()
-export class ConfigurationDatabaseSchema {
+export class ConfigurationDatabase {
     @Prop({ type: String, enum: DieselEngineEnum })
     diesel_engine!: DieselEngineEnum;
 
@@ -44,24 +46,25 @@ export class ConfigurationDatabaseSchema {
 
 };
 
+export const ConfigurationDatabaseSchema = SchemaFactory.createForClass(ConfigurationDatabase);
+
 
 export type AlgorithmStateDocument = HydratedDocument<AlgorithmState>;
-
 @Schema()
 export class AlgorithmState {
     @Prop({ type: String, default: AlgorithmStateEnum.notStarted })
     ResultState: AlgorithmStateEnum = AlgorithmStateEnum.notStarted;
 
-    @Prop()
+    @Prop({ type: String})
     userId!: string;
 
-    @Prop({ default: Date.now })
+    @Prop({ type: Date, default: Date.now })
     created: Date = new Date();
 
     @Prop({type: ConfigurationDatabaseSchema })
-    configuration!: ConfigurationDatabaseDto;
+    configuration!: ConfigurationDatabase;
 
-    @Prop({ default: Date.now })
+    @Prop({type: Date, default: Date.now })
     lastUpdated: Date = new Date();
 
     @Prop({ type: String, default: AlgorithmStateEnum.notStarted })

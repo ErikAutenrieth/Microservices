@@ -10,7 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "target": "node",
-        "compiler": "tsc",
+        "compiler": "swc",
         "outputPath": "dist/apps/cooling-exhaust-service",
         "main": "apps/cooling-exhaust-service/src/main.ts",
         "tsConfig": "apps/cooling-exhaust-service/tsconfig.app.json",

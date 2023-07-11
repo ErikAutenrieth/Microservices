@@ -1,13 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AlgorithmState, AlgorithmStateDocument } from '@wir-schiffen-das/nestjs-types';
+import { AlgorithmState, AlgorithmStateDocument, ConfigurationDatabase, ConfigurationDatabaseDocument, ConfigurationDatabaseSchema } from '@wir-schiffen-das/nestjs-types';
 import { CreateAlgorithmStateDto, UpdateAlgorithmStateDto } from '@wir-schiffen-das/types';
 import { Model } from 'mongoose';
 
 @Injectable()
 export class BaseDatabaseServer {
 
-    constructor( @InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>) {
+    constructor(@InjectModel(ConfigurationDatabase.name) private configurationDatabase: Model<ConfigurationDatabaseDocument>,
+                @InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>,
+    ) {
     }
 
     async create(createAlgorithmStateDto: CreateAlgorithmStateDto): Promise<AlgorithmStateDocument> {

@@ -2,6 +2,7 @@ import {
   Body,
   Controller,
   Get,
+  Inject,
   Post,
   UsePipes,
   ValidationPipe,
@@ -14,12 +15,28 @@ import {
   ProdMicroserviceAddressEnum,
 } from '@wir-schiffen-das/types';
 import { AnchorService } from './anchor.service';
+import { ClientKafka } from '@nestjs/microservices';
+
 
 @Controller('anchor')
 export class AnchorController {
 
   apiUrls = process.env.production ? ProdMicroserviceAddressEnum : DevMicroserviceAddressEnum;
-  constructor(private readonly appService: AnchorService) {}
+  constructor(private readonly appService: AnchorService,
+    @Inject('ANCHOR_SERVICE') private readonly kafkaClient: ClientKafka,
+  ) { }
+
+
+  async onModuleInit() {
+    await this.kafkaClient.connect();
+    this.kafkaClient.send('test', 'Hello Kafka from Anchor');
+  }
+
+  @Get('sendKafka')
+  async sendKafka() {
+    this.kafkaClient.emit('test', 'Hello Kafka from Anchor GET');
+    return 'Message sent';
+  }
 
   /**
    * Handles the POST request for checking configuration.
@@ -42,7 +59,7 @@ export class AnchorController {
       ...algorithmStateDto,
       ...{ dbId: algotithmStateDoc._id.toString() },
     };
-    
+
     // Send the configuration to all microservices
     for (const microserviceAddressEnum in this.apiUrls) {
       //TODO implement circuit breaker and return success to client

@@ -1,0 +1,78 @@
+version: '3'
+
+services:
+  client:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/client
+    ports:
+      - 80:80
+    depends_on:
+      - anchor-service
+
+  anchor-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/anchor-service
+    expose:
+      - 3000
+    ports:
+      - 3000:3000
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - production=true
+    depends_on:
+      - mongodb
+      - engine-service
+      - cooling-exhaust-service
+      - control-transmission-service
+      - auxiliary-mounting-service
+
+  auxiliary-mounting-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/auxiliary-mounting-service
+    expose:
+      - 3030
+    ports:
+      - 3030:3030
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    depends_on:
+      - mongodb
+
+  control-transmission-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/control-transmission-service
+    expose:
+      - 3040
+    ports:
+      - 3040:3040  
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    depends_on:
+      - mongodb
+
+  cooling-exhaust-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/cooling-exhaust-service
+    expose:
+      - 3020
+    ports:
+      - 3020:3020
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    depends_on:
+      - mongodb
+
+  engine-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/engine-service
+    expose:
+      - 3010
+    ports:
+      - 3010:3010
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    depends_on:
+      - mongodb
+
+  mongodb:
+    image: mongo
+    restart: always
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    expose:
+      - 27017
