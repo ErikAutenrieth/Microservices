@@ -47,11 +47,11 @@ export class AnchorController {
   @Post('CheckConfiguration')
   @UsePipes(new ValidationPipe())
   async OptEquip(@Body() CheckConfigurationDto: CheckConfigurationDto) {
-    console.log(CheckConfigurationDto);
     const algorithmStateDto: CreateAlgorithmStateDto = {
       userId: CheckConfigurationDto.userID,
-      Configurations: CheckConfigurationDto,
+      configuration: CheckConfigurationDto,
     };
+
     const algotithmStateDoc = await this.appService.create(algorithmStateDto);
 
     // Create a microservice DTO with the algorithm state document's ID
@@ -60,6 +60,10 @@ export class AnchorController {
       ...{ dbId: algotithmStateDoc._id.toString() },
     };
 
+    await this.appService.publishConfigurationToKafka(microServiceDto);
+    console.log('finished sending configuration to kafka');
+
+    
     // Send the configuration to all microservices
     for (const microserviceAddressEnum in this.apiUrls) {
       //TODO implement circuit breaker and return success to client
@@ -69,6 +73,7 @@ export class AnchorController {
       );
       console.log('finished sending configuration to engine', res);
     }
+
 
     return { success: true };
   }

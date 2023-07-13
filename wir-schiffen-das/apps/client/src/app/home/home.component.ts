@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, HostListener } from "@angular/core";
 import { CommonModule } from '@angular/common';
 import { MatOptionModule, ThemePalette } from "@angular/material/core";
 import { MatSelectModule } from "@angular/material/select";
@@ -32,6 +32,7 @@ import { EngineService } from "../../services/EngineService";
 import { SessionService } from "../../services/SessionService";
 import { DomSanitizer } from "@angular/platform-browser";
 import { FlexLayoutModule } from '@angular/flex-layout';
+import { randomStringEnumValue } from "@wir-schiffen-das/types";
 
 import {
   diesel_engines, starting_systems, auxiliary_ptos, oil_systems, fuel_systems, cooling_systems,
@@ -84,6 +85,25 @@ export class HomeComponent {
 
   ngOnInit() {
     this.engineService.test();
+  }
+
+
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'r') {
+      this.diesel_engine = randomStringEnumValue(DieselEngineEnum);
+      this.starting_system = randomStringEnumValue(StartingSystemEnum);
+      this.auxiliary_pto = randomStringEnumValue(AuxiliaryPtoEnum);
+      this.oil_system = randomStringEnumValue(OilSystemEnum);
+      this.fuel_system = randomStringEnumValue(FuelSystemEnum);
+      this.cooling_system = randomStringEnumValue(CoolingSystemEnum);
+      this.exhaust_system = randomStringEnumValue(ExhaustSystemEnum);
+      this.mounting_system = randomStringEnumValue(MountingSystemEnum);
+      this.engine_management_system = randomStringEnumValue(EngineManagementSystemEnum);
+      this.monitoring_system = randomStringEnumValue(MonitoringSystems);
+      this.power_transmission = randomStringEnumValue(PowerTransmission);
+      this.gear_box_option = randomStringEnumValue(GearBoxOptions);
+    }
   }
 
   // spinner props
@@ -140,15 +160,7 @@ export class HomeComponent {
     return count;
   }
 
-
-  checkReady(): string {
-    if (this.selectedCount() === 12) {
-      return "ready";
-    } else {
-      return "not ready";
-    }
-  }
-
+  checkReady = () : string => (this.selectedCount() === 12) ? "ready" : "not ready";
 
   calculateProgress(): number {
     const totalCount = 12;

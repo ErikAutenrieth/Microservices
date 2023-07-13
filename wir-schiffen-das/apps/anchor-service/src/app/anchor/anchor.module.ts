@@ -4,6 +4,8 @@ import { HttpModule } from '@nestjs/axios';
 import {
   AlgorithmState,
   AlgorithmStateSchema,
+  BaseDatabaseServer,
+  ConfigurationDatabaseSchema,
 } from '@wir-schiffen-das/nestjs-types';
 import { AnchorController } from './anchor.controller';
 import { AnchorService } from './anchor.service';
@@ -11,9 +13,10 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
-    MongooseModule.forFeature([
-      { name: AlgorithmState.name, schema: AlgorithmStateSchema },
-    ]),
+    MongooseModule.forFeature([{ name: 'ConfigurationDatabase', schema: ConfigurationDatabaseSchema }, { name: 'AlgorithmState', schema: AlgorithmStateSchema }]),
+    /* MongooseModule.forFeature([
+      { name: AlgorithmState.name, schema: AlgorithmStateSchema }, 
+    ]), */
 
     ClientsModule.register([
       {
@@ -28,10 +31,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
             groupId: 'anchor-consumer'
           }
         }
-      },]),
+      },
+    ]),
     HttpModule,
   ],
   controllers: [AnchorController],
-  providers: [AnchorService],
+  providers: [AnchorService, BaseDatabaseServer],
 })
 export class AnchorModule {}

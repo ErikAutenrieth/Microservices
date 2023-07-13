@@ -10,7 +10,7 @@
       "defaultConfiguration": "production",
       "options": {
         "target": "node",
-        "compiler": "swc",
+        "compiler": "tsc",
         "outputPath": "dist/apps/anchor-service",
         "main": "apps/anchor-service/src/main.ts",
         "tsConfig": "apps/anchor-service/tsconfig.app.json",

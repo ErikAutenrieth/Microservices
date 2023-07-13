@@ -12,10 +12,12 @@ import { AppModule } from './app/app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.connectMicroservice({
-    transport: Transport.TCP,
-    options: {
-      port: 3015,
-    },
+  transport: Transport.KAFKA,
+  options: {
+    client: {
+      brokers: ['localhost:9092'],
+    }
+  }
   });
   const globalPrefix = 'api';
   app.enableCors();

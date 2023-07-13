@@ -87,11 +87,10 @@ export class CreateAlgorithmStateDto {
   @IsUUID(4)
   userId!: string;
 
-  Configurations!: ConfigurationDatabaseDto;
+  configuration!: ConfigurationDatabaseDto;
 }
 
 export class InitializeAlgorithmMicroserviceDto extends CreateAlgorithmStateDto {
-
   @IsString()
   dbId!: string;
 }
