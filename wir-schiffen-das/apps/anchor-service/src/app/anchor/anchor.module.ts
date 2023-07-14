@@ -24,11 +24,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'anchor',
+            // clientId: 'anchor',
             brokers: ['localhost:9092'],
           },
           consumer: {
-            groupId: 'anchor-consumer'
+            groupId: 'wir-schiffen-das'
           }
         }
       },

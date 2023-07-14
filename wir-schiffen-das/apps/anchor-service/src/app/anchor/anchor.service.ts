@@ -1,6 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
+import { KafkaMessage } from '@nestjs/microservices/external/kafka.interface';
 import { InjectModel } from '@nestjs/mongoose';
 import {
   AlgorithmState,
@@ -11,6 +12,7 @@ import {
   CreateAlgorithmStateDto,
   InitializeAlgorithmMicroserviceDto,
   DevMicroserviceAddressEnum,
+  ConfigurationValidationInitDto,
 } from '@wir-schiffen-das/types';
 import { Model } from 'mongoose';
 import { firstValueFrom } from 'rxjs';
@@ -68,17 +70,15 @@ export class AnchorService {
   /**
    * Sends the configuration to a specific microservice.
    *
-   * @param initializeAlgorithmMicroserviceDto - The data object containing the configuration to be sent.
+   * @param initializeKafkaConfigurationDto - The data object containing the configuration to be sent.
    */
   async publishConfigurationToKafka(
-    initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto) {
+    initializeKafkaConfigurationDto: ConfigurationValidationInitDto) {
       const message = {
-        headers: {
-          "dbID": initializeAlgorithmMicroserviceDto.dbId,
-          "userId": initializeAlgorithmMicroserviceDto.userId,
-        },
-        value: JSON.stringify(initializeAlgorithmMicroserviceDto),
+        key: initializeKafkaConfigurationDto.userId,
+        value: JSON.stringify(initializeKafkaConfigurationDto),
       };
+      await this.kafkaClient.connect();
 
       this.kafkaClient.emit('new_config_request', message);
     }

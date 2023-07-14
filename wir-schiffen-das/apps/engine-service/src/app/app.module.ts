@@ -35,11 +35,11 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         transport: Transport.KAFKA,
         options: {
           client: {
-            clientId: 'engine',
+            // clientId: 'engine',
             brokers: ['localhost:9092'],
           },
           consumer: {
-            groupId: 'engine-consumer'
+            groupId: 'wir-schiffen-das',
           }
         }
       },

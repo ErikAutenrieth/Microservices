@@ -1,17 +1,21 @@
-import {Body, Controller, Post, UsePipes, ValidationPipe} from '@nestjs/common';
+import {Body, Controller, Inject, Post, UsePipes, ValidationPipe} from '@nestjs/common';
+import {ClientKafka, Ctx, KafkaContext, MessagePattern, Payload } from '@nestjs/microservices';
 
 import {
   AlgorithmStateEnum,
   CheckAlgorithmStateDto,
+  ConfigurationValidationInitDto,
+  CreateAlgorithmStateDto,
   InitializeAlgorithmMicroserviceDto,
   ReturnAlgorithmStateDto,
 } from "@wir-schiffen-das/types";
 import { AbstractAppService } from './AbstractAppService';
+import { AlgorithmState, AlgorithmStateDocument } from '../mongoose.shemas';
 
 export abstract class AbstractAppController {
 
   protected Algorithm!: String;
-  constructor(private readonly appService: AbstractAppService) {
+  constructor(private readonly appService: AbstractAppService, @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka) {
   }
 
   /**
@@ -27,6 +31,15 @@ export abstract class AbstractAppController {
     this.checkConfigurationHelper(initializeAlgorithmMicroserviceDto);
 
   }
+
+  @MessagePattern('new_config_request')
+  handleNewConfigRequest(@Payload() message: ConfigurationValidationInitDto, @Ctx() context: KafkaContext) {
+    // Handle the incoming message
+    console.log('Received new config request:', message);
+    this.checkKafkaConfigurationHelper(message);
+  }
+
+
   /**
    * Helper method for checking configuration.
    *
@@ -58,6 +71,30 @@ export abstract class AbstractAppController {
     }
   }
 
+  async checkKafkaConfigurationHelper(ConfigurationValidationInitDto: ConfigurationValidationInitDto) {
+    await this.appService.updateAlgorithmState(ConfigurationValidationInitDto.dbId, { [this.Algorithm + "State"]: AlgorithmStateEnum.running});
+    const dbEntry = await this.appService.getDatabaseEntry(ConfigurationValidationInitDto.dbId);
+    const configuration = dbEntry!.configuration;
+    // Check compatibility of components
+    let incompatibleComponents = await this.appService.checkKafkaCompactibility(configuration);
+
+    if (incompatibleComponents.length > 0) {
+      incompatibleComponents = incompatibleComponents.reduce((result: string[], set: Set<string>) => {
+        return [...result, ...Array.from(set)];
+      }, []);
+      // Update the algorithm state to "failed" with incompatible components
+      console.log("incompatible components", incompatibleComponents);
+      const updated = await this.appService.updateAlgorithmState(ConfigurationValidationInitDto.dbId, {
+        [this.Algorithm + "State"]: AlgorithmStateEnum.failed,
+        incompactibleConfigurations: incompatibleComponents
+      });
+      console.log("updated", updated);
+    } else {
+      // Update the algorithm state to "ready"
+      await this.appService.updateAlgorithmState(ConfigurationValidationInitDto.dbId, {[this.Algorithm + "State"]: AlgorithmStateEnum.ready});
+    }  
+  }
+
   /**
    * Handles the POST request for getting the algorithm status.
    *
@@ -78,4 +115,5 @@ export abstract class AbstractAppController {
 
   }
 }
+
 

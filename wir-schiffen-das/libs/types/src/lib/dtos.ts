@@ -90,6 +90,15 @@ export class CreateAlgorithmStateDto {
   configuration!: ConfigurationDatabaseDto;
 }
 
+export class ConfigurationValidationInitDto {
+
+  @IsUUID(4)
+  userId!: string;
+
+  @IsString()
+  dbId!: string;
+}
+
 export class InitializeAlgorithmMicroserviceDto extends CreateAlgorithmStateDto {
   @IsString()
   dbId!: string;

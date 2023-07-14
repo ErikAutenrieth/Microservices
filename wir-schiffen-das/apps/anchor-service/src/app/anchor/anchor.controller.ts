@@ -13,6 +13,7 @@ import {
   InitializeAlgorithmMicroserviceDto,
   DevMicroserviceAddressEnum,
   ProdMicroserviceAddressEnum,
+  ConfigurationValidationInitDto,
 } from '@wir-schiffen-das/types';
 import { AnchorService } from './anchor.service';
 import { ClientKafka } from '@nestjs/microservices';
@@ -60,7 +61,12 @@ export class AnchorController {
       ...{ dbId: algotithmStateDoc._id.toString() },
     };
 
-    await this.appService.publishConfigurationToKafka(microServiceDto);
+    const kafkaInitMessage: ConfigurationValidationInitDto = {
+      userId: CheckConfigurationDto.userID,
+      dbId: algotithmStateDoc._id.toString(),
+    }
+
+    await this.appService.publishConfigurationToKafka(kafkaInitMessage);
     console.log('finished sending configuration to kafka');
 
     
@@ -71,7 +77,7 @@ export class AnchorController {
         microServiceDto,
         this.apiUrls[microserviceAddressEnum]
       );
-      console.log('finished sending configuration to engine', res);
+      // console.log('finished sending configuration to engine', res);
     }
 
 

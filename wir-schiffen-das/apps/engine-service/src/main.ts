@@ -23,6 +23,7 @@ async function bootstrap() {
   app.enableCors();
   app.setGlobalPrefix(globalPrefix);
   app.useGlobalPipes(new ValidationPipe());
+  await app.startAllMicroservices();
   const port = process.env.PORT || 3010;
   await app.listen(port);
   Logger.log(
