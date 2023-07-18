@@ -17,16 +17,16 @@ export class BaseDatabaseServer {
         return createdAlgorithmState.save();
     }
 
-    async load(id: string): Promise<AlgorithmStateDocument | null> {
+    async load(id: String): Promise<AlgorithmStateDocument | null> {
         return this.algorithmState.findById(id).exec();
     }
 
-    async findByUserId(userId: string): Promise<AlgorithmStateDocument | null> {
+    async findByUserId(userId: String): Promise<AlgorithmStateDocument | null> {
         return this.algorithmState.findOne({ userId: userId }).sort({ created: -1 }).exec();
     }
 
 
-    async update(id: string, updateAlgorithmState: UpdateAlgorithmStateDto): Promise<AlgorithmStateDocument | null> {
+    async update(id: String, updateAlgorithmState: UpdateAlgorithmStateDto): Promise<AlgorithmStateDocument | null> {
         return this.algorithmState.findByIdAndUpdate(id, updateAlgorithmState, { new: true }).exec();
     }
 

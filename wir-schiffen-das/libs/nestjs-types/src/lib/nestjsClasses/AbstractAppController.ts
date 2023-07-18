@@ -15,7 +15,7 @@ import { AlgorithmState, AlgorithmStateDocument } from '../mongoose.shemas';
 export abstract class AbstractAppController {
 
   protected Algorithm!: String;
-  constructor(private readonly appService: AbstractAppService, @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka) {
+  constructor(private readonly appService: AbstractAppService) {
   }
 
   /**
@@ -35,7 +35,7 @@ export abstract class AbstractAppController {
   @MessagePattern('new_config_request')
   handleNewConfigRequest(@Payload() message: ConfigurationValidationInitDto, @Ctx() context: KafkaContext) {
     // Handle the incoming message
-    console.log('Received new config request:', message);
+    console.log('Received new kafka config request:', message);
     this.checkKafkaConfigurationHelper(message);
   }
 
@@ -71,10 +71,11 @@ export abstract class AbstractAppController {
     }
   }
 
-  async checkKafkaConfigurationHelper(ConfigurationValidationInitDto: ConfigurationValidationInitDto) {
-    await this.appService.updateAlgorithmState(ConfigurationValidationInitDto.dbId, { [this.Algorithm + "State"]: AlgorithmStateEnum.running});
-    const dbEntry = await this.appService.getDatabaseEntry(ConfigurationValidationInitDto.dbId);
+  async checkKafkaConfigurationHelper(configurationValidationInitDto: ConfigurationValidationInitDto) {
+    const dbEntry = await this.appService.getDatabaseEntry(configurationValidationInitDto.dbId);
     const configuration = dbEntry!.configuration;
+
+    await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, { [this.Algorithm + "State"]: AlgorithmStateEnum.running});
     // Check compatibility of components
     let incompatibleComponents = await this.appService.checkKafkaCompactibility(configuration);
 
@@ -84,14 +85,14 @@ export abstract class AbstractAppController {
       }, []);
       // Update the algorithm state to "failed" with incompatible components
       console.log("incompatible components", incompatibleComponents);
-      const updated = await this.appService.updateAlgorithmState(ConfigurationValidationInitDto.dbId, {
+      const updated = await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, {
         [this.Algorithm + "State"]: AlgorithmStateEnum.failed,
         incompactibleConfigurations: incompatibleComponents
       });
       console.log("updated", updated);
     } else {
       // Update the algorithm state to "ready"
-      await this.appService.updateAlgorithmState(ConfigurationValidationInitDto.dbId, {[this.Algorithm + "State"]: AlgorithmStateEnum.ready});
+      await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, {[this.Algorithm + "State"]: AlgorithmStateEnum.ready});
     }  
   }
 
