@@ -1,334 +1,468 @@
 <section class="engine-selection">
-
   <h2 class="heading">Engine Selection</h2>
 
   <div class="selection-container mat-elevation-z2" fxLayoutAlign="start">
-
     <div fxLayout="row wrap" fxLayoutAlign="start">
-
       <form class="selection-form">
-
         <div fxLayoutGap="30px grid" fxLayout="row wrap" fxLayoutAlign="start">
-
           <div class="selection-group">
-            
             <mat-form-field>
               <mat-label>Diesel Engine</mat-label>
-              <mat-select [(ngModel)]="diesel_engine" name="diesel_engine system">
-                <mat-option *ngFor="let diesel_engine of diesel_engines" [value]="diesel_engine.value">
-                  {{diesel_engine.viewValue}}
+              <mat-select
+                [(ngModel)]="diesel_engine"
+                name="diesel_engine system"
+              >
+                <mat-option
+                  *ngFor="let diesel_engine of diesel_engines"
+                  [value]="diesel_engine.value"
+                >
+                  {{ diesel_engine.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.diesel_engine!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.diesel_engine!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
           </div>
 
           <div class="selection-group">
             <mat-form-field>
               <mat-label>Starting System</mat-label>
               <mat-select [(ngModel)]="starting_system" name="starting system">
-                <mat-option *ngFor="let starting_system of starting_systems" [value]="starting_system.value">
-                  {{starting_system.viewValue}}
+                <mat-option
+                  *ngFor="let starting_system of starting_systems"
+                  [value]="starting_system.value"
+                >
+                  {{ starting_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.starting_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.starting_system!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
           </div>
 
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Auxiliary PTO</mat-label>
               <mat-select [(ngModel)]="auxiliary_pto" name="auxiliary_pto">
-                <mat-option *ngFor="let auxiliary_pto of auxiliary_ptos" [value]="auxiliary_pto.value">
-                  {{auxiliary_pto.viewValue}}
+                <mat-option
+                  *ngFor="let auxiliary_pto of auxiliary_ptos"
+                  [value]="auxiliary_pto.value"
+                >
+                  {{ auxiliary_pto.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.auxiliary_pto!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.auxiliary_pto!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
           </div>
 
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Oil System</mat-label>
               <mat-select [(ngModel)]="oil_system" name="oil_system">
-                <mat-option *ngFor="let oil_system of oil_systems" [value]="oil_system.value">
-                  {{oil_system.viewValue}}
+                <mat-option
+                  *ngFor="let oil_system of oil_systems"
+                  [value]="oil_system.value"
+                >
+                  {{ oil_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.oil_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.oil_system!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
-
           </div>
 
           <div class="selection-group">
-
-
             <mat-form-field>
               <mat-label>Fuel System</mat-label>
               <mat-select [(ngModel)]="fuel_system" name="fuel_system">
-                <mat-option *ngFor="let fuel_system of fuel_systems" [value]="fuel_system.value">
-                  {{fuel_system.viewValue}}
+                <mat-option
+                  *ngFor="let fuel_system of fuel_systems"
+                  [value]="fuel_system.value"
+                >
+                  {{ fuel_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.fuel_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.fuel_system!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
           </div>
 
           <div class="selection-group">
-
-
             <mat-form-field>
               <mat-label>Cooling System</mat-label>
               <mat-select [(ngModel)]="cooling_system" name="cooling_system">
-                <mat-option *ngFor="let cooling_system of cooling_systems" [value]="cooling_system.value">
-                  {{cooling_system.viewValue}}
+                <mat-option
+                  *ngFor="let cooling_system of cooling_systems"
+                  [value]="cooling_system.value"
+                >
+                  {{ cooling_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.cooling_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.cooling_system!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
           </div>
 
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Exhaust System</mat-label>
               <mat-select [(ngModel)]="exhaust_system" name="exhaust_system">
-                <mat-option *ngFor="let exhaust_system of exhaust_systems" [value]="exhaust_system.value">
-                  {{exhaust_system.viewValue}}
+                <mat-option
+                  *ngFor="let exhaust_system of exhaust_systems"
+                  [value]="exhaust_system.value"
+                >
+                  {{ exhaust_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.exhaust_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.exhaust_system!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
           </div>
 
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Mounting System</mat-label>
               <mat-select [(ngModel)]="mounting_system" name="mounting_system">
-                <mat-option *ngFor="let mounting_system of mounting_systems" [value]="mounting_system.value">
-                  {{mounting_system.viewValue}}
+                <mat-option
+                  *ngFor="let mounting_system of mounting_systems"
+                  [value]="mounting_system.value"
+                >
+                  {{ mounting_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.mounting_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.mounting_system!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
           </div>
 
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Engine Management System</mat-label>
-              <mat-select [(ngModel)]="engine_management_system" name="engine_management_system">
-                <mat-option *ngFor="let engine_management_system of engine_management_systems"
-                            [value]="engine_management_system.value">
-                  {{engine_management_system.viewValue}}
+              <mat-select
+                [(ngModel)]="engine_management_system"
+                name="engine_management_system"
+              >
+                <mat-option
+                  *ngFor="
+                    let engine_management_system of engine_management_systems
+                  "
+                  [value]="engine_management_system.value"
+                >
+                  {{ engine_management_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.engine_management_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(
+                    this.engine_management_system!
+                  );
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
           </div>
 
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Monitoring System</mat-label>
-              <mat-select [(ngModel)]="monitoring_system" name="monitoring_system">
-                <mat-option *ngFor="let monitoring_system of monitoring_systems" [value]="monitoring_system.value">
-                  {{monitoring_system.viewValue}}
+              <mat-select
+                [(ngModel)]="monitoring_system"
+                name="monitoring_system"
+              >
+                <mat-option
+                  *ngFor="let monitoring_system of monitoring_systems"
+                  [value]="monitoring_system.value"
+                >
+                  {{ monitoring_system.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.monitoring_system!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.monitoring_system!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
           </div>
 
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Power Transmission</mat-label>
-              <mat-select [(ngModel)]="power_transmission" name="monitoring_system">
-                <mat-option *ngFor="let power_transmission of power_transmissions" [value]="power_transmission.value">
-                  {{power_transmission.viewValue}}
+              <mat-select
+                [(ngModel)]="power_transmission"
+                name="monitoring_system"
+              >
+                <mat-option
+                  *ngFor="let power_transmission of power_transmissions"
+                  [value]="power_transmission.value"
+                >
+                  {{ power_transmission.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.power_transmission!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.power_transmission!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
           </div>
           <div class="selection-group">
-
             <mat-form-field>
               <mat-label>Gearbox Option</mat-label>
               <mat-select [(ngModel)]="gear_box_option" name="gear_box_option">
-                <mat-option *ngFor="let gear_box_option of gear_box_options" [value]="gear_box_option.value">
-                  {{gear_box_option.viewValue}}
+                <mat-option
+                  *ngFor="let gear_box_option of gear_box_options"
+                  [value]="gear_box_option.value"
+                >
+                  {{ gear_box_option.viewValue }}
                 </mat-option>
               </mat-select>
             </mat-form-field>
 
-
             <div class="result icon" *ngIf="result_state">
-              <ng-container *ngIf="incompatible_components.includes(this.gear_box_option!); else elseTemplate">
+              <ng-container
+                *ngIf="
+                  incompatible_components.includes(this.gear_box_option!);
+                  else elseTemplate
+                "
+              >
                 <mat-icon svgIcon="red-cross"></mat-icon>
               </ng-container>
               <ng-template #elseTemplate>
-                <mat-icon svgIcon="thumbs-up" style="color: green;" *ngIf="resultAvailable"></mat-icon>
+                <mat-icon
+                  svgIcon="thumbs-up"
+                  style="color: green"
+                  *ngIf="resultAvailable"
+                ></mat-icon>
               </ng-template>
             </div>
-
-
           </div>
         </div>
-
       </form>
-
 
       <div class="selection-progress">
         <h4 class="heading">Selection Progress</h4>
-        <mat-progress-bar mode="determinate" [value]="calculateProgress()"
-                          class="custom-progress-bar"
-                          color="warn"></mat-progress-bar>
+        <mat-progress-bar
+          mode="determinate"
+          [value]="calculateProgress()"
+          class="custom-progress-bar"
+          color="warn"
+        ></mat-progress-bar>
       </div>
     </div>
   </div>
 
   <div class="results-container mat-elevation-z2" fxLayoutAlign="center center">
-
-
     <div class="status" fxFlex="50%">
-
       <h3>Status</h3>
 
       <div *ngIf="buttonClicked">
-
-        <div class="status-group" *ngFor="let item of Object.entries(algorithmStates); let i=index">
-
+        <div
+          class="status-group"
+          *ngFor="let item of Object.entries(algorithmStates); let i = index"
+        >
           <p class="status-label">
-            M{{i + 1}} [{{ item[0] }}] Status: <span class="states" [ngStyle]="getTextColor(item[1])">{{item[1]}}</span>
+            M{{ i + 1 }} [{{ item[0] }}] Status:
+            <span class="states" [ngStyle]="getTextColor(item[1])">{{
+              item[1]
+            }}</span>
           </p>
-          
-          <mat-spinner *ngIf="item[1] === 'running'" strokeWidth=10 diameter=50 value=100 style="margin-left:10px">
+
+          <mat-spinner
+            *ngIf="item[1] === 'running'"
+            strokeWidth="10"
+            diameter="50"
+            value="100"
+            style="margin-left: 10px"
+          >
           </mat-spinner>
-
         </div>
-        <hr>
-        <p class="status-label">Final Result: <span class="states" [ngStyle]="getTextColor(result_state)">{{result_state}}</span></p>
-
+        <hr />
+        <p class="status-label">
+          Final Result:
+          <span class="states" [ngStyle]="getTextColor(result_state)">{{
+            result_state
+          }}</span>
+        </p>
       </div>
-
     </div>
 
     <div class="start-button" fxFlex="50%">
-
-      <button mat-fab extended color="primary" class="button" (click)="onSumbit()">Start</button>
-
+      <button
+        mat-fab
+        extended
+        color="primary"
+        class="button"
+        (click)="onSumbit()"
+      >
+        Start
+      </button>
     </div>
-
   </div>
-
-
 </section>

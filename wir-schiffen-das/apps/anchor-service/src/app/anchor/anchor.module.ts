@@ -38,4 +38,4 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   controllers: [AnchorController],
   providers: [AnchorService, BaseDatabaseServer],
 })
-export class AnchorModule {}
+export class AnchorModule { }

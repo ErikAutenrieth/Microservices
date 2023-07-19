@@ -34,7 +34,7 @@ export class AnchorService {
     resetTimeout: 5000,
   };
 
-  async create( createAlgorithmStateDto: CreateAlgorithmStateDto): Promise<AlgorithmStateDocument> {
+  async create(createAlgorithmStateDto: CreateAlgorithmStateDto): Promise<AlgorithmStateDocument> {
     console.log("start create algorithm state");
     const createdAlgorithmState = await this.baseDatabase.create(
       createAlgorithmStateDto
@@ -74,13 +74,13 @@ export class AnchorService {
    */
   async publishConfigurationToKafka(
     initializeKafkaConfigurationDto: ConfigurationValidationInitDto) {
-      const message = {
-        key: initializeKafkaConfigurationDto.userId,
-        value: JSON.stringify(initializeKafkaConfigurationDto),
-      };
-      await this.kafkaClient.connect();
+    const message = {
+      key: initializeKafkaConfigurationDto.userId,
+      value: JSON.stringify(initializeKafkaConfigurationDto),
+    };
+    await this.kafkaClient.connect();
 
-      this.kafkaClient.emit('new_config_request', message);
-    }
+    this.kafkaClient.emit('new_config_request', message);
+  }
 
 }

@@ -1,4 +1,4 @@
-import {IS_UUID, IsEnum, IsOptional, IsString, IsUUID} from 'class-validator';
+import { IS_UUID, IsEnum, IsOptional, IsString, IsUUID } from 'class-validator';
 import {
   AlgorithmStateEnum,
   AuxiliaryPtoEnum,

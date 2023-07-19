@@ -12,7 +12,7 @@ ENV HOST=0.0.0.0
 WORKDIR /app
 
 RUN addgroup --system auxiliary-mounting-service && \
-          adduser --system -G auxiliary-mounting-service auxiliary-mounting-service
+    adduser --system -G auxiliary-mounting-service auxiliary-mounting-service
 
 COPY dist/apps/auxiliary-mounting-service auxiliary-mounting-service
 RUN chown -R auxiliary-mounting-service:auxiliary-mounting-service .

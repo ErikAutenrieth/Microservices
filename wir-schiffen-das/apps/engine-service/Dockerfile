@@ -12,7 +12,7 @@ ENV HOST=0.0.0.0
 WORKDIR /app
 
 RUN addgroup --system engine-service && \
-          adduser --system -G engine-service engine-service
+    adduser --system -G engine-service engine-service
 
 COPY dist/apps/engine-service engine-service
 RUN chown -R engine-service:engine-service .

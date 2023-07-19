@@ -8,7 +8,7 @@ import { Model } from 'mongoose';
 export class BaseDatabaseServer {
 
     constructor(@InjectModel(ConfigurationDatabase.name) private configurationDatabase: Model<ConfigurationDatabaseDocument>,
-                @InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>,
+        @InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>,
     ) {
     }
 

@@ -4,12 +4,12 @@ import { AlgorithmState, AlgorithmStateDocument } from '@wir-schiffen-das/nestjs
 import { AlgorithmStateEnum } from '@wir-schiffen-das/types';
 import { ChangeStream } from 'mongodb';
 import { Model } from 'mongoose';
-import { BehaviorSubject, Observable, filter, fromEvent, tap,  } from 'rxjs';
+import { BehaviorSubject, Observable, filter, fromEvent, tap, } from 'rxjs';
 @Injectable()
 export class DatabaseSubscriptionService {
 
-    private behaviorSubject : BehaviorSubject<any> = new BehaviorSubject<any>(null);
-    
+    private behaviorSubject: BehaviorSubject<any> = new BehaviorSubject<any>(null);
+
     private watchStream: ChangeStream<any, any>;
     // private stateChangeObservable = fromEvent(
     //     this.algorithmState.watch( 
@@ -18,28 +18,28 @@ export class DatabaseSubscriptionService {
     //     ),
     //    "change"
     //   );
-    
+
     constructor(@InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>) {
 
-        this.watchStream = this.algorithmState.watch( 
+        this.watchStream = this.algorithmState.watch(
             [],
-            { fullDocument : "updateLookup" }
+            { fullDocument: "updateLookup" }
         );
-        
+
         // this.watchStream.on('change', this.mapToBehaviorSubject.bind(this));
         // to rxjs
 
         this.behaviorSubject
-        .pipe( tap(change => console.log('change', change) ),
-            
-            filter(data => 
-                data &&
-                data["ResultState"] !== AlgorithmStateEnum.ready && 
-                data["ResultState"] !== AlgorithmStateEnum.failed &&
-                data["engineState"] === AlgorithmStateEnum.notStarted
-            ) )
-        .subscribe(change => this.handleStartAlgorithmChange(change));
-        
+            .pipe(tap(change => console.log('change', change)),
+
+                filter(data =>
+                    data &&
+                    data["ResultState"] !== AlgorithmStateEnum.ready &&
+                    data["ResultState"] !== AlgorithmStateEnum.failed &&
+                    data["engineState"] === AlgorithmStateEnum.notStarted
+                ))
+            .subscribe(change => this.handleStartAlgorithmChange(change));
+
         // this.watchStream.on('change', this.handleStartAlgorithmChange);
     }
 

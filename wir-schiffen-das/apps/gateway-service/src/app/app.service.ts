@@ -9,9 +9,9 @@ import { firstValueFrom } from 'rxjs';
 export class AppService extends AbstractAppService {
 
   apiUrls = process.env.production ? ProdMicroserviceAddressEnum : DevMicroserviceAddressEnum;
-constructor(private baseDatabase: BaseDatabaseServer,private readonly httpService: HttpService) {
-  super( baseDatabase, null);
-}
+  constructor(private baseDatabase: BaseDatabaseServer, private readonly httpService: HttpService) {
+    super(baseDatabase, null);
+  }
 
 
   checkCompactibility(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto): Promise<any[]> {
@@ -22,13 +22,13 @@ constructor(private baseDatabase: BaseDatabaseServer,private readonly httpServic
   }
 
   async getAlgorithmStateForUser(algorithm: string, checkStatus: CheckAlgorithmStateDto): Promise<any> {
-    
+
     return await firstValueFrom(
       this.httpService.post(
         this.apiUrls[algorithm] + 'Status',
         checkStatus
       )
-      );
+    );
   }
 
   getData(): { message: string } {

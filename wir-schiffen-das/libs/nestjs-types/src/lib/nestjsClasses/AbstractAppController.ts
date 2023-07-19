@@ -1,5 +1,5 @@
-import {Body, Controller, Inject, Post, UsePipes, ValidationPipe} from '@nestjs/common';
-import {ClientKafka, Ctx, KafkaContext, MessagePattern, Payload } from '@nestjs/microservices';
+import { Body, Controller, Inject, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { ClientKafka, Ctx, KafkaContext, MessagePattern, Payload } from '@nestjs/microservices';
 
 import {
   AlgorithmStateEnum,
@@ -50,7 +50,7 @@ export abstract class AbstractAppController {
     console.log("start checking configuration algorithm");
 
     // Update the algorithm state to "running"
-    await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { [this.Algorithm + "State"]: AlgorithmStateEnum.running});
+    await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { [this.Algorithm + "State"]: AlgorithmStateEnum.running });
     // Check compatibility of components
     let incompatibleComponents = await this.appService.checkCompactibility(initializeAlgorithmMicroserviceDto);
 
@@ -67,7 +67,7 @@ export abstract class AbstractAppController {
       console.log("updated", updated);
     } else {
       // Update the algorithm state to "ready"
-      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {[this.Algorithm + "State"]: AlgorithmStateEnum.ready});
+      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { [this.Algorithm + "State"]: AlgorithmStateEnum.ready });
     }
   }
 
@@ -75,7 +75,7 @@ export abstract class AbstractAppController {
     const dbEntry = await this.appService.getDatabaseEntry(configurationValidationInitDto.dbId);
     const configuration = dbEntry!.configuration;
 
-    await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, { [this.Algorithm + "State"]: AlgorithmStateEnum.running});
+    await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, { [this.Algorithm + "State"]: AlgorithmStateEnum.running });
     // Check compatibility of components
     let incompatibleComponents = await this.appService.checkKafkaCompactibility(configuration);
 
@@ -92,8 +92,8 @@ export abstract class AbstractAppController {
       console.log("updated", updated);
     } else {
       // Update the algorithm state to "ready"
-      await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, {[this.Algorithm + "State"]: AlgorithmStateEnum.ready});
-    }  
+      await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, { [this.Algorithm + "State"]: AlgorithmStateEnum.ready });
+    }
   }
 
   /**

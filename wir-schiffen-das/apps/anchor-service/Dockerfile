@@ -11,7 +11,7 @@ ENV HOST=0.0.0.0
 WORKDIR /app
 
 RUN addgroup --system anchor-service && \
-          adduser --system -G anchor-service anchor-service
+    adduser --system -G anchor-service anchor-service
 
 COPY dist/apps/anchor-service anchor-service
 RUN chown -R anchor-service:anchor-service .

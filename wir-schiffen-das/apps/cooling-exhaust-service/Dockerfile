@@ -12,7 +12,7 @@ ENV HOST=0.0.0.0
 WORKDIR /app
 
 RUN addgroup --system cooling-exhaust-service && \
-          adduser --system -G cooling-exhaust-service cooling-exhaust-service
+    adduser --system -G cooling-exhaust-service cooling-exhaust-service
 
 COPY dist/apps/cooling-exhaust-service cooling-exhaust-service
 RUN chown -R cooling-exhaust-service:cooling-exhaust-service .

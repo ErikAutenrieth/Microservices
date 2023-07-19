@@ -10,7 +10,8 @@ module.exports = composePlugins(withNx(), (config) => {
     use: {
       // `.swcrc` can be used to configure swc
       loader: "swc-loader"
-    }});
+    }
+  });
 
   return config;
 });

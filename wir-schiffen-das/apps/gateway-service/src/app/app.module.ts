@@ -9,4 +9,4 @@ import { BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
   controllers: [AppController],
   providers: [AppService, BaseDatabaseServer],
 })
-export class AppModule {}
+export class AppModule { }

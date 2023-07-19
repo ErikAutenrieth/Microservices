@@ -9,7 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 
 
 export const appConfig: ApplicationConfig = {
-  providers: [ 
+  providers: [
     provideRouter(appRoutes, withEnabledBlockingInitialNavigation()),
     importProvidersFrom(HttpClientModule),
     provideAnimations()

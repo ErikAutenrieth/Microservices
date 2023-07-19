@@ -1,7 +1,7 @@
-import {Component, NgModule} from '@angular/core';
+import { Component, NgModule } from '@angular/core';
 import { RouterModule } from '@angular/router';
-import {HomeComponent} from "./home/home.component";
-import {MatToolbarModule} from '@angular/material/toolbar'; 
+import { HomeComponent } from "./home/home.component";
+import { MatToolbarModule } from '@angular/material/toolbar';
 
 @Component({
   standalone: true,

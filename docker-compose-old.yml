@@ -40,7 +40,7 @@ services:
     expose:
       - 3040
     ports:
-      - 3040:3040  
+      - 3040:3040
     environment:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
     depends_on:

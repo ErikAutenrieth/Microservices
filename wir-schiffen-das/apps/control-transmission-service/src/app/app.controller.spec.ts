@@ -1,5 +1,5 @@
-import {Body, Controller, Post, UsePipes, ValidationPipe} from '@nestjs/common';
-import {AppService} from './app.service';
+import { Body, Controller, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { AppService } from './app.service';
 
 import {
   AlgorithmStateEnum,
@@ -39,7 +39,7 @@ export class AppController {
     console.log("start checking configuration algorithm");
 
     // Update the algorithm state to "running"
-    await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {controlTransmissionState: AlgorithmStateEnum.running});
+    await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { controlTransmissionState: AlgorithmStateEnum.running });
     // Check compatibility of components
     const incompatibleComponents = await this.appService.checkCompactibility(initializeAlgorithmMicroserviceDto);
 
@@ -51,7 +51,7 @@ export class AppController {
       });
     } else {
       // Update the algorithm state to "ready"
-      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, {controlTransmissionState: AlgorithmStateEnum.ready});
+      await this.appService.updateAlgorithmState(initializeAlgorithmMicroserviceDto.dbId, { controlTransmissionState: AlgorithmStateEnum.ready });
     }
   }
 

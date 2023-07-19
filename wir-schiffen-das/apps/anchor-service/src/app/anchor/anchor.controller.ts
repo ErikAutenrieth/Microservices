@@ -69,7 +69,7 @@ export class AnchorController {
     await this.appService.publishConfigurationToKafka(kafkaInitMessage);
     console.log('finished sending configuration to kafka');
 
-    
+
     // Send the configuration to all microservices
     for (const microserviceAddressEnum in this.apiUrls) {
       //TODO implement circuit breaker and return success to client

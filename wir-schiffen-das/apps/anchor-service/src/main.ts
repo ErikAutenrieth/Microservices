@@ -8,16 +8,16 @@ import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
 
-async function bootstrap() {  
+async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.connectMicroservice({
-  transport: Transport.KAFKA,
-  options: {
-    client: {
-      brokers: ['localhost:9092'],
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        brokers: ['localhost:9092'],
+      }
     }
-  }
-});
+  });
 
   app.enableCors();
   const globalPrefix = 'api';

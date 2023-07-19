@@ -1,5 +1,4 @@
 kafka:
   clusters:
-    -
-      name: Local Docker Dev
+    - name: Local Docker Dev
       bootstrapServers: kafka_b:9094

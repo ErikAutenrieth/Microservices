@@ -1,11 +1,12 @@
-import {Injectable} from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   AuxiliaryPtoEnum,
   GearBoxOptions,
   InitializeAlgorithmMicroserviceDto,
-  StartingSystemEnum} from '@wir-schiffen-das/types';
-import {AbstractAppService} from '@wir-schiffen-das/nestjs-types';
-import {setTimeout} from "timers/promises";
+  StartingSystemEnum
+} from '@wir-schiffen-das/types';
+import { AbstractAppService } from '@wir-schiffen-das/nestjs-types';
+import { setTimeout } from "timers/promises";
 
 @Injectable()
 export class AppService extends AbstractAppService {
@@ -25,10 +26,10 @@ export class AppService extends AbstractAppService {
 
     // Simulate a delay using setTimeout
     await setTimeout(Math.floor(Math.random() * (30000 - 10000 + 1)) + 10000);
-  
+
 
     // List of incompatible component sets
-    const incompatibleComponents: Set<AuxiliaryPtoEnum | GearBoxOptions  | StartingSystemEnum>[] = [
+    const incompatibleComponents: Set<AuxiliaryPtoEnum | GearBoxOptions | StartingSystemEnum>[] = [
       new Set([AuxiliaryPtoEnum.Alternator, GearBoxOptions.ReverseReductionGearbox]),
       new Set([AuxiliaryPtoEnum.A140AOr190A, GearBoxOptions.ElActuated, StartingSystemEnum.AirStarter]),
     ];

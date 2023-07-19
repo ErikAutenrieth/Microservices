@@ -36,13 +36,13 @@ import { randomStringEnumValue } from "@wir-schiffen-das/types";
 
 import {
   diesel_engines, starting_systems, auxiliary_ptos, oil_systems, fuel_systems, cooling_systems,
-  exhaust_systems, mounting_systems, engine_management_systems, monitoring_systems, power_transmissions, gear_box_options, components_failure, 
+  exhaust_systems, mounting_systems, engine_management_systems, monitoring_systems, power_transmissions, gear_box_options, components_failure,
   THUMBUP_ICON, RED_CROSS_ICON
 } from "@wir-schiffen-das/types";
 import { environment } from "../../environments/environment";
 
 
-enum UIAlgorithmStateEnum  {
+enum UIAlgorithmStateEnum {
   "unresponsive" = "unresponsive"
 }
 
@@ -111,7 +111,7 @@ export class HomeComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
-  algorithmStates: Record<string, AlgorithmStateEnum | UIAlgorithmStateEnum | undefined>  = {
+  algorithmStates: Record<string, AlgorithmStateEnum | UIAlgorithmStateEnum | undefined> = {
     "engine": undefined,
     "cooling": undefined,
     "auxiliary": undefined,
@@ -160,7 +160,7 @@ export class HomeComponent {
     return count;
   }
 
-  checkReady = () : string => (this.selectedCount() === 12) ? "ready" : "not ready";
+  checkReady = (): string => (this.selectedCount() === 12) ? "ready" : "not ready";
 
   calculateProgress(): number {
     const totalCount = 12;
@@ -175,7 +175,7 @@ export class HomeComponent {
       case AlgorithmStateEnum.ready || itemStatus === "ok":
         return { color: 'green' };
       default:
-        return {}; 
+        return {};
     }
   }
 
@@ -201,25 +201,25 @@ export class HomeComponent {
         (response) => {
           console.log(response);
         });
-      
-      this.incompatible_components = [];    
+
+      this.incompatible_components = [];
       this.setStatus();
     }
   }
 
-  checkResult(){
+  checkResult() {
     const allStatesOk = Object.values(this.algorithmStates).every(state => state === AlgorithmStateEnum.ready);
     const failedState = Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.failed);
     const runningState = Object.values(this.algorithmStates).some(state => state === AlgorithmStateEnum.running);
-    
+
     if (allStatesOk) {
       this.result_state = "ok";
       return;
-    }else if (failedState){
+    } else if (failedState) {
       this.result_state = "failed";
       console.log(this.incompatible_components);
       return;
-    }else if (runningState) {
+    } else if (runningState) {
       this.result_state = "";
     }
 
@@ -266,7 +266,7 @@ export class HomeComponent {
         { userID: this.sessionID }, microservice)
         .subscribe(
           {
-            next: (res:ReturnAlgorithmStateDto) => { 
+            next: (res: ReturnAlgorithmStateDto) => {
               // Update the algorithm state 
               this.algorithmStates[algorithm] = res.algorithmState
               if (res.algorithmState === AlgorithmStateEnum.failed && res.incompatibleComponents !== undefined) {
@@ -274,15 +274,15 @@ export class HomeComponent {
                 this.incompatible_components = Array.from(new Set(this.incompatible_components.concat(res.incompatibleComponents)));
                 console.log("updated incompactibilities ", res.incompatibleComponents);
               }
-               
+
               this.checkStates();
               this.checkResult();
-            }, 
+            },
             error: (err) => {
               this.algorithmStates[algorithm] = UIAlgorithmStateEnum.unresponsive
 
               console.log(err, algorithm)
-              }
+            }
           });
     }
     this.checkStates();

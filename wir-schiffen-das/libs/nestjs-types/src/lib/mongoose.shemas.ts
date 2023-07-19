@@ -55,16 +55,16 @@ export class AlgorithmState {
     @Prop({ type: String, default: AlgorithmStateEnum.notStarted })
     ResultState: AlgorithmStateEnum = AlgorithmStateEnum.notStarted;
 
-    @Prop({ type: String})
+    @Prop({ type: String })
     userId!: string;
 
     @Prop({ type: Date, default: Date.now })
     created: Date = new Date();
 
-    @Prop({type: ConfigurationDatabaseSchema })
+    @Prop({ type: ConfigurationDatabaseSchema })
     configuration!: ConfigurationDatabase;
 
-    @Prop({type: Date, default: Date.now })
+    @Prop({ type: Date, default: Date.now })
     lastUpdated: Date = new Date();
 
     @Prop({ type: String, default: AlgorithmStateEnum.notStarted })
@@ -75,7 +75,7 @@ export class AlgorithmState {
 
     @Prop({ type: String, default: AlgorithmStateEnum.notStarted })
     coolingExhaustState: AlgorithmStateEnum = AlgorithmStateEnum.notStarted;
-    
+
     @Prop({ type: String, default: AlgorithmStateEnum.notStarted })
     engineState: AlgorithmStateEnum = AlgorithmStateEnum.notStarted;
 

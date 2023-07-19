@@ -12,7 +12,7 @@ ENV HOST=0.0.0.0
 WORKDIR /app
 
 RUN addgroup --system control-transmission-service && \
-          adduser --system -G control-transmission-service control-transmission-service
+    adduser --system -G control-transmission-service control-transmission-service
 
 COPY dist/apps/control-transmission-service control-transmission-service
 RUN chown -R control-transmission-service:control-transmission-service .
