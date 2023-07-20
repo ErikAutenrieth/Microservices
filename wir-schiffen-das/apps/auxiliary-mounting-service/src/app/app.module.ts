@@ -5,6 +5,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatabaseServer, ConfigurationDatabaseSchema } from '@wir-schiffen-das/nestjs-types';
+import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
@@ -23,6 +24,22 @@ import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatab
           return schema;
         }
       }
+    ]),
+
+    ClientsModule.register([
+      {
+        name: 'KAFKA_SERVICE',
+        transport: Transport.KAFKA,
+        options: {
+          client: {
+            clientId: 'auxillery-service',
+            brokers: ['localhost:9092'],
+          },
+          consumer: {
+            groupId: 'auxillery-service',
+          }
+        }
+      },
     ]),
 
   ],

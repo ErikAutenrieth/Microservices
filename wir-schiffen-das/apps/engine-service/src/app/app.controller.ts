@@ -7,7 +7,7 @@ import { ConfigurationValidationInitDto } from '@wir-schiffen-das/types';
 @Controller("engine")
 export class AppController extends AbstractAppController {
 
-  constructor(appService: AppService, @Inject('KAFKA_SERVICE') kafkaClient: ClientKafka) {
+  constructor(appService: AppService) {
     super(appService);
     this.Algorithm = "engine";
   }

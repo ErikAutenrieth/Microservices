@@ -12,7 +12,7 @@
       "defaultConfiguration": "production",
       "options": {
         "target": "node",
-        "compiler": "swc",
+        "compiler": "tsc",
         "outputPath": "dist/apps/auxiliary-mounting-service",
         "main": "apps/auxiliary-mounting-service/src/main.ts",
         "tsConfig": "apps/auxiliary-mounting-service/tsconfig.app.json",

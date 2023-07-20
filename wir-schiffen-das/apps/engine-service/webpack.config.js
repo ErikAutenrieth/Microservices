@@ -4,14 +4,5 @@ const { composePlugins, withNx } = require('@nx/webpack');
 module.exports = composePlugins(withNx(), (config) => {
   // Update the webpack config as needed here.
   // e.g. `config.plugins.push(new MyPlugin())`
-  config.module.rules.push({
-    test: /\.m?js$/,
-    exclude: /(node_modules)/,
-    use: {
-      // `.swcrc` can be used to configure swc
-      loader: "swc-loader"
-    }
-  });
-
   return config;
 });

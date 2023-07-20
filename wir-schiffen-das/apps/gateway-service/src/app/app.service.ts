@@ -1,27 +1,55 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, OnModuleInit } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
 import { AbstractAppService, BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
-import { InitializeAlgorithmMicroserviceDto, ConfigurationDatabaseDto, CheckAlgorithmStateDto, ReturnAlgorithmStateDto, ProdMicroserviceAddressEnum, DevMicroserviceAddressEnum } from '@wir-schiffen-das/types';
-import { firstValueFrom } from 'rxjs';
+import { InitializeAlgorithmMicroserviceDto, ConfigurationDatabaseDto, CheckAlgorithmStateDto, ReturnAlgorithmStateDto, ProdMicroserviceAddressEnum, DevMicroserviceAddressEnum, UpdateKafkaAlgorithmStateDto } from '@wir-schiffen-das/types';
+import { Observable, Subject, filter, firstValueFrom, groupBy, map, mergeMap, tap, toArray } from 'rxjs';
+import { Kafka } from 'kafkajs';
 
 // TODO make a new inheritance for the service only using the database
 @Injectable()
-export class AppService extends AbstractAppService {
-
+export class AppService implements OnModuleInit {
   apiUrls = process.env.production ? ProdMicroserviceAddressEnum : DevMicroserviceAddressEnum;
-  constructor(private baseDatabase: BaseDatabaseServer, private readonly httpService: HttpService) {
-    super(baseDatabase, null);
+
+  private kafkaClient: Kafka;
+  private kafkaSubject: Subject<UpdateKafkaAlgorithmStateDto> = new Subject();
+  
+  constructor(
+    private readonly baseDatabase: BaseDatabaseServer,
+    private readonly httpService: HttpService,
+  ) { }
+  async onModuleInit() {
+    this.kafkaClient = new Kafka({
+      // clientId: 'my-app',
+      brokers: ['localhost:9092'],
+    });
+
+    console.log("kafkaClient init");
+    const kafkaConsumer =  this.kafkaClient.consumer({ groupId: 'wir-schiffen-das' });
+    await kafkaConsumer.connect();
+
+    await kafkaConsumer.subscribe({ topic: RegExp('config_update.*'), fromBeginning: true });
+
+    await kafkaConsumer.run({
+      eachMessage: async ({ topic, partition, message }) => {
+        console.log(topic);
+        const updatemessage: UpdateKafkaAlgorithmStateDto = JSON.parse(message.value.toString());
+        this.kafkaSubject.next(updatemessage);
+      }
+    });
+  
   }
 
+  public getKafkaObservable(userId: string) : Observable<any> {
 
-  checkCompactibility(initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto): Promise<any[]> {
-    throw new Error('Method not implemented.');
-  }
-  checkKafkaCompactibility(configuration: ConfigurationDatabaseDto): Promise<any[]> {
-    throw new Error('Method not implemented.');
+    return this.kafkaSubject.pipe(
+      // filter the messages by userId
+      filter((message) => message.userId === userId)
+    );
+
+
   }
 
-  async getAlgorithmStateForUser(algorithm: string, checkStatus: CheckAlgorithmStateDto): Promise<any> {
+  async getRESTAlgorithmStateForUser(algorithm: string, checkStatus: CheckAlgorithmStateDto): Promise<any> {
 
     return await firstValueFrom(
       this.httpService.post(

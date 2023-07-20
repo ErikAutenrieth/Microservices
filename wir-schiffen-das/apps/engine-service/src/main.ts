@@ -11,14 +11,21 @@ import { AppModule } from './app/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.connectMicroservice({
+  app.connectMicroservice(
+    {
     transport: Transport.KAFKA,
     options: {
       client: {
+
+        clientId: 'engine-service',
         brokers: ['localhost:9092'],
+      },
+      consumer: {
+        groupId: 'engine-service'
       }
     }
-  });
+  } as MicroserviceOptions 
+  );
   const globalPrefix = 'api';
   app.enableCors();
   app.setGlobalPrefix(globalPrefix);

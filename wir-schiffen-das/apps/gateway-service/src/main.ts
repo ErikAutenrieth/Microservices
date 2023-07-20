@@ -10,12 +10,16 @@ import { AppModule } from './app/app.module';
 import { Transport } from '@nestjs/microservices';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {cors: true });
   app.connectMicroservice({
     transport: Transport.KAFKA,
     options: {
       client: {
+        clientId: 'gateway-service',
         brokers: ['localhost:9092'],
+      },
+      consumer: {
+        groupId: 'gateway-service'
       }
     }
   });

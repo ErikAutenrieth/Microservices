@@ -30,7 +30,6 @@ export class AnchorController {
 
   async onModuleInit() {
     await this.kafkaClient.connect();
-    this.kafkaClient.send('test', 'Hello Kafka from Anchor');
   }
 
   @Get('sendKafka')
@@ -64,12 +63,13 @@ export class AnchorController {
     const kafkaInitMessage: ConfigurationValidationInitDto = {
       userId: CheckConfigurationDto.userID,
       dbId: algotithmStateDoc._id.toString(),
+      creationDate: algotithmStateDoc.created,
     }
 
     await this.appService.publishConfigurationToKafka(kafkaInitMessage);
     console.log('finished sending configuration to kafka');
 
-
+    /*
     // Send the configuration to all microservices
     for (const microserviceAddressEnum in this.apiUrls) {
       //TODO implement circuit breaker and return success to client
@@ -80,7 +80,7 @@ export class AnchorController {
       // console.log('finished sending configuration to engine', res);
     }
 
-
+    */
     return { success: true };
   }
 }

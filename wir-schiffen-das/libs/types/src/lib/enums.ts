@@ -87,6 +87,7 @@ export enum DevMicroserviceAddressEnum {
   cooling = 'http://localhost:3020/api/cooling/',
   auxiliary = 'http://localhost:3030/api/auxiliary/',
   control = 'http://localhost:3040/api/control/',
+  gateway = 'http://localhost:3060',
 }
 
 export enum ProdMicroserviceAddressEnum {
@@ -94,4 +95,5 @@ export enum ProdMicroserviceAddressEnum {
   cooling = 'http://cooling-exhaust-service:3020/api/cooling/',
   auxiliary = 'http://auxiliary-mounting-service:3030/api/auxiliary/',
   control = 'http://control-transmission-service:3040/api/control/',
+  gateway = 'http://gateway-service:3060',
 }

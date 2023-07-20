@@ -4,7 +4,8 @@ import {
   ConfigurationDatabaseDto,
   ConfigurationValidationInitDto,
   InitializeAlgorithmMicroserviceDto,
-  UpdateAlgorithmStateDto
+  UpdateAlgorithmStateDto,
+  UpdateKafkaAlgorithmStateDto
 } from '@wir-schiffen-das/types';
 import { AlgorithmStateDocument, BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
 import { ClientKafka } from '@nestjs/microservices';
@@ -22,9 +23,10 @@ export abstract class AbstractAppService {
   async updateKafkaStateAndDB(algorithm: String, configurationValidationInitDto: ConfigurationValidationInitDto, new_State: UpdateAlgorithmStateDto) {
     console.log("start checking Kafka configuration update");
 
+    const kafkaState: UpdateKafkaAlgorithmStateDto = {...new_State, ...configurationValidationInitDto}
     const message = {
       key: configurationValidationInitDto.userId,
-      value: JSON.stringify(new_State),
+      value: JSON.stringify(kafkaState),
     };
     await this.kafkaClient.connect();
 

@@ -14,10 +14,14 @@ async function bootstrap() {
     transport: Transport.KAFKA,
     options: {
       client: {
+        clientId: 'anchor-service',
         brokers: ['localhost:9092'],
-      }
+      },
+      consumer: {
+        groupId: 'anchor-service'
     }
-  });
+  }
+  } as MicroserviceOptions );
 
   app.enableCors();
   const globalPrefix = 'api';

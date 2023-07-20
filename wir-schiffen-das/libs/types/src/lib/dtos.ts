@@ -1,4 +1,4 @@
-import { IS_UUID, IsEnum, IsOptional, IsString, IsUUID } from 'class-validator';
+import { IS_UUID, IsDate, IsEnum, IsOptional, IsString, IsUUID, isDate } from 'class-validator';
 import {
   AlgorithmStateEnum,
   AuxiliaryPtoEnum,
@@ -97,6 +97,9 @@ export class ConfigurationValidationInitDto {
 
   @IsString()
   dbId!: string;
+
+  @IsDate()
+  creationDate!: Date;
 }
 
 export class InitializeAlgorithmMicroserviceDto extends CreateAlgorithmStateDto {
@@ -112,6 +115,12 @@ export interface UpdateAlgorithmStateDto {
   coolingExhaustState?: AlgorithmStateEnum;
   engineState?: AlgorithmStateEnum;
   incompactibleConfigurations?: any[];
+}
+
+export interface UpdateKafkaAlgorithmStateDto extends UpdateAlgorithmStateDto {
+
+  dbId?: string;
+  creationDate?: Date;
 }
 
 export class UpdateAlgorithmStateDtoClass {

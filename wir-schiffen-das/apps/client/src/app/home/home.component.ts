@@ -40,6 +40,7 @@ import {
   THUMBUP_ICON, RED_CROSS_ICON
 } from "@wir-schiffen-das/types";
 import { environment } from "../../environments/environment";
+import { WebsocketService } from "../../services/WebsocketService";
 
 
 enum UIAlgorithmStateEnum {
@@ -76,7 +77,12 @@ export class HomeComponent {
   power_transmissions = power_transmissions;
   gear_box_options = gear_box_options;
 
-  constructor(private engineService: EngineService, private sessionService: SessionService, iconRegistry: MatIconRegistry, sanitizer: DomSanitizer) {
+  constructor(
+    private engineService: EngineService, 
+    private sessionService: SessionService, 
+    private websocketService: WebsocketService,
+    iconRegistry: MatIconRegistry, 
+    sanitizer: DomSanitizer) {
     this.sessionID = sessionService.getSessionId();
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
     iconRegistry.addSvgIconLiteral('red-cross', sanitizer.bypassSecurityTrustHtml(RED_CROSS_ICON));
@@ -85,6 +91,10 @@ export class HomeComponent {
 
   ngOnInit() {
     this.engineService.test();
+
+    this.websocketService.subscribeToAlgorithmStates().subscribe((message) => {
+      console.log(message);
+    });
   }
 
 
@@ -203,7 +213,7 @@ export class HomeComponent {
         });
 
       this.incompatible_components = [];
-      this.setStatus();
+      // this.setStatus();
     }
   }
 

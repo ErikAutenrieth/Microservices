@@ -1,10 +1,7 @@
 import { HttpService } from '@nestjs/axios';
 import { Inject, Injectable } from '@nestjs/common';
 import { ClientKafka } from '@nestjs/microservices';
-import { KafkaMessage } from '@nestjs/microservices/external/kafka.interface';
-import { InjectModel } from '@nestjs/mongoose';
 import {
-  AlgorithmState,
   AlgorithmStateDocument,
   BaseDatabaseServer,
 } from '@wir-schiffen-das/nestjs-types';
@@ -14,13 +11,11 @@ import {
   DevMicroserviceAddressEnum,
   ConfigurationValidationInitDto,
 } from '@wir-schiffen-das/types';
-import { Model } from 'mongoose';
 import { firstValueFrom } from 'rxjs';
 
 @Injectable()
 export class AnchorService {
   constructor(
-
     // @InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>,
     @Inject('ANCHOR_SERVICE') private readonly kafkaClient: ClientKafka,
     private baseDatabase: BaseDatabaseServer,
