@@ -25,7 +25,8 @@ import {
   OilSystemEnum,
   PowerTransmission,
   ReturnAlgorithmStateDto,
-  StartingSystemEnum
+  StartingSystemEnum,
+  UpdateKafkaAlgorithmStateDto
 } from "@wir-schiffen-das/types";
 
 import { EngineService } from "../../services/EngineService";
@@ -92,7 +93,7 @@ export class HomeComponent {
   ngOnInit() {
     this.engineService.test();
 
-    this.websocketService.subscribeToAlgorithmStates().subscribe((message) => {
+    this.websocketService.subscribeToAlgorithmStates().subscribe((message: UpdateKafkaAlgorithmStateDto) => {
       console.log(message);
     });
   }
