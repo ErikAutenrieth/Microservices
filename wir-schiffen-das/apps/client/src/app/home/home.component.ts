@@ -57,7 +57,6 @@ enum UIAlgorithmStateEnum {
   animations: []
 })
 
-
 export class HomeComponent {
   private sessionID: string;
   Object = Object;
@@ -88,18 +87,16 @@ export class HomeComponent {
 
   ngOnInit() {
     this.websocketService.subscribeToAlgorithmStates().subscribe((message: UpdateKafkaAlgorithmStateDto) => {
-      this.algorithmStates['engine'] = message.engineState;
-      this.algorithmStates['cooling'] = message.coolingExhaustState;
-      this.algorithmStates['auxiliary'] = message.auxilleryMountingState;
-      this.algorithmStates['control'] = message.controlTransmissionState;
+      this.algorithmStates['engine'] = message.engineState? message.engineState : UIAlgorithmStateEnum.unresponsive;
+      this.algorithmStates['cooling'] = message.coolingExhaustState? message.coolingExhaustState : UIAlgorithmStateEnum.unresponsive;
+      this.algorithmStates['auxiliary'] = message.auxilleryMountingState? message.auxilleryMountingState : UIAlgorithmStateEnum.unresponsive;
+      this.algorithmStates['control'] = message.controlTransmissionState? message.controlTransmissionState : UIAlgorithmStateEnum.unresponsive;
 
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.incompatible_components = message.incompactibleConfigurations;
       this.checkResult();
       this.checkStates();
-      console.log(this.incompatible_components)
-
     });
   }
 
@@ -127,13 +124,12 @@ export class HomeComponent {
   mode: ProgressSpinnerMode = 'determinate';
   value = 50;
 
-  algorithmStates: Record<string, AlgorithmStateEnum | UIAlgorithmStateEnum | undefined> = {
+  algorithmStates: Record<string, AlgorithmStateEnum | UIAlgorithmStateEnum  | undefined> = {
     "engine": undefined,
     "cooling": undefined,
     "auxiliary": undefined,
     "control": undefined,
   };
-
 
   diesel_engine: DieselEngineEnum | undefined;
   starting_system: StartingSystemEnum | undefined;
@@ -150,9 +146,6 @@ export class HomeComponent {
 
   state: AlgorithmStateEnum | undefined;
   result_state: "ok" | "failed" | "" | undefined;
-  // TODO update automatically if any state in algorithmStates changes and set to startet if one is started and failed if one is failed
-
-
 
   buttonClicked = true;
   resultAvailable = false;
@@ -239,8 +232,6 @@ export class HomeComponent {
     } else if (runningState) {
       this.result_state = "";
     }
-
-    console.log(this.result_state);
   }
 
   checkStates() {
