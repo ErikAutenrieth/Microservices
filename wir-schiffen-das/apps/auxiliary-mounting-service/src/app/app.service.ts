@@ -2,11 +2,8 @@ import { Injectable } from '@nestjs/common';
 import {
   AuxiliaryPtoEnum,
   ConfigurationDatabaseDto,
-  DieselEngineEnum,
-  FuelSystemEnum,
   GearBoxOptions,
   InitializeAlgorithmMicroserviceDto,
-  OilSystemEnum,
   StartingSystemEnum
 } from '@wir-schiffen-das/types';
 import { AbstractAppService } from '@wir-schiffen-das/nestjs-types';

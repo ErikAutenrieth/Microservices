@@ -5,11 +5,23 @@
 
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
-
 import { AppModule } from './app/app.module';
+import {Transport} from "@nestjs/microservices";
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+  app.connectMicroservice({
+    transport: Transport.KAFKA,
+    options: {
+      client: {
+        clientId: 'control-service',
+        brokers: ['localhost:9092'],
+      },
+      consumer: {
+        groupId: 'control-service'
+      }
+    }
+  });
   const globalPrefix = 'api';
   app.enableCors();
   app.setGlobalPrefix(globalPrefix);

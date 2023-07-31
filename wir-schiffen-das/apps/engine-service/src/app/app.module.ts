@@ -10,10 +10,15 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
 @Module({
   imports: [
+    // Import configuration module and set up MongoDB connection
     ConfigModule.forRoot(),
     MongooseModule.forRoot(process.env.MONGODB_ATLAS_AZURE_CONNECTION_KEY),
-    MongooseModule.forFeature([{ name: 'ConfigurationDatabase', schema: ConfigurationDatabaseSchema }, { name: 'AlgorithmState', schema: AlgorithmStateSchema }]),
 
+    // Define Mongoose schemas for 'ConfigurationDatabase' and 'AlgorithmState' collections
+    MongooseModule.forFeature([{ name: 'ConfigurationDatabase', schema: ConfigurationDatabaseSchema },
+                                      { name: 'AlgorithmState', schema: AlgorithmStateSchema }]),
+
+    // Define Mongoose schema for 'AlgorithmState' collection with pre-update hook
     MongooseModule.forFeatureAsync([
       {
         name: AlgorithmState.name,
@@ -28,7 +33,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
 
       }
     ]),
-
+     // Define Kafka client for communication with the database service
     ClientsModule.register([
       {
         name: 'KAFKA_SERVICE',
@@ -44,9 +49,6 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         }
       },
     ]),
-
-
-
   ],
   controllers: [AppController],
   providers: [AppService, BaseDatabaseServer],

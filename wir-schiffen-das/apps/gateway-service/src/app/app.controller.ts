@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 
 import { AppService } from './app.service';
-import { AlgorithmStateEnum, CheckAlgorithmStateDto, DevMicroserviceAddressEnum, InitializeAlgorithmMicroserviceDto, ReturnAlgorithmStateDto } from '@wir-schiffen-das/types';
+import { CheckAlgorithmStateDto, DevMicroserviceAddressEnum } from '@wir-schiffen-das/types';
 
 @Controller()
 export class AppController {

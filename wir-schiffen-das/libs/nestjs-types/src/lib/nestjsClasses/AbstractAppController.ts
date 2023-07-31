@@ -5,7 +5,6 @@ import {
   AlgorithmStateEnum,
   CheckAlgorithmStateDto,
   ConfigurationValidationInitDto,
-  CreateAlgorithmStateDto,
   InitializeAlgorithmMicroserviceDto,
   ReturnAlgorithmStateDto,
 } from "@wir-schiffen-das/types";
@@ -14,7 +13,7 @@ import { AlgorithmState, AlgorithmStateDocument } from '../mongoose.shemas';
 
 export abstract class AbstractAppController {
 
-  protected Algorithm!: String;
+  protected Algorithm!: string;
   constructor(private readonly appService: AbstractAppService) {
   }
 

@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import {
+  ConfigurationDatabaseDto,
   CoolingSystemEnum,
   InitializeAlgorithmMicroserviceDto,
   StartingSystemEnum
@@ -19,8 +20,8 @@ export class AppService extends AbstractAppService {
 
     // Set of relevant selections from the algorithm configurations
     const relevant_Selections = new Set([
-      initializeAlgorithmMicroserviceDto.Configurations.cooling_system,
-      initializeAlgorithmMicroserviceDto.Configurations.starting_system,
+      initializeAlgorithmMicroserviceDto.configuration.cooling_system,
+      initializeAlgorithmMicroserviceDto.configuration.starting_system,
     ]);
 
     // Simulate a delay using setTimeout
@@ -31,6 +32,22 @@ export class AppService extends AbstractAppService {
       new Set([CoolingSystemEnum.CoolantPreheatingSystem, StartingSystemEnum.AirStarter]),
     ];
     // Filter incompatible subsets based on relevant selections
+    return incompatibleComponents.filter(incompatibleComponent =>
+      [...incompatibleComponent].every(component => relevant_Selections.has(component))
+    );
+  }
+
+  async checkKafkaCompactibility(configuration: ConfigurationDatabaseDto): Promise<Set<CoolingSystemEnum | StartingSystemEnum>[]> {
+    const relevant_Selections = new Set([
+      configuration.cooling_system,
+      configuration.starting_system
+    ]);
+
+    await setTimeout(Math.floor(Math.random() * (6000 - 5000 + 1)) + 7000);
+
+    const incompatibleComponents: Set<CoolingSystemEnum | StartingSystemEnum>[] = [
+      new Set([CoolingSystemEnum.CoolantPreheatingSystem, StartingSystemEnum.AirStarter]),
+    ];
     return incompatibleComponents.filter(incompatibleComponent =>
       [...incompatibleComponent].every(component => relevant_Selections.has(component))
     );
