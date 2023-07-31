@@ -1,13 +1,13 @@
 import { Inject, Injectable } from '@nestjs/common';
 import {
-  AlgorithmStateEnum,
   ConfigurationDatabaseDto,
   ConfigurationValidationInitDto,
   InitializeAlgorithmMicroserviceDto,
   UpdateAlgorithmStateDto,
   UpdateKafkaAlgorithmStateDto
 } from '@wir-schiffen-das/types';
-import { AlgorithmStateDocument, BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
+import { AlgorithmStateDocument } from '../mongoose.shemas';
+import { BaseDatabaseServer } from '../database/BaseDatabaseServer';
 import { ClientKafka } from '@nestjs/microservices';
 
 @Injectable()
@@ -15,12 +15,12 @@ export abstract class AbstractAppService {
   constructor(protected baseDatabase: BaseDatabaseServer, @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka) { }
 
   // Update the algorithm state for a specific database entry
-  updateAlgorithmState(dbEntryID: String, updatedPart: UpdateAlgorithmStateDto) {
+  updateAlgorithmState(dbEntryID: string, updatedPart: UpdateAlgorithmStateDto) {
     return this.baseDatabase.update(dbEntryID, updatedPart);
   }
 
   // Update the algorithm state for a specific database entry
-  async updateKafkaStateAndDB(algorithm: String, configurationValidationInitDto: ConfigurationValidationInitDto, new_State: UpdateAlgorithmStateDto) {
+  async updateKafkaStateAndDB(algorithm: string, configurationValidationInitDto: ConfigurationValidationInitDto, new_State: UpdateAlgorithmStateDto) {
     console.log("start checking Kafka configuration update");
 
     const kafkaState: UpdateKafkaAlgorithmStateDto = {...new_State, ...configurationValidationInitDto}

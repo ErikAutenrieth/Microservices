@@ -1,9 +1,10 @@
 import { Injectable } from '@nestjs/common';
 import {
+  AuxiliaryPtoEnum,
   ConfigurationDatabaseDto,
-  EngineManagementSystemEnum,
+  EngineManagementSystemEnum, GearBoxOptions,
   InitializeAlgorithmMicroserviceDto,
-  PowerTransmission,
+  PowerTransmission, StartingSystemEnum,
 } from '@wir-schiffen-das/types';
 import { AbstractAppService } from '@wir-schiffen-das/nestjs-types';
 import { setTimeout } from "timers/promises";
@@ -37,7 +38,7 @@ export class AppService extends AbstractAppService {
     );
   }
 
-  async checkKafkaCompactibility(configuration: ConfigurationDatabaseDto): Promise<any[]> {
+  async checkKafkaCompactibility(configuration: ConfigurationDatabaseDto): Promise<Set<PowerTransmission | EngineManagementSystemEnum >[]> {
     // Set of relevant selections from the algorithm configurations
     const relevant_Selections = new Set([
       configuration.power_transmission,

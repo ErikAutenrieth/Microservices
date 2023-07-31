@@ -5,7 +5,7 @@ import { AppService } from './app.service';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ConfigModule } from '@nestjs/config';
 import { AlgorithmState, AlgorithmStateDocument, AlgorithmStateSchema, BaseDatabaseServer, ConfigurationDatabaseSchema } from '@wir-schiffen-das/nestjs-types';
-import {ClientsModule, Transport} from "@nestjs/microservices";
+import { ClientsModule, Transport} from "@nestjs/microservices";
 
 @Module({
   imports: [

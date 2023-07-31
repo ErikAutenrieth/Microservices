@@ -9,7 +9,6 @@ import {
   ReturnAlgorithmStateDto,
 } from "@wir-schiffen-das/types";
 import { AbstractAppService } from './AbstractAppService';
-import { AlgorithmState, AlgorithmStateDocument } from '../mongoose.shemas';
 
 export abstract class AbstractAppController {
 
