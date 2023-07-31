@@ -1,8 +1,8 @@
 import { Injectable, OnModuleInit } from '@nestjs/common';
 import { HttpService } from '@nestjs/axios';
-import { AbstractAppService, BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
-import { InitializeAlgorithmMicroserviceDto, ConfigurationDatabaseDto, CheckAlgorithmStateDto, ReturnAlgorithmStateDto, ProdMicroserviceAddressEnum, DevMicroserviceAddressEnum, UpdateKafkaAlgorithmStateDto } from '@wir-schiffen-das/types';
-import { Observable, Subject, filter, firstValueFrom, groupBy, map, mergeMap, tap, toArray } from 'rxjs';
+import { BaseDatabaseServer } from '@wir-schiffen-das/nestjs-types';
+import {  CheckAlgorithmStateDto, ProdMicroserviceAddressEnum, DevMicroserviceAddressEnum, UpdateKafkaAlgorithmStateDto } from '@wir-schiffen-das/types';
+import { Observable, Subject, filter, firstValueFrom} from 'rxjs';
 import { Kafka } from 'kafkajs';
 
 // TODO make a new inheritance for the service only using the database
@@ -12,7 +12,7 @@ export class AppService implements OnModuleInit {
 
   private kafkaClient: Kafka;
   private kafkaSubject: Subject<UpdateKafkaAlgorithmStateDto> = new Subject();
-  
+
   constructor(
     private readonly baseDatabase: BaseDatabaseServer,
     private readonly httpService: HttpService,
@@ -36,7 +36,7 @@ export class AppService implements OnModuleInit {
         this.kafkaSubject.next(updatemessage);
       }
     });
-  
+
   }
 
   public getKafkaObservable(userId: string) : Observable<any> {
@@ -45,7 +45,6 @@ export class AppService implements OnModuleInit {
       // filter the messages by userId
       filter((message) => message.userId === userId)
     );
-
 
   }
 

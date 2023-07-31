@@ -26,6 +26,7 @@ async function bootstrap() {
   const globalPrefix = 'api';
   app.enableCors();
   app.setGlobalPrefix(globalPrefix);
+  await app.startAllMicroservices();
   const port = process.env.PORT || 3020;
   await app.listen(port);
   Logger.log(

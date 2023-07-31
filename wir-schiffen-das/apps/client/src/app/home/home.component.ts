@@ -55,15 +55,11 @@ enum UIAlgorithmStateEnum {
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss'],
   animations: []
-
 })
 
 
-
 export class HomeComponent {
-
   private sessionID: string;
-
   Object = Object;
   diesel_engines = diesel_engines;
   starting_systems = starting_systems;
@@ -79,10 +75,10 @@ export class HomeComponent {
   gear_box_options = gear_box_options;
 
   constructor(
-    private engineService: EngineService, 
-    private sessionService: SessionService, 
+    private engineService: EngineService,
+    private sessionService: SessionService,
     private websocketService: WebsocketService,
-    iconRegistry: MatIconRegistry, 
+    iconRegistry: MatIconRegistry,
     sanitizer: DomSanitizer) {
     this.sessionID = sessionService.getSessionId();
     iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
@@ -91,10 +87,16 @@ export class HomeComponent {
 
 
   ngOnInit() {
-    this.engineService.test();
-
     this.websocketService.subscribeToAlgorithmStates().subscribe((message: UpdateKafkaAlgorithmStateDto) => {
-      console.log(message);
+      this.algorithmStates['engine'] = message.engineState;
+      this.algorithmStates['cooling'] = message.coolingExhaustState;
+      this.algorithmStates['auxiliary'] = message.auxilleryMountingState;
+      this.algorithmStates['control'] = message.controlTransmissionState;
+
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-ignore
+      this.incompatible_components = message.incompactibleConfigurations;
+
     });
   }
 
@@ -152,7 +154,8 @@ export class HomeComponent {
   buttonClicked = true;
   resultAvailable = false;
 
-  incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum | ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] = [];
+  incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum |
+    ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] = [];
 
   // incompatible_components: any = [];
 
@@ -278,7 +281,7 @@ export class HomeComponent {
         .subscribe(
           {
             next: (res: ReturnAlgorithmStateDto) => {
-              // Update the algorithm state 
+              // Update the algorithm state
               this.algorithmStates[algorithm] = res.algorithmState
               if (res.algorithmState === AlgorithmStateEnum.failed && res.incompatibleComponents !== undefined) {
                 console.log("raw ", res.incompatibleComponents);

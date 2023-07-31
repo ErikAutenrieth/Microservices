@@ -54,9 +54,9 @@ export class WSGateway implements OnGatewayInit, OnGatewayConnection {
         console.log("new client in AlgorithmStates for userID: " + userID);
 
         if (!userID) throw WsException;
-
         this.appService.getKafkaObservable(userID).subscribe((message: UpdateKafkaAlgorithmStateDto) => {
-            this.server.to(client.id).emit("AlgorithmStates", message);
+            console.log(message);
+          this.server.to(client.id).emit("AlgorithmStates", message);
         }
         );
     }
