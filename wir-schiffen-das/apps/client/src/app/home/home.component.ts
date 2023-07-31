@@ -96,6 +96,9 @@ export class HomeComponent {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-ignore
       this.incompatible_components = message.incompactibleConfigurations;
+      this.checkResult();
+      this.checkStates();
+      console.log(this.incompatible_components)
 
     });
   }
