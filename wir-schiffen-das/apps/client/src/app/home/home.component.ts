@@ -14,7 +14,6 @@ import {
   AuxiliaryPtoEnum,
   CheckConfigurationDto,
   CoolingSystemEnum,
-  DevMicroserviceAddressEnum,
   DieselEngineEnum,
   EngineManagementSystemEnum,
   ExhaustSystemEnum,
@@ -24,7 +23,6 @@ import {
   MountingSystemEnum,
   OilSystemEnum,
   PowerTransmission,
-  ReturnAlgorithmStateDto,
   StartingSystemEnum,
   UpdateKafkaAlgorithmStateDto
 } from "@wir-schiffen-das/types";
@@ -40,7 +38,6 @@ import {
   exhaust_systems, mounting_systems, engine_management_systems, monitoring_systems, power_transmissions, gear_box_options, components_failure,
   THUMBUP_ICON, RED_CROSS_ICON
 } from "@wir-schiffen-das/types";
-import { environment } from "../../environments/environment";
 import { WebsocketService } from "../../services/WebsocketService";
 
 
@@ -73,52 +70,6 @@ export class HomeComponent {
   power_transmissions = power_transmissions;
   gear_box_options = gear_box_options;
 
-  constructor(
-    private engineService: EngineService,
-    private sessionService: SessionService,
-    private websocketService: WebsocketService,
-    iconRegistry: MatIconRegistry,
-    sanitizer: DomSanitizer) {
-    this.sessionID = sessionService.getSessionId();
-    iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
-    iconRegistry.addSvgIconLiteral('red-cross', sanitizer.bypassSecurityTrustHtml(RED_CROSS_ICON));
-  }
-
-
-  ngOnInit() {
-    this.websocketService.subscribeToAlgorithmStates().subscribe((message: UpdateKafkaAlgorithmStateDto) => {
-      this.algorithmStates['engine'] = message.engineState? message.engineState : UIAlgorithmStateEnum.unresponsive;
-      this.algorithmStates['cooling'] = message.coolingExhaustState? message.coolingExhaustState : UIAlgorithmStateEnum.unresponsive;
-      this.algorithmStates['auxiliary'] = message.auxilleryMountingState? message.auxilleryMountingState : UIAlgorithmStateEnum.unresponsive;
-      this.algorithmStates['control'] = message.controlTransmissionState? message.controlTransmissionState : UIAlgorithmStateEnum.unresponsive;
-
-      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
-      // @ts-ignore
-      this.incompatible_components = message.incompactibleConfigurations;
-      this.checkResult();
-      this.checkStates();
-    });
-  }
-
-
-  @HostListener('document:keypress', ['$event'])
-  handleKeyboardEvent(event: KeyboardEvent) {
-    if (event.key === 'r') {
-      this.diesel_engine = randomStringEnumValue(DieselEngineEnum);
-      this.starting_system = randomStringEnumValue(StartingSystemEnum);
-      this.auxiliary_pto = randomStringEnumValue(AuxiliaryPtoEnum);
-      this.oil_system = randomStringEnumValue(OilSystemEnum);
-      this.fuel_system = randomStringEnumValue(FuelSystemEnum);
-      this.cooling_system = randomStringEnumValue(CoolingSystemEnum);
-      this.exhaust_system = randomStringEnumValue(ExhaustSystemEnum);
-      this.mounting_system = randomStringEnumValue(MountingSystemEnum);
-      this.engine_management_system = randomStringEnumValue(EngineManagementSystemEnum);
-      this.monitoring_system = randomStringEnumValue(MonitoringSystems);
-      this.power_transmission = randomStringEnumValue(PowerTransmission);
-      this.gear_box_option = randomStringEnumValue(GearBoxOptions);
-    }
-  }
-
   // spinner props
   color: ThemePalette = 'primary';
   mode: ProgressSpinnerMode = 'determinate';
@@ -144,16 +95,34 @@ export class HomeComponent {
   power_transmission: PowerTransmission | undefined;
   gear_box_option: GearBoxOptions | undefined;
 
-  state: AlgorithmStateEnum | undefined;
-  result_state: "ok" | "failed" | "" | undefined;
-
+  result_state: "ok" | "failed" | "" |"depending" |undefined;
   buttonClicked = true;
   resultAvailable = false;
+  incompatible_components: any = [];
 
-  incompatible_components: (DieselEngineEnum | StartingSystemEnum | AuxiliaryPtoEnum | OilSystemEnum | FuelSystemEnum | CoolingSystemEnum |
-    ExhaustSystemEnum | MountingSystemEnum | EngineManagementSystemEnum | MonitoringSystems | PowerTransmission | GearBoxOptions)[] = [];
+  constructor(
+    private engineService: EngineService,
+    private sessionService: SessionService,
+    private websocketService: WebsocketService,
+    iconRegistry: MatIconRegistry,
+    sanitizer: DomSanitizer) {
+    this.sessionID = sessionService.getSessionId();
+    iconRegistry.addSvgIconLiteral('thumbs-up', sanitizer.bypassSecurityTrustHtml(THUMBUP_ICON));
+    iconRegistry.addSvgIconLiteral('red-cross', sanitizer.bypassSecurityTrustHtml(RED_CROSS_ICON));
+  }
 
-  // incompatible_components: any = [];
+  ngOnInit() {
+    this.websocketService.subscribeToAlgorithmStates().subscribe((message: UpdateKafkaAlgorithmStateDto) => {
+      this.algorithmStates['engine'] = message.engineState? message.engineState : UIAlgorithmStateEnum.unresponsive;
+      this.algorithmStates['cooling'] = message.coolingExhaustState? message.coolingExhaustState : UIAlgorithmStateEnum.unresponsive;
+      this.algorithmStates['auxiliary'] = message.auxilleryMountingState? message.auxilleryMountingState : UIAlgorithmStateEnum.unresponsive;
+      this.algorithmStates['control'] = message.controlTransmissionState? message.controlTransmissionState : UIAlgorithmStateEnum.unresponsive;
+      this.incompatible_components = message.incompactibleConfigurations;
+      this.checkResult();
+      this.checkStates();
+    });
+  }
+
 
   selectedCount(): number {
     const options = [
@@ -169,8 +138,6 @@ export class HomeComponent {
     }
     return count;
   }
-
-  checkReady = (): string => (this.selectedCount() === 12) ? "ready" : "not ready";
 
   calculateProgress(): number {
     const totalCount = 12;
@@ -189,6 +156,10 @@ export class HomeComponent {
     }
   }
 
+  /**
+   * Handles the form submission when the user selects all 12 required configurations.
+   * creates a 'CheckConfigurationDto' object with the selected configurations, and sends a request to check the engine configuration.
+   */
   onSumbit() {
     if (this.selectedCount() === 12) {
       this.buttonClicked = true;
@@ -211,9 +182,7 @@ export class HomeComponent {
         (response) => {
           console.log(response);
         });
-
       this.incompatible_components = [];
-      // this.setStatus();
     }
   }
 
@@ -227,10 +196,11 @@ export class HomeComponent {
       return;
     } else if (failedState) {
       this.result_state = "failed";
-      console.log(this.incompatible_components);
       return;
     } else if (runningState) {
       this.result_state = "";
+    }else if (!failedState && UIAlgorithmStateEnum.unresponsive){
+      this.result_state = "depending";
     }
   }
 
@@ -246,54 +216,22 @@ export class HomeComponent {
     }
   }
 
-
-  checkIncompatibleComponents(comp: number): boolean {
-    if (this.incompatible_components && this.incompatible_components?.length === 0) {
-      return false;
+  @HostListener('document:keypress', ['$event'])
+  handleKeyboardEvent(event: KeyboardEvent) {
+    if (event.key === 'r') {
+      this.diesel_engine = randomStringEnumValue(DieselEngineEnum);
+      this.starting_system = randomStringEnumValue(StartingSystemEnum);
+      this.auxiliary_pto = randomStringEnumValue(AuxiliaryPtoEnum);
+      this.oil_system = randomStringEnumValue(OilSystemEnum);
+      this.fuel_system = randomStringEnumValue(FuelSystemEnum);
+      this.cooling_system = randomStringEnumValue(CoolingSystemEnum);
+      this.exhaust_system = randomStringEnumValue(ExhaustSystemEnum);
+      this.mounting_system = randomStringEnumValue(MountingSystemEnum);
+      this.engine_management_system = randomStringEnumValue(EngineManagementSystemEnum);
+      this.monitoring_system = randomStringEnumValue(MonitoringSystems);
+      this.power_transmission = randomStringEnumValue(PowerTransmission);
+      this.gear_box_option = randomStringEnumValue(GearBoxOptions);
     }
-    for (let i = 0; i < components_failure.length; i++) {
-      if (comp === i && this.incompatible_components?.includes(Object.values(components_failure[i])[0])) {
-        return true;
-      }
-    }
-    return false;
   }
 
-  /**
- * Set the status of the algorithm states.
- */
-  setStatus() {
-    // Reset all algorithm states to undefined
-    Object.keys(this.algorithmStates).forEach(key => this.algorithmStates[key] = undefined);
-    // Iterate through each algorithm and check its state
-    for (const [algorithm, state] of Object.entries(this.algorithmStates)) {
-      // Get the microservice URL for the algorithm
-      const microservice: DevMicroserviceAddressEnum = environment.APIUrls[algorithm as keyof typeof DevMicroserviceAddressEnum];
-      // Call the engine service to check the algorithm state
-      this.engineService.checkAlgorithmState(
-        { userID: this.sessionID }, microservice)
-        .subscribe(
-          {
-            next: (res: ReturnAlgorithmStateDto) => {
-              // Update the algorithm state
-              this.algorithmStates[algorithm] = res.algorithmState
-              if (res.algorithmState === AlgorithmStateEnum.failed && res.incompatibleComponents !== undefined) {
-                console.log("raw ", res.incompatibleComponents);
-                this.incompatible_components = Array.from(new Set(this.incompatible_components.concat(res.incompatibleComponents)));
-                console.log("updated incompactibilities ", res.incompatibleComponents);
-              }
-
-              this.checkStates();
-              this.checkResult();
-            },
-            error: (err) => {
-              this.algorithmStates[algorithm] = UIAlgorithmStateEnum.unresponsive
-
-              console.log(err, algorithm)
-            }
-          });
-    }
-    this.checkStates();
-    this.checkResult();
-  }
 }

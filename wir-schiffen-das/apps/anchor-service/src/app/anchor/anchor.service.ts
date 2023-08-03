@@ -5,18 +5,12 @@ import {
   AlgorithmStateDocument,
   BaseDatabaseServer,
 } from '@wir-schiffen-das/nestjs-types';
-import {
-  CreateAlgorithmStateDto,
-  InitializeAlgorithmMicroserviceDto,
-  DevMicroserviceAddressEnum,
-  ConfigurationValidationInitDto,
-} from '@wir-schiffen-das/types';
-import { firstValueFrom } from 'rxjs';
+import {CreateAlgorithmStateDto, ConfigurationValidationInitDto,} from '@wir-schiffen-das/types';
+
 
 @Injectable()
 export class AnchorService {
   constructor(
-    // @InjectModel(AlgorithmState.name) private algorithmState: Model<AlgorithmStateDocument>,
     @Inject('ANCHOR_SERVICE') private readonly kafkaClient: ClientKafka,
     private baseDatabase: BaseDatabaseServer,
     private httpService: HttpService
@@ -35,31 +29,6 @@ export class AnchorService {
       createAlgorithmStateDto
     );
     return createdAlgorithmState;
-  }
-
-  /**
-   * Sends the configuration to a specific microservice.
-   *
-   * @param initializeAlgorithmMicroserviceDto - The data object containing the configuration to be sent.
-   * @param microserviceAddressEnum - The enum value representing the address of the microservice.
-   * @returns A Promise resolving to the result of the HTTP request.
-   */
-  async sendConfigurationToService(
-    initializeAlgorithmMicroserviceDto: InitializeAlgorithmMicroserviceDto,
-    devMicroserviceAddressEnum: DevMicroserviceAddressEnum
-  ): Promise<any> {
-    return await firstValueFrom(
-      this.httpService.post(
-        devMicroserviceAddressEnum + 'CheckConfiguration',
-        initializeAlgorithmMicroserviceDto
-      )
-    );
-    // const apiCall = async () => await firstValueFrom(this.httpService.post( microserviceAddressEnum + "CheckConfiguration", initializeAlgorithmMicroserviceDto ));
-
-    // const breaker = new CircuitBreaker(apiCall, this.circuitBreakerOptions);
-    // breaker.fire()
-    //   .then(console.log)
-    //  .catch(console.error);
   }
 
   /**
