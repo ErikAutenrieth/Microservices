@@ -19,9 +19,10 @@ export class InfluxDBService {
       await this.client.write(point, database);
       console.log("Time has been saved to InfluxDB! {time: " + time  + " "  +  algorithm + "}");
     } catch (error) {
+      console.log("Fail:  {time: " + time  + " "  +  algorithm + "}");
       console.error("An error occurred during data writing to InfluxDB:");
     } finally {
-      this.client.close();
+      //this.client.close();
     }
   }
 }
