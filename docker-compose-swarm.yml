@@ -1,0 +1,205 @@
+version: '3.7'
+
+services:
+
+  client:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/client
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+      restart_policy:
+        condition: on-failure
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-proxy"
+        - "traefik.constraint-label=traefik-proxy"
+        - "traefik.http.routers.frontend-ooka.entrypoints=https"
+        - "traefik.http.routers.frontend-ooka.rule=Host(`wir-schiffen-das.ooka.jrtl.eu`)"
+        - "traefik.http.services.frontend-ooka.loadbalancer.server.port=80"
+        - "traefik.http.routers.frontend-ooka.tls.certresolver=le"
+        - "traefik.backend=frontend-ooka"
+    depends_on:
+      - anchor-service
+    networks:
+      - traefik-proxy
+
+
+  anchor-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/anchor-service
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - production=true
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+ 
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-proxy"
+        - "traefik.constraint-label=traefik-proxy"
+        - "traefik.http.routers.anchor.entrypoints=https"
+        - "traefik.http.routers.anchor.rule=Host(`anchor.ooka.jrtl.eu`)"
+        - "traefik.http.services.anchor.loadbalancer.server.port=3000"
+        - "traefik.http.routers.anchor.tls.certresolver=le"
+        - "traefik.backend=anchor"
+    depends_on:
+      - mongodb
+      - engine-service
+      - cooling-exhaust-service
+      - control-transmission-service
+      - auxiliary-mounting-service
+    networks:
+      - traefik-proxy
+
+  gateway-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/gateway-service
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+      labels:
+        - "traefik.enable=true"
+        - "traefik.docker.network=traefik-proxy"
+        - "traefik.constraint-label=traefik-proxy"
+        - "traefik.http.routers.gateway.entrypoints=https"
+        - "traefik.http.routers.gateway.rule=Host(`gateway.ooka.jrtl.eu`)"
+        - "traefik.http.services.gateway.loadbalancer.server.port=3000"
+        - "traefik.http.routers.gateway.tls.certresolver=le"
+        - "traefik.backend=gateway"
+    depends_on:
+      - mongodb
+    networks:
+      - traefik-proxy
+
+### Microservices
+
+  auxiliary-mounting-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/auxiliary-mounting-service
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    depends_on:
+      - mongodb
+
+  control-transmission-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/control-transmission-service
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    depends_on:
+      - mongodb
+
+  cooling-exhaust-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/cooling-exhaust-service
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    depends_on:
+      - mongodb
+
+  engine-service:
+    image: registry.gitlab.com/ooka2/preparations/monorepo/engine-service
+    environment:
+      - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+    depends_on:
+      - mongodb
+
+
+### Database
+
+  mongodb:
+    image: mongo
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: example
+    volumes:
+      - "mongodb_data:/data/db"
+    expose:
+      - 27017
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+
+
+### Kafka 
+
+  kafka_b:
+    image: bitnami/kafka:latest
+    hostname: kafka_b
+    ports:
+      - "9092:9092"
+      - "9094:9094"
+    volumes:
+      - "kafka_data:/bitnami"
+    environment:
+      - KAFKA_ENABLE_KRAFT=yes
+      - KAFKA_CFG_PROCESS_ROLES=broker,controller
+      - KAFKA_CFG_CONTROLLER_LISTENER_NAMES=CONTROLLER
+      - KAFKA_CFG_LISTENERS=PLAINTEXT://:9092,CONTROLLER://:9093,EXTERNAL://:9094
+      - KAFKA_CFG_LISTENER_SECURITY_PROTOCOL_MAP=CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,EXTERNAL:PLAINTEXT
+      - KAFKA_CFG_ADVERTISED_LISTENERS=PLAINTEXT://127.0.0.1:9092,EXTERNAL://kafka_b:9094
+      - KAFKA_BROKER_ID=1
+      - KAFKA_CFG_CONTROLLER_QUORUM_VOTERS=1@127.0.0.1:9093
+      - ALLOW_PLAINTEXT_LISTENER=yes
+      - KAFKA_CFG_NODE_ID=1
+      - KAFKA_AUTO_CREATE_TOPICS_ENABLE=true
+      - BITNAMI_DEBUG=yes
+      - KAFKA_CFG_NUM_PARTITIONS=2
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+
+  kafka-ui:
+    container_name: kafka-ui
+    image: provectuslabs/kafka-ui:latest
+    ports:
+      - 8888:8080
+    environment:
+      DYNAMIC_CONFIG_ENABLED: 'true'
+      LOGGING_LEVEL_ROOT: 'DEBUG'
+    volumes:
+      - ./kafka-ui-config.yml:/etc/kafkaui/dynamic_config.yaml:rw
+    deploy:
+      replicas: 1
+      placement:
+        constraints:
+          - node.role == worker
+
+volumes:
+  kafka_data:
+    driver: local
+
+  mongodb_data:
+    driver: local
+
+networks:
+  traefik-proxy:
+    external: true
