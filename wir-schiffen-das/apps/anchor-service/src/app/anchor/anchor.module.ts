@@ -2,7 +2,6 @@ import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { HttpModule } from '@nestjs/axios';
 import {
-  AlgorithmState,
   AlgorithmStateSchema,
   BaseDatabaseServer,
   ConfigurationDatabaseSchema,
@@ -15,7 +14,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
   imports: [
     MongooseModule.forFeature([{ name: 'ConfigurationDatabase', schema: ConfigurationDatabaseSchema }, { name: 'AlgorithmState', schema: AlgorithmStateSchema }]),
     /* MongooseModule.forFeature([
-      { name: AlgorithmState.name, schema: AlgorithmStateSchema }, 
+      { name: AlgorithmState.name, schema: AlgorithmStateSchema },
     ]), */
 
     ClientsModule.register([

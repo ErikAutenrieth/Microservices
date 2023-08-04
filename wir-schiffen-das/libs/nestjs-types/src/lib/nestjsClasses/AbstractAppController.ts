@@ -74,8 +74,15 @@ export abstract class AbstractAppController {
     const configuration = dbEntry!.configuration;
 
     await this.appService.updateKafkaStateAndDB(this.Algorithm, configurationValidationInitDto, { [this.Algorithm + "State"]: AlgorithmStateEnum.running });
-    // Check compatibility of components
-    let incompatibleComponents = await this.appService.checkKafkaCompactibility(configuration);
+
+
+
+    // Monitor the time it takes to check the configuration
+    const startTime = new Date().getTime();
+    let incompatibleComponents = await this.appService.checkKafkaCompactibility(configuration); // Check compatibility of components
+    const endTime = new Date().getTime();
+    await this.appService.getInfluxDBService().writeDataToInfluxDB(endTime - startTime, this.Algorithm);
+
 
     if (incompatibleComponents.length > 0) {
       incompatibleComponents = incompatibleComponents.reduce((result: string[], set: Set<string>) => {
