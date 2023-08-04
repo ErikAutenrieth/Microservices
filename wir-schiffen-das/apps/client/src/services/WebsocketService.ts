@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { io, Socket } from 'socket.io-client';
 import { SessionService } from './SessionService';
-import { filter, groupBy, map, mergeMap, Observable, scan, switchMap, tap } from 'rxjs';
+import { filter, groupBy, map, Observable, scan, switchMap } from 'rxjs';
 import { UpdateKafkaAlgorithmStateDto } from '@wir-schiffen-das/types';
 
 @Injectable({
@@ -12,6 +12,7 @@ export class WebsocketService {
   private sessionID: string;
 
   constructor(private sessionService: SessionService) {
+
     this.sessionID = sessionService.getSessionId();
     // Connect to the Socket.IO server
     this.socket = io('http://localhost:3060', {
@@ -21,7 +22,12 @@ export class WebsocketService {
       console.log('Connected to socket.io server');
     });
   }
-
+  /**
+   * Subscribes to the 'AlgorithmStates' event on the WebSocket server to receive updates on algorithm states.
+   * Emits the 'AlgorithmStates' event with the specified userID to the server to identify the user's session.
+   *
+   * @returns An observable of type UpdateKafkaAlgorithmStateDto that emits algorithm state messages.
+   */
   subscribeToAlgorithmStates(): Observable<any> {
     // Emit the 'AlgorithmStates' event with the specified userID
     this.socket.emit('AlgorithmStates', this.sessionID);
@@ -33,10 +39,10 @@ export class WebsocketService {
       });
     })
       .pipe(
-        filter((message) => message.userId === this.sessionID),
-        groupBy((message: UpdateKafkaAlgorithmStateDto) => message.creationDate),
+        filter((message) => message.userId === this.sessionID), // Filter messages based on the sessionID
+        groupBy((message: UpdateKafkaAlgorithmStateDto) => message.creationDate),                       // Group messages by creationDate
         switchMap(group => group.pipe(
-          map((curr: UpdateKafkaAlgorithmStateDto) => curr),
+          map((curr: UpdateKafkaAlgorithmStateDto) => curr),                                          // Map the group to individual messages
           scan((acc: UpdateKafkaAlgorithmStateDto, curr: UpdateKafkaAlgorithmStateDto) => ({
             ...acc,
             ...curr,

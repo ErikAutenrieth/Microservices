@@ -1,4 +1,4 @@
-import { Body, Controller, Get, HttpCode, HttpException, HttpStatus, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
+import { Body, Controller, Get, HttpException, HttpStatus, Param, Post, UsePipes, ValidationPipe } from '@nestjs/common';
 
 import { AppService } from './app.service';
 import { CheckAlgorithmStateDto, DevMicroserviceAddressEnum } from '@wir-schiffen-das/types';

@@ -10,7 +10,6 @@ import {
 import {
   CheckConfigurationDto,
   CreateAlgorithmStateDto,
-  InitializeAlgorithmMicroserviceDto,
   DevMicroserviceAddressEnum,
   ProdMicroserviceAddressEnum,
   ConfigurationValidationInitDto,
@@ -21,13 +20,13 @@ import { ClientKafka } from '@nestjs/microservices';
 
 @Controller('anchor')
 export class AnchorController {
-
+  // Determine the API URLs based on the environment (production or development)
   apiUrls = process.env.production ? ProdMicroserviceAddressEnum : DevMicroserviceAddressEnum;
   constructor(private readonly appService: AnchorService,
     @Inject('ANCHOR_SERVICE') private readonly kafkaClient: ClientKafka,
   ) { }
 
-
+  // Connect to Kafka when the module is initialized
   async onModuleInit() {
     await this.kafkaClient.connect();
   }
@@ -47,40 +46,23 @@ export class AnchorController {
   @Post('CheckConfiguration')
   @UsePipes(new ValidationPipe())
   async OptEquip(@Body() CheckConfigurationDto: CheckConfigurationDto) {
+    // Create an algorithm state DTO from the received CheckConfigurationDto
     const algorithmStateDto: CreateAlgorithmStateDto = {
       userId: CheckConfigurationDto.userID,
       configuration: CheckConfigurationDto,
     };
-
+    // Create the algorithm state document in the database
     const algotithmStateDoc = await this.appService.create(algorithmStateDto);
 
-    // Create a microservice DTO with the algorithm state document's ID
-    const microServiceDto: InitializeAlgorithmMicroserviceDto = {
-      ...algorithmStateDto,
-      ...{ dbId: algotithmStateDoc._id.toString() },
-    };
-
+    // Create a Kafka message initialization object
     const kafkaInitMessage: ConfigurationValidationInitDto = {
       userId: CheckConfigurationDto.userID,
       dbId: algotithmStateDoc._id.toString(),
       creationDate: algotithmStateDoc.created,
     }
-
+    // Publish the configuration validation initialization message to Kafka
     await this.appService.publishConfigurationToKafka(kafkaInitMessage);
     console.log('finished sending configuration to kafka');
-
-    /*
-    // Send the configuration to all microservices
-    for (const microserviceAddressEnum in this.apiUrls) {
-      //TODO implement circuit breaker and return success to client
-      const res = await this.appService.sendConfigurationToService(
-        microServiceDto,
-        this.apiUrls[microserviceAddressEnum]
-      );
-      // console.log('finished sending configuration to engine', res);
-    }
-
-    */
     return { success: true };
   }
 }
