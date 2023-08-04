@@ -13,14 +13,15 @@ export class InfluxDBService {
 
   async writeDataToInfluxDB(time: number, algorithm: string) {
     const database = `OOKA_Store`;
-    const points = [new Point("kafka_check").tag("service", algorithm).intField("execution_time", time)];
-
-    for (const point of points) {
+    const point = new Point("kafka_check").tag("service", algorithm).intField("execution_time", time);
+    //await new Promise((resolve) => setTimeout(resolve, 1000));
+    try {
       await this.client.write(point, database);
-      await new Promise((resolve) => setTimeout(resolve, 1000));
+      console.log("Time has been saved to InfluxDB! {time: " + time  + " "  +  algorithm + "}");
+    } catch (error) {
+      console.error("An error occurred during data writing to InfluxDB:");
+    } finally {
+      this.client.close();
     }
-
-    console.log("Time has been saved to InfluxDB! {time: " + time  + " "  +  algorithm + "}");
-    this.client.close();
   }
 }
