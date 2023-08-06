@@ -1,22 +1,32 @@
 import { Injectable } from '@nestjs/common';
-import { InfluxDBClient, Point } from '@influxdata/influxdb3-client';
+import {InfluxDB, Point} from "@influxdata/influxdb-client";
 
 @Injectable()
 export class InfluxDBService {
-  private readonly client: InfluxDBClient;
+  // private readonly client: InfluxDBClient;
 
   constructor() {
-    const token = "dkgckgFYuRdgo2F578caXJ72NQQ-7bxpK5Hjlexs_yjmdmDSI2W5ZYjAu5DyjkNdqGDqAJrQG6GTaUPmn8p_Wg==";
-    const host = 'https://us-east-1-1.aws.cloud2.influxdata.com';
-    this.client = new InfluxDBClient({ host, token });
+    // const token = "IzQ5tp_lAwzfLhDy8kFjBzi8pXwp7Q3FsejhyCsl2_7x5RAbdAJaokal7k6_IAr30kUIrtzzaIcJobq3woYFeg==";
+    // const host = 'http://localhost:8086';
+    // this.client = new InfluxDBClient({ host, token });
   }
 
   async writeDataToInfluxDB(time: number, algorithm: string) {
-    const database = `OOKA_Store`;
+    // const database = `OOKA`;
+    // const org = 'HBRS'
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const {InfluxDB} = require('@influxdata/influxdb-client')
+    const token = 'IzQ5tp_lAwzfLhDy8kFjBzi8pXwp7Q3FsejhyCsl2_7x5RAbdAJaokal7k6_IAr30kUIrtzzaIcJobq3woYFeg=='
+    const org = 'HBRS'
+    const bucket = 'Storage'
+    const client = new InfluxDB({url: 'http://localhost:8086', token: token})
+    const writeApi = client.getWriteApi(org, bucket)
+    writeApi.useDefaultTags({host: 'host1'})
     const point = new Point("kafka_check").tag("service", algorithm).intField("execution_time", time);
-    //await new Promise((resolve) => setTimeout(resolve, 1000));
     try {
-      await this.client.write(point, database);
+      //await this.client.write(point, database);
+      // const writeApi = client.getWriteApi(org, bucket)
+      writeApi.writePoint(point)
       console.log("Time has been saved to InfluxDB! {time: " + time  + " "  +  algorithm + "}");
     } catch (error) {
       console.log("Fail:  {time: " + time  + " "  +  algorithm + "}");
