@@ -9,10 +9,12 @@ import {
 import { AlgorithmStateDocument } from '../mongoose.shemas';
 import { BaseDatabaseServer } from '../database/BaseDatabaseServer';
 import { ClientKafka } from '@nestjs/microservices';
+import {InfluxDBService} from "../monitor/BaseInfluxService";
 
 @Injectable()
 export abstract class AbstractAppService {
-  constructor(protected baseDatabase: BaseDatabaseServer, @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka) { }
+  private readonly influxDBService: InfluxDBService;
+  constructor(protected baseDatabase: BaseDatabaseServer, @Inject('KAFKA_SERVICE') private readonly kafkaClient: ClientKafka) {this.influxDBService = new InfluxDBService();}
 
   // Update the algorithm state for a specific database entry
   updateAlgorithmState(dbEntryID: string, updatedPart: UpdateAlgorithmStateDto) {
@@ -38,6 +40,10 @@ export abstract class AbstractAppService {
   getDatabaseEntry(dbId: string) {
     return this.baseDatabase.load(dbId);
   }
+
+	getInfluxDBService(): InfluxDBService {
+		return this.influxDBService;
+	}
 
   // Retrieve the algorithm state for a specific user
   async getAlgorithmStateForUser(userID: string): Promise<AlgorithmStateDocument | null> {

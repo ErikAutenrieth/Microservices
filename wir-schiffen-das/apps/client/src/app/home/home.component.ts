@@ -41,6 +41,8 @@ import {
 import { WebsocketService } from "../../services/WebsocketService";
 
 
+
+
 enum UIAlgorithmStateEnum {
   "unresponsive" = "unresponsive"
 }
@@ -111,7 +113,9 @@ export class HomeComponent {
     iconRegistry.addSvgIconLiteral('red-cross', sanitizer.bypassSecurityTrustHtml(RED_CROSS_ICON));
   }
 
-  ngOnInit() {
+
+
+ngOnInit() {
     this.websocketService.subscribeToAlgorithmStates().subscribe((message: UpdateKafkaAlgorithmStateDto) => {
       this.algorithmStates['engine'] = message.engineState? message.engineState : UIAlgorithmStateEnum.unresponsive;
       this.algorithmStates['cooling'] = message.coolingExhaustState? message.coolingExhaustState : UIAlgorithmStateEnum.unresponsive;

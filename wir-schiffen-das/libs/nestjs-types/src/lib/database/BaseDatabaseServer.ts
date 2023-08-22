@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { AlgorithmState, AlgorithmStateDocument, ConfigurationDatabase, ConfigurationDatabaseDocument, ConfigurationDatabaseSchema } from '@wir-schiffen-das/nestjs-types';
+import { AlgorithmState, AlgorithmStateDocument, ConfigurationDatabase, ConfigurationDatabaseDocument} from '../mongoose.shemas';
 import { CreateAlgorithmStateDto, UpdateAlgorithmStateDto } from '@wir-schiffen-das/types';
 import { Model } from 'mongoose';
 

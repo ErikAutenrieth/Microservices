@@ -23,7 +23,7 @@ export class AnchorController {
   // Determine the API URLs based on the environment (production or development)
   apiUrls = process.env.production ? ProdMicroserviceAddressEnum : DevMicroserviceAddressEnum;
   constructor(private readonly appService: AnchorService,
-    @Inject('ANCHOR_SERVICE') private readonly kafkaClient: ClientKafka,
+    @Inject('ANCHOR_SERVICE') private readonly kafkaClient: ClientKafka
   ) { }
 
   // Connect to Kafka when the module is initialized

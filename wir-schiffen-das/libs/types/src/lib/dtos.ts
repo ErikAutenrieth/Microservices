@@ -118,7 +118,6 @@ export interface UpdateAlgorithmStateDto {
 }
 
 export interface UpdateKafkaAlgorithmStateDto extends UpdateAlgorithmStateDto {
-
   dbId?: string;
   creationDate?: Date;
 }
