@@ -16,10 +16,10 @@ export class InfluxDBService {
     // const org = 'HBRS'
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const {InfluxDB} = require('@influxdata/influxdb-client')
-    const token = 'IzQ5tp_lAwzfLhDy8kFjBzi8pXwp7Q3FsejhyCsl2_7x5RAbdAJaokal7k6_IAr30kUIrtzzaIcJobq3woYFeg=='
-    const org = 'HBRS'
-    const bucket = 'Storage'
-    const client = new InfluxDB({url: 'http://localhost:8086', token: token})
+    const token = 'YkRM5ASpMz05ii8Bbyse-LIA-eGq3bqYpFQA_piPf9lPfr_45FEtLlJKOWb8Womxl--DVUU5mbUiuhJO37dqKg=='
+    const org = 'ooka'
+    const bucket = 'ooka_bucket'
+    const client = new InfluxDB({url: 'https://influx.jrtl.eu/', token: token})
     const writeApi = client.getWriteApi(org, bucket)
     writeApi.useDefaultTags({host: 'host1'})
     const point = new Point("kafka_check").tag("service", algorithm).intField("execution_time", time);
