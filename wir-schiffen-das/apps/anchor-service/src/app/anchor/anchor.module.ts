@@ -25,7 +25,7 @@ import { ClientsModule, Transport } from '@nestjs/microservices';
         options: {
           client: {
             clientId: 'anchor-service',
-            brokers: ['localhost:9092'],
+            brokers: [process.env.BROKER_ADDRESS],
           },
           consumer: {
             groupId: 'anchor-service'

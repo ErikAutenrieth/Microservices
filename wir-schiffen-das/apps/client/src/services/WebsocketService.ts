@@ -3,6 +3,7 @@ import { io, Socket } from 'socket.io-client';
 import { SessionService } from './SessionService';
 import { filter, groupBy, map, Observable, scan, switchMap } from 'rxjs';
 import { UpdateKafkaAlgorithmStateDto } from '@wir-schiffen-das/types';
+import { environment } from './../environments/environment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class WebsocketService {
 
     this.sessionID = sessionService.getSessionId();
     // Connect to the Socket.IO server
-    this.socket = io('http://localhost:3060', {
+    this.socket = io(environment.gatewayAPI, {
       transports: ["websocket", "polling"],
     });
     this.socket.on('connect', () => {

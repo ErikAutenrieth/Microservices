@@ -8,15 +8,21 @@ import { NestFactory } from '@nestjs/core';
 
 import { AppModule } from './app/app.module';
 import { Transport } from '@nestjs/microservices';
+import { ConfigService } from '@nestjs/config';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule, {cors: true });
+
+  // Access environment variables using the ConfigService
+  const configService = app.get(ConfigService);
+  const BROKER_ADDRESS = configService.get<string>('BROKER_ADDRESS');
+  
   app.connectMicroservice({
     transport: Transport.KAFKA,
     options: {
       client: {
         clientId: 'gateway-service',
-        brokers: ['localhost:9092'],
+        brokers: [BROKER_ADDRESS],
       },
       consumer: {
         groupId: 'gateway-service'

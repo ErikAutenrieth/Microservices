@@ -7,10 +7,16 @@ import { Logger, ValidationPipe } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { Transport, MicroserviceOptions } from '@nestjs/microservices';
 import { AppModule } from './app/app.module';
+import { ConfigService } from '@nestjs/config';
 
 // Connect the Microservice to the application, using Kafka as the transport mechanism
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  // Access environment variables using the ConfigService
+  const configService = app.get(ConfigService);
+  const BROKER_ADDRESS = configService.get<string>('BROKER_ADDRESS');
+  
   app.connectMicroservice(
     {
     transport: Transport.KAFKA,
@@ -18,7 +24,7 @@ async function bootstrap() {
       client: {
 
         clientId: 'engine-service',  // Set the client ID for the Kafka client
-        brokers: ['localhost:9092'], // Set the list of Kafka brokers to connect to
+        brokers: [BROKER_ADDRESS], // Set the list of Kafka brokers to connect to
       },
       consumer: {
         groupId: 'engine-service'    // Set the group ID for the Kafka consumer

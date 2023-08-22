@@ -30,6 +30,7 @@ services:
     image: registry.gitlab.com/ooka2/preparations/monorepo/anchor-service
     environment:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - BROKER_ADDRESS=kafka_b:9092
       - production=true
     deploy:
       replicas: 1
@@ -59,6 +60,7 @@ services:
     image: registry.gitlab.com/ooka2/preparations/monorepo/gateway-service
     environment:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - BROKER_ADDRESS=kafka_b:9092
     deploy:
       replicas: 1
       placement:
@@ -70,7 +72,7 @@ services:
         - "traefik.constraint-label=traefik-proxy"
         - "traefik.http.routers.gateway.entrypoints=https"
         - "traefik.http.routers.gateway.rule=Host(`gateway.ooka.jrtl.eu`)"
-        - "traefik.http.services.gateway.loadbalancer.server.port=3000"
+        - "traefik.http.services.gateway.loadbalancer.server.port=3060"
         - "traefik.http.routers.gateway.tls.certresolver=le"
         - "traefik.backend=gateway"
     depends_on:
@@ -84,6 +86,7 @@ services:
     image: registry.gitlab.com/ooka2/preparations/monorepo/auxiliary-mounting-service
     environment:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - BROKER_ADDRESS=kafka_b:9092
     deploy:
       replicas: 1
       placement:
@@ -108,6 +111,7 @@ services:
     image: registry.gitlab.com/ooka2/preparations/monorepo/cooling-exhaust-service
     environment:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - BROKER_ADDRESS=kafka_b:9092
     deploy:
       replicas: 1
       placement:
@@ -120,6 +124,7 @@ services:
     image: registry.gitlab.com/ooka2/preparations/monorepo/engine-service
     environment:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - BROKER_ADDRESS=kafka_b:9092
     deploy:
       replicas: 1
       placement:
@@ -186,7 +191,7 @@ services:
       DYNAMIC_CONFIG_ENABLED: 'true'
       LOGGING_LEVEL_ROOT: 'DEBUG'
     volumes:
-      - ./kafka-ui-config.yml:/etc/kafkaui/dynamic_config.yaml:rw
+      - /opt/gluster/mnt/ooka/kafka-ui-config.yml:/etc/kafkaui/dynamic_config.yaml:rw
     deploy:
       replicas: 1
       placement:

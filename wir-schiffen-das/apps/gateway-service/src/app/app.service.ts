@@ -31,7 +31,7 @@ export class AppService implements OnModuleInit {
   async onModuleInit() {
     this.kafkaClient = new Kafka({
       // clientId: 'my-app',
-      brokers: ['localhost:9092'],
+      brokers: [process.env.BROKER_ADDRESS],
     });
 
     console.log("kafkaClient init");

@@ -22,7 +22,7 @@ import { WSGateway } from './app.ws.gateway';
         options: {
           client: {
             // clientId: 'engine',
-            brokers: ['localhost:9092'],
+            brokers: [process.env.BROKER_ADDRESS],
           },
           consumer: {
             groupId: 'wir-schiffen-das',
