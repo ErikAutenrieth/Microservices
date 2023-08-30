@@ -34,3 +34,4 @@ jest*
 nx.json
 tsconfig.base.json
 tsconfig.compodoc.json
+.env

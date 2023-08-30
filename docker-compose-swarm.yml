@@ -22,8 +22,10 @@ services:
         - "traefik.backend=frontend-ooka"
     depends_on:
       - anchor-service
+      - gateway-service
     networks:
       - traefik-proxy
+      - ooka
 
 
   anchor-service:
@@ -37,6 +39,8 @@ services:
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure          
  
       labels:
         - "traefik.enable=true"
@@ -49,12 +53,14 @@ services:
         - "traefik.backend=anchor"
     depends_on:
       - mongodb
+      - kafka_b
       - engine-service
       - cooling-exhaust-service
       - control-transmission-service
       - auxiliary-mounting-service
     networks:
       - traefik-proxy
+      - ooka
 
   gateway-service:
     image: registry.gitlab.com/ooka2/preparations/monorepo/gateway-service
@@ -66,6 +72,9 @@ services:
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure 
+        
       labels:
         - "traefik.enable=true"
         - "traefik.docker.network=traefik-proxy"
@@ -77,8 +86,14 @@ services:
         - "traefik.backend=gateway"
     depends_on:
       - mongodb
+      - kafka_b
+      - engine-service
+      - cooling-exhaust-service
+      - control-transmission-service
+      - auxiliary-mounting-service
     networks:
       - traefik-proxy
+      - ooka
 
 ### Microservices
 
@@ -88,24 +103,35 @@ services:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
       - BROKER_ADDRESS=kafka_b:9092
     deploy:
-      replicas: 1
+      replicas: 2
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
     depends_on:
       - mongodb
+      - kafka_b
+    networks:
+      - ooka
 
   control-transmission-service:
     image: registry.gitlab.com/ooka2/preparations/monorepo/control-transmission-service
     environment:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
+      - BROKER_ADDRESS=kafka_b:9092
     deploy:
-      replicas: 1
+      replicas: 2
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
     depends_on:
       - mongodb
+      - kafka_b
+    networks:
+      - ooka
 
   cooling-exhaust-service:
     image: registry.gitlab.com/ooka2/preparations/monorepo/cooling-exhaust-service
@@ -113,12 +139,17 @@ services:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
       - BROKER_ADDRESS=kafka_b:9092
     deploy:
-      replicas: 1
+      replicas: 2
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
     depends_on:
       - mongodb
+      - kafka_b
+    networks:
+      - ooka
 
   engine-service:
     image: registry.gitlab.com/ooka2/preparations/monorepo/engine-service
@@ -126,12 +157,17 @@ services:
       - MONGODB_ATLAS_AZURE_CONNECTION_KEY=mongodb://root:example@mongodb:27017/
       - BROKER_ADDRESS=kafka_b:9092
     deploy:
-      replicas: 1
+      replicas: 2
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
     depends_on:
       - mongodb
+      - kafka_b
+    networks:
+      - ooka
 
 
 ### Database
@@ -150,7 +186,10 @@ services:
       placement:
         constraints:
           - node.role == worker
-
+      restart_policy:
+        condition: on-failure
+    networks:
+      - ooka
 
 ### Kafka 
 
@@ -181,6 +220,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
+    networks:
+      - ooka
 
   kafka-ui:
     container_name: kafka-ui
@@ -197,6 +240,10 @@ services:
       placement:
         constraints:
           - node.role == worker
+      restart_policy:
+        condition: on-failure
+    networks:
+      - ooka
 
 volumes:
   kafka_data:
@@ -208,3 +255,5 @@ volumes:
 networks:
   traefik-proxy:
     external: true
+  ooka:
+    external: false
