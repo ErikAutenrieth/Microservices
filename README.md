@@ -7,6 +7,18 @@ https://github.com/ErikAutenrieth/Microservices/assets/53609156/bcb8db87-622a-46
 ## Architecture
 
 
+- **Repository Management:** Nx (Monorepository)
+- **Programming Language:** TypeScript
+- **Frontend:** Angular
+- **Microservices:** Express/NestJS Server
+- **Workflow Management:** Kafka
+- **Real-time Communication:** socket.io
+- **Database:** MongoDB
+- **Virtualization:** Docker (Swarm)
+- **Monitoring:** InfluxDB
+
+
+
 ### Context view
 
 ![grafik](https://github.com/ErikAutenrieth/Microservices/assets/53609156/5f624de2-6a0b-4829-a5cb-f5e15f3246e1)
