@@ -3,9 +3,37 @@
 ## Getting started
 
 
-
-
 https://github.com/ErikAutenrieth/Microservices/assets/53609156/bcb8db87-622a-4667-b502-0e9306cadf76
+
+
+
+
+
+## Architecture
+
+
+### Context view
+
+![grafik](https://github.com/ErikAutenrieth/Microservices/assets/53609156/5f624de2-6a0b-4829-a5cb-f5e15f3246e1)
+
+
+
+### Component view
+
+![grafik](https://github.com/ErikAutenrieth/Microservices/assets/53609156/846ac830-567b-4558-8fc5-e72c940c81ef)
+
+
+
+### Distribution view
+
+![grafik](https://github.com/ErikAutenrieth/Microservices/assets/53609156/4e617e7b-e034-44da-a35a-e5d5d05c4f55)
+
+
+### Runtime view
+
+![grafik](https://github.com/ErikAutenrieth/Microservices/assets/53609156/4b8324f4-3a00-427d-b075-af44ad90416c)
+
+
 
 
 
