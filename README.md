@@ -2,7 +2,7 @@
 
 
 https://github.com/ErikAutenrieth/Microservices/assets/53609156/bcb8db87-622a-4667-b502-0e9306cadf76
-
+<br />
 
 ## Architecture
 
@@ -17,8 +17,8 @@ https://github.com/ErikAutenrieth/Microservices/assets/53609156/bcb8db87-622a-46
 - **Virtualization:** Docker (Swarm)
 - **Monitoring:** InfluxDB
 
-
-
+<br />
+<br />
 ### Context view
 
 ![grafik](https://github.com/ErikAutenrieth/Microservices/assets/53609156/5f624de2-6a0b-4829-a5cb-f5e15f3246e1)
