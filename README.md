@@ -1,10 +1,8 @@
 # Monorepo
 
 
-
 https://github.com/ErikAutenrieth/Microservices/assets/53609156/bcb8db87-622a-4667-b502-0e9306cadf76
 
-<br />
 
 ## Architecture
 
